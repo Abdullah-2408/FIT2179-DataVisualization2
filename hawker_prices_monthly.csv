@@ -1,0 +1,76 @@
+date,state,label,avg_price
+2022-01-01,Johor,Nasi Ayam,5.77
+2022-01-01,Johor,Nasi Goreng Kampung,5.4
+2022-01-01,Johor,Rice + Veg + Chicken,6.39
+2022-01-01,Johor,Roti Canai,1.06
+2022-01-01,Johor,Teh Tarik,1.66
+2022-01-01,Kedah,Nasi Ayam,5.57
+2022-01-01,Kedah,Nasi Goreng Kampung,5.43
+2022-01-01,Kedah,Rice + Veg + Chicken,6.01
+2022-01-01,Kedah,Roti Canai,1.11
+2022-01-01,Kedah,Teh Tarik,1.48
+2022-01-01,Kelantan,Nasi Ayam,5.24
+2022-01-01,Kelantan,Nasi Goreng Kampung,5.4
+2022-01-01,Kelantan,Rice + Veg + Chicken,5.17
+2022-01-01,Kelantan,Roti Canai,1.08
+2022-01-01,Kelantan,Teh Tarik,1.8
+2022-01-01,Melaka,Nasi Ayam,5.76
+2022-01-01,Melaka,Nasi Goreng Kampung,5.42
+2022-01-01,Melaka,Rice + Veg + Chicken,5.96
+2022-01-01,Melaka,Roti Canai,1.12
+2022-01-01,Melaka,Teh Tarik,1.54
+2022-01-01,Negeri Sembilan,Nasi Ayam,5.65
+2022-01-01,Negeri Sembilan,Nasi Goreng Kampung,5.35
+2022-01-01,Negeri Sembilan,Rice + Veg + Chicken,6.11
+2022-01-01,Negeri Sembilan,Roti Canai,1.12
+2022-01-01,Negeri Sembilan,Teh Tarik,1.5
+2022-01-01,Pahang,Nasi Ayam,5.8
+2022-01-01,Pahang,Nasi Goreng Kampung,5.84
+2022-01-01,Pahang,Rice + Veg + Chicken,6.55
+2022-01-01,Pahang,Roti Canai,1.1
+2022-01-01,Pahang,Teh Tarik,1.66
+2022-01-01,Perak,Nasi Ayam,5.17
+2022-01-01,Perak,Nasi Goreng Kampung,5.35
+2022-01-01,Perak,Rice + Veg + Chicken,6.09
+2022-01-01,Perak,Roti Canai,1.15
+2022-01-01,Perak,Teh Tarik,1.5
+2022-01-01,Perlis,Nasi Ayam,5.5
+2022-01-01,Perlis,Nasi Goreng Kampung,5.62
+2022-01-01,Perlis,Rice + Veg + Chicken,5.75
+2022-01-01,Perlis,Roti Canai,1.1
+2022-01-01,Perlis,Teh Tarik,1.52
+2022-01-01,Pulau Pinang,Nasi Ayam,4.91
+2022-01-01,Pulau Pinang,Nasi Goreng Kampung,5.42
+2022-01-01,Pulau Pinang,Rice + Veg + Chicken,6.5
+2022-01-01,Pulau Pinang,Roti Canai,1.18
+2022-01-01,Pulau Pinang,Teh Tarik,1.43
+2022-01-01,Sabah,Nasi Ayam,6.37
+2022-01-01,Sabah,Nasi Goreng Kampung,7.08
+2022-01-01,Sabah,Rice + Veg + Chicken,6.35
+2022-01-01,Sabah,Roti Canai,1.41
+2022-01-01,Sabah,Teh Tarik,2.12
+2022-01-01,Sarawak,Nasi Ayam,5.98
+2022-01-01,Sarawak,Nasi Goreng Kampung,5.86
+2022-01-01,Sarawak,Rice + Veg + Chicken,6.03
+2022-01-01,Sarawak,Roti Canai,1.4
+2022-01-01,Sarawak,Teh Tarik,2.19
+2022-01-01,Selangor,Nasi Ayam,6.27
+2022-01-01,Selangor,Nasi Goreng Kampung,6.19
+2022-01-01,Selangor,Rice + Veg + Chicken,7.05
+2022-01-01,Selangor,Roti Canai,1.25
+2022-01-01,Selangor,Teh Tarik,1.72
+2022-01-01,Terengganu,Nasi Ayam,5.67
+2022-01-01,Terengganu,Nasi Goreng Kampung,5.62
+2022-01-01,Terengganu,Rice + Veg + Chicken,6.59
+2022-01-01,Terengganu,Roti Canai,1.14
+2022-01-01,Terengganu,Teh Tarik,1.81
+2022-01-01,W.P. Kuala Lumpur,Nasi Ayam,6.41
+2022-01-01,W.P. Kuala Lumpur,Nasi Goreng Kampung,6.09
+2022-01-01,W.P. Kuala Lumpur,Rice + Veg + Chicken,7.05
+2022-01-01,W.P. Kuala Lumpur,Roti Canai,1.26
+2022-01-01,W.P. Kuala Lumpur,Teh Tarik,1.79
+2022-01-01,W.P. Putrajaya,Nasi Ayam,7.0
+2022-01-01,W.P. Putrajaya,Nasi Goreng Kampung,5.97
+2022-01-01,W.P. Putrajaya,Rice + Veg + Chicken,8.03
+2022-01-01,W.P. Putrajaya,Roti Canai,1.28
+2022-01-01,W.P. Putrajaya,Teh Tarik,2.05

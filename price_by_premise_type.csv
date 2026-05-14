@@ -1,0 +1,21 @@
+label,category,premise_type,avg_price
+Beef Local (Part 1),Beef,Hypermarket,59.234
+Beef Local (Part 1),Beef,Kedai Runcit,40.0
+Beef Local (Part 1),Beef,Pasar Basah,37.543
+Beef Local (Part 1),Beef,Pasar Raya / Supermarket,48.388
+Chicken (Standard),Chicken,Hypermarket,8.682
+Chicken (Standard),Chicken,Kedai Runcit,9.326
+Chicken (Standard),Chicken,Pasar Basah,9.58
+Chicken (Standard),Chicken,Pasar Raya / Supermarket,8.846
+Egg Grade A (10),Eggs,Hypermarket,0.438
+Egg Grade A (10),Eggs,Kedai Runcit,0.444
+Egg Grade A (10),Eggs,Pasar Basah,0.439
+Egg Grade A (10),Eggs,Pasar Raya / Supermarket,0.441
+Ikan Kembung (small),Fish,Hypermarket,14.683
+Ikan Kembung (small),Fish,Kedai Runcit,14.823
+Ikan Kembung (small),Fish,Pasar Basah,13.639
+Ikan Kembung (small),Fish,Pasar Raya / Supermarket,14.248
+Kangkung,Vegetables,Hypermarket,5.509
+Kangkung,Vegetables,Kedai Runcit,6.879
+Kangkung,Vegetables,Pasar Basah,5.711
+Kangkung,Vegetables,Pasar Raya / Supermarket,5.673

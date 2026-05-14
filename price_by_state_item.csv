@@ -1,0 +1,80 @@
+state,label,category,avg_price,min_price,max_price
+Johor,Beef Local (Part 1),Beef,39.457,28.0,45.0
+Johor,Chicken (Standard),Chicken,8.903,5.59,13.0
+Johor,Egg Grade A (10),Eggs,0.436,0.375,1.35
+Johor,Ikan Kembung (small),Fish,14.012,2.0,28.0
+Johor,Kangkung,Vegetables,6.001,0.28,15.5
+Kedah,Beef Local (Part 1),Beef,38.637,25.0,40.0
+Kedah,Chicken (Standard),Chicken,9.113,6.29,11.0
+Kedah,Egg Grade A (10),Eggs,0.437,0.41,0.45
+Kedah,Ikan Kembung (small),Fish,12.215,3.0,21.0
+Kedah,Kangkung,Vegetables,5.005,1.0,10.0
+Kelantan,Beef Local (Part 1),Beef,32.654,19.0,36.0
+Kelantan,Chicken (Standard),Chicken,8.951,5.29,11.0
+Kelantan,Egg Grade A (10),Eggs,0.433,0.043,0.45
+Kelantan,Ikan Kembung (small),Fish,12.601,4.89,24.9
+Kelantan,Kangkung,Vegetables,7.468,1.5,17.0
+Melaka,Beef Local (Part 1),Beef,39.095,34.0,54.0
+Melaka,Chicken (Standard),Chicken,9.043,4.49,10.5
+Melaka,Egg Grade A (10),Eggs,0.438,0.043,0.45
+Melaka,Ikan Kembung (small),Fish,14.716,4.99,22.0
+Melaka,Kangkung,Vegetables,5.086,0.98,11.99
+Negeri Sembilan,Beef Local (Part 1),Beef,39.651,31.5,52.9
+Negeri Sembilan,Chicken (Standard),Chicken,8.924,5.7,12.99
+Negeri Sembilan,Egg Grade A (10),Eggs,0.438,0.39,0.45
+Negeri Sembilan,Ikan Kembung (small),Fish,14.159,4.99,24.99
+Negeri Sembilan,Kangkung,Vegetables,5.129,0.9,12.8
+Pahang,Beef Local (Part 1),Beef,37.35,32.0,41.0
+Pahang,Chicken (Standard),Chicken,9.022,5.99,12.0
+Pahang,Egg Grade A (10),Eggs,0.433,0.375,0.45
+Pahang,Ikan Kembung (small),Fish,15.245,5.99,28.0
+Pahang,Kangkung,Vegetables,5.492,0.99,1090.0
+Perak,Beef Local (Part 1),Beef,36.6,26.0,41.9
+Perak,Chicken (Standard),Chicken,9.065,6.49,12.0
+Perak,Egg Grade A (10),Eggs,0.437,0.38,1.29
+Perak,Ikan Kembung (small),Fish,12.624,3.5,20.99
+Perak,Kangkung,Vegetables,5.188,1.49,11.5
+Perlis,Beef Local (Part 1),Beef,36.941,25.0,39.0
+Perlis,Chicken (Standard),Chicken,9.107,6.99,10.8
+Perlis,Egg Grade A (10),Eggs,0.435,0.41,0.45
+Perlis,Ikan Kembung (small),Fish,13.238,6.0,20.0
+Perlis,Kangkung,Vegetables,6.347,1.79,10.0
+Pulau Pinang,Beef Local (Part 1),Beef,40.23,30.0,46.0
+Pulau Pinang,Chicken (Standard),Chicken,9.135,6.49,13.0
+Pulau Pinang,Egg Grade A (10),Eggs,0.437,0.375,1.35
+Pulau Pinang,Ikan Kembung (small),Fish,11.635,3.99,22.0
+Pulau Pinang,Kangkung,Vegetables,4.953,1.88,12.8
+Sabah,Beef Local (Part 1),Beef,31.377,25.0,53.9
+Sabah,Chicken (Standard),Chicken,11.439,8.0,13.9
+Sabah,Egg Grade A (10),Eggs,0.503,0.47,1.5
+Sabah,Ikan Kembung (small),Fish,8.364,3.0,16.9
+Sabah,Kangkung,Vegetables,5.57,2.5,9.3
+Sarawak,Beef Local (Part 1),Beef,64.479,52.0,77.9
+Sarawak,Chicken (Standard),Chicken,10.103,8.0,12.0
+Sarawak,Egg Grade A (10),Eggs,0.46,0.44,1.409
+Sarawak,Ikan Kembung (small),Fish,11.227,5.0,20.0
+Sarawak,Kangkung,Vegetables,5.656,1.5,11.9
+Selangor,Beef Local (Part 1),Beef,39.585,30.0,46.0
+Selangor,Chicken (Standard),Chicken,9.066,4.49,11.8
+Selangor,Egg Grade A (10),Eggs,0.436,0.375,1.29
+Selangor,Ikan Kembung (small),Fish,15.038,4.99,26.0
+Selangor,Kangkung,Vegetables,5.377,1.88,17.5
+Terengganu,Beef Local (Part 1),Beef,35.306,20.0,39.0
+Terengganu,Chicken (Standard),Chicken,9.207,5.99,12.0
+Terengganu,Egg Grade A (10),Eggs,0.435,0.41,0.45
+Terengganu,Ikan Kembung (small),Fish,13.136,5.0,22.99
+Terengganu,Kangkung,Vegetables,7.561,1.99,17.4
+W.P. Kuala Lumpur,Beef Local (Part 1),Beef,48.739,38.0,60.9
+W.P. Kuala Lumpur,Chicken (Standard),Chicken,9.068,5.99,11.0
+W.P. Kuala Lumpur,Egg Grade A (10),Eggs,0.437,0.375,1.35
+W.P. Kuala Lumpur,Ikan Kembung (small),Fish,15.585,5.9,29.9
+W.P. Kuala Lumpur,Kangkung,Vegetables,5.788,1.0,17.5
+W.P. Labuan,Chicken (Standard),Chicken,11.725,10.5,12.6
+W.P. Labuan,Egg Grade A (10),Eggs,0.49,0.49,0.49
+W.P. Labuan,Ikan Kembung (small),Fish,12.393,8.0,15.0
+W.P. Labuan,Kangkung,Vegetables,4.697,3.9,7.2
+W.P. Putrajaya,Beef Local (Part 1),Beef,41.567,36.0,57.9
+W.P. Putrajaya,Chicken (Standard),Chicken,8.998,6.44,11.0
+W.P. Putrajaya,Egg Grade A (10),Eggs,0.429,0.375,1.275
+W.P. Putrajaya,Ikan Kembung (small),Fish,16.325,7.5,25.5
+W.P. Putrajaya,Kangkung,Vegetables,6.375,1.8,14.75

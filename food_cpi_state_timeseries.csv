@@ -1,0 +1,1393 @@
+date,state,food_cpi
+2019-01-01,Johor,138.9
+2019-02-01,Johor,139.1
+2019-03-01,Johor,138.1
+2019-04-01,Johor,137.8
+2019-05-01,Johor,138.8
+2019-06-01,Johor,138.9
+2019-07-01,Johor,139.5
+2019-08-01,Johor,139.3
+2019-09-01,Johor,139.3
+2019-10-01,Johor,139.6
+2019-11-01,Johor,139.2
+2019-12-01,Johor,140.4
+2020-01-01,Johor,140.7
+2020-02-01,Johor,140.9
+2020-03-01,Johor,140.6
+2020-04-01,Johor,140.2
+2020-05-01,Johor,140.6
+2020-06-01,Johor,141.7
+2020-07-01,Johor,141.7
+2020-08-01,Johor,141.6
+2020-09-01,Johor,141.4
+2020-10-01,Johor,141.5
+2020-11-01,Johor,141.6
+2020-12-01,Johor,141.8
+2021-01-01,Johor,142.3
+2021-02-01,Johor,142.6
+2021-03-01,Johor,142.6
+2021-04-01,Johor,143.2
+2021-05-01,Johor,142.8
+2021-06-01,Johor,143.3
+2021-07-01,Johor,143.2
+2021-08-01,Johor,143.2
+2021-09-01,Johor,144.5
+2021-10-01,Johor,144.6
+2021-11-01,Johor,145.6
+2021-12-01,Johor,147.1
+2022-01-01,Johor,148.0
+2022-02-01,Johor,147.9
+2022-03-01,Johor,148.6
+2022-04-01,Johor,149.2
+2022-05-01,Johor,151.3
+2022-06-01,Johor,153.7
+2022-07-01,Johor,154.2
+2022-08-01,Johor,154.4
+2022-09-01,Johor,154.8
+2022-10-01,Johor,155.1
+2022-11-01,Johor,156.6
+2022-12-01,Johor,157.2
+2023-01-01,Johor,158.0
+2023-02-01,Johor,159.0
+2023-03-01,Johor,158.9
+2023-04-01,Johor,158.3
+2023-05-01,Johor,159.0
+2023-06-01,Johor,159.0
+2023-07-01,Johor,159.5
+2023-08-01,Johor,159.6
+2023-09-01,Johor,159.7
+2023-10-01,Johor,159.7
+2023-11-01,Johor,159.2
+2023-12-01,Johor,160.1
+2024-01-01,Johor,160.9
+2024-02-01,Johor,161.0
+2024-03-01,Johor,160.7
+2024-04-01,Johor,160.3
+2024-05-01,Johor,161.0
+2024-06-01,Johor,161.8
+2024-07-01,Johor,161.5
+2024-08-01,Johor,161.7
+2024-09-01,Johor,162.0
+2024-10-01,Johor,163.6
+2024-11-01,Johor,163.8
+2024-12-01,Johor,164.9
+2025-01-01,Johor,165.1
+2025-02-01,Johor,165.6
+2025-03-01,Johor,165.3
+2025-04-01,Johor,165.1
+2025-05-01,Johor,164.8
+2025-06-01,Johor,165.3
+2025-07-01,Johor,164.9
+2025-08-01,Johor,165.4
+2025-09-01,Johor,165.5
+2025-10-01,Johor,166.7
+2025-11-01,Johor,167.0
+2025-12-01,Johor,168.7
+2026-01-01,Johor,169.2
+2026-02-01,Johor,169.1
+2026-03-01,Johor,168.5
+2019-01-01,Kedah,128.7
+2019-02-01,Kedah,128.9
+2019-03-01,Kedah,128.6
+2019-04-01,Kedah,128.1
+2019-05-01,Kedah,128.3
+2019-06-01,Kedah,128.5
+2019-07-01,Kedah,128.6
+2019-08-01,Kedah,129.3
+2019-09-01,Kedah,129.1
+2019-10-01,Kedah,129.1
+2019-11-01,Kedah,129.0
+2019-12-01,Kedah,129.2
+2020-01-01,Kedah,129.3
+2020-02-01,Kedah,129.3
+2020-03-01,Kedah,129.3
+2020-04-01,Kedah,128.7
+2020-05-01,Kedah,129.5
+2020-06-01,Kedah,130.1
+2020-07-01,Kedah,130.1
+2020-08-01,Kedah,130.0
+2020-09-01,Kedah,129.8
+2020-10-01,Kedah,129.8
+2020-11-01,Kedah,129.8
+2020-12-01,Kedah,130.1
+2021-01-01,Kedah,130.3
+2021-02-01,Kedah,130.3
+2021-03-01,Kedah,130.3
+2021-04-01,Kedah,130.9
+2021-05-01,Kedah,130.9
+2021-06-01,Kedah,130.9
+2021-07-01,Kedah,130.9
+2021-08-01,Kedah,131.1
+2021-09-01,Kedah,131.5
+2021-10-01,Kedah,131.7
+2021-11-01,Kedah,132.5
+2021-12-01,Kedah,133.9
+2022-01-01,Kedah,134.2
+2022-02-01,Kedah,134.4
+2022-03-01,Kedah,134.6
+2022-04-01,Kedah,134.8
+2022-05-01,Kedah,135.4
+2022-06-01,Kedah,136.1
+2022-07-01,Kedah,136.6
+2022-08-01,Kedah,136.6
+2022-09-01,Kedah,136.8
+2022-10-01,Kedah,137.3
+2022-11-01,Kedah,138.0
+2022-12-01,Kedah,138.4
+2023-01-01,Kedah,139.1
+2023-02-01,Kedah,139.4
+2023-03-01,Kedah,139.5
+2023-04-01,Kedah,139.3
+2023-05-01,Kedah,139.8
+2023-06-01,Kedah,140.2
+2023-07-01,Kedah,140.4
+2023-08-01,Kedah,140.3
+2023-09-01,Kedah,140.4
+2023-10-01,Kedah,140.5
+2023-11-01,Kedah,140.5
+2023-12-01,Kedah,140.9
+2024-01-01,Kedah,141.4
+2024-02-01,Kedah,140.6
+2024-03-01,Kedah,140.6
+2024-04-01,Kedah,140.2
+2024-05-01,Kedah,140.7
+2024-06-01,Kedah,140.9
+2024-07-01,Kedah,140.6
+2024-08-01,Kedah,140.7
+2024-09-01,Kedah,140.6
+2024-10-01,Kedah,141.6
+2024-11-01,Kedah,141.7
+2024-12-01,Kedah,141.8
+2025-01-01,Kedah,141.9
+2025-02-01,Kedah,141.8
+2025-03-01,Kedah,141.7
+2025-04-01,Kedah,141.9
+2025-05-01,Kedah,141.7
+2025-06-01,Kedah,142.1
+2025-07-01,Kedah,141.8
+2025-08-01,Kedah,141.8
+2025-09-01,Kedah,142.3
+2025-10-01,Kedah,142.5
+2025-11-01,Kedah,142.6
+2025-12-01,Kedah,143.7
+2026-01-01,Kedah,143.9
+2026-02-01,Kedah,144.0
+2026-03-01,Kedah,143.7
+2019-01-01,Kelantan,131.5
+2019-02-01,Kelantan,131.0
+2019-03-01,Kelantan,129.6
+2019-04-01,Kelantan,129.3
+2019-05-01,Kelantan,130.8
+2019-06-01,Kelantan,131.1
+2019-07-01,Kelantan,130.9
+2019-08-01,Kelantan,131.4
+2019-09-01,Kelantan,130.5
+2019-10-01,Kelantan,130.3
+2019-11-01,Kelantan,130.1
+2019-12-01,Kelantan,131.2
+2020-01-01,Kelantan,131.4
+2020-02-01,Kelantan,131.2
+2020-03-01,Kelantan,131.1
+2020-04-01,Kelantan,130.7
+2020-05-01,Kelantan,131.0
+2020-06-01,Kelantan,132.1
+2020-07-01,Kelantan,132.4
+2020-08-01,Kelantan,132.2
+2020-09-01,Kelantan,132.0
+2020-10-01,Kelantan,132.0
+2020-11-01,Kelantan,132.1
+2020-12-01,Kelantan,133.3
+2021-01-01,Kelantan,133.8
+2021-02-01,Kelantan,133.8
+2021-03-01,Kelantan,133.4
+2021-04-01,Kelantan,134.1
+2021-05-01,Kelantan,134.4
+2021-06-01,Kelantan,134.4
+2021-07-01,Kelantan,134.1
+2021-08-01,Kelantan,134.1
+2021-09-01,Kelantan,134.8
+2021-10-01,Kelantan,135.2
+2021-11-01,Kelantan,135.7
+2021-12-01,Kelantan,137.3
+2022-01-01,Kelantan,137.7
+2022-02-01,Kelantan,137.9
+2022-03-01,Kelantan,138.4
+2022-04-01,Kelantan,138.8
+2022-05-01,Kelantan,140.0
+2022-06-01,Kelantan,141.4
+2022-07-01,Kelantan,141.5
+2022-08-01,Kelantan,141.2
+2022-09-01,Kelantan,141.8
+2022-10-01,Kelantan,142.3
+2022-11-01,Kelantan,143.0
+2022-12-01,Kelantan,143.6
+2023-01-01,Kelantan,144.2
+2023-02-01,Kelantan,144.7
+2023-03-01,Kelantan,145.0
+2023-04-01,Kelantan,144.8
+2023-05-01,Kelantan,145.0
+2023-06-01,Kelantan,145.3
+2023-07-01,Kelantan,145.6
+2023-08-01,Kelantan,145.5
+2023-09-01,Kelantan,145.4
+2023-10-01,Kelantan,145.5
+2023-11-01,Kelantan,144.8
+2023-12-01,Kelantan,145.7
+2024-01-01,Kelantan,146.1
+2024-02-01,Kelantan,146.5
+2024-03-01,Kelantan,146.2
+2024-04-01,Kelantan,146.3
+2024-05-01,Kelantan,146.4
+2024-06-01,Kelantan,146.7
+2024-07-01,Kelantan,146.2
+2024-08-01,Kelantan,145.8
+2024-09-01,Kelantan,145.8
+2024-10-01,Kelantan,146.7
+2024-11-01,Kelantan,146.2
+2024-12-01,Kelantan,146.5
+2025-01-01,Kelantan,146.8
+2025-02-01,Kelantan,147.0
+2025-03-01,Kelantan,147.0
+2025-04-01,Kelantan,146.8
+2025-05-01,Kelantan,146.6
+2025-06-01,Kelantan,146.6
+2025-07-01,Kelantan,146.0
+2025-08-01,Kelantan,146.0
+2025-09-01,Kelantan,146.2
+2025-10-01,Kelantan,145.8
+2025-11-01,Kelantan,145.8
+2025-12-01,Kelantan,146.1
+2026-01-01,Kelantan,146.4
+2026-02-01,Kelantan,145.9
+2026-03-01,Kelantan,145.9
+2019-01-01,Melaka,136.1
+2019-02-01,Melaka,136.1
+2019-03-01,Melaka,135.4
+2019-04-01,Melaka,134.8
+2019-05-01,Melaka,135.4
+2019-06-01,Melaka,135.3
+2019-07-01,Melaka,135.9
+2019-08-01,Melaka,136.2
+2019-09-01,Melaka,135.9
+2019-10-01,Melaka,135.8
+2019-11-01,Melaka,135.6
+2019-12-01,Melaka,135.9
+2020-01-01,Melaka,136.1
+2020-02-01,Melaka,135.9
+2020-03-01,Melaka,136.0
+2020-04-01,Melaka,136.2
+2020-05-01,Melaka,136.6
+2020-06-01,Melaka,137.3
+2020-07-01,Melaka,137.0
+2020-08-01,Melaka,137.1
+2020-09-01,Melaka,136.8
+2020-10-01,Melaka,137.0
+2020-11-01,Melaka,136.8
+2020-12-01,Melaka,137.6
+2021-01-01,Melaka,138.0
+2021-02-01,Melaka,137.3
+2021-03-01,Melaka,137.3
+2021-04-01,Melaka,137.9
+2021-05-01,Melaka,137.6
+2021-06-01,Melaka,138.0
+2021-07-01,Melaka,138.0
+2021-08-01,Melaka,138.5
+2021-09-01,Melaka,139.8
+2021-10-01,Melaka,139.8
+2021-11-01,Melaka,140.5
+2021-12-01,Melaka,141.0
+2022-01-01,Melaka,142.0
+2022-02-01,Melaka,141.9
+2022-03-01,Melaka,142.2
+2022-04-01,Melaka,142.5
+2022-05-01,Melaka,143.1
+2022-06-01,Melaka,144.7
+2022-07-01,Melaka,146.1
+2022-08-01,Melaka,146.1
+2022-09-01,Melaka,146.6
+2022-10-01,Melaka,147.6
+2022-11-01,Melaka,148.5
+2022-12-01,Melaka,149.3
+2023-01-01,Melaka,150.3
+2023-02-01,Melaka,150.9
+2023-03-01,Melaka,151.0
+2023-04-01,Melaka,151.0
+2023-05-01,Melaka,151.8
+2023-06-01,Melaka,151.9
+2023-07-01,Melaka,152.5
+2023-08-01,Melaka,152.6
+2023-09-01,Melaka,152.6
+2023-10-01,Melaka,153.0
+2023-11-01,Melaka,151.8
+2023-12-01,Melaka,152.2
+2024-01-01,Melaka,152.6
+2024-02-01,Melaka,152.6
+2024-03-01,Melaka,152.4
+2024-04-01,Melaka,152.4
+2024-05-01,Melaka,152.9
+2024-06-01,Melaka,153.4
+2024-07-01,Melaka,153.4
+2024-08-01,Melaka,153.1
+2024-09-01,Melaka,153.1
+2024-10-01,Melaka,154.6
+2024-11-01,Melaka,154.5
+2024-12-01,Melaka,156.0
+2025-01-01,Melaka,156.7
+2025-02-01,Melaka,156.8
+2025-03-01,Melaka,156.6
+2025-04-01,Melaka,156.3
+2025-05-01,Melaka,156.4
+2025-06-01,Melaka,156.5
+2025-07-01,Melaka,156.4
+2025-08-01,Melaka,156.7
+2025-09-01,Melaka,157.3
+2025-10-01,Melaka,158.1
+2025-11-01,Melaka,158.2
+2025-12-01,Melaka,159.3
+2026-01-01,Melaka,159.4
+2026-02-01,Melaka,159.0
+2026-03-01,Melaka,158.8
+2019-01-01,Negeri Sembilan,132.5
+2019-02-01,Negeri Sembilan,132.7
+2019-03-01,Negeri Sembilan,132.1
+2019-04-01,Negeri Sembilan,132.0
+2019-05-01,Negeri Sembilan,132.2
+2019-06-01,Negeri Sembilan,132.1
+2019-07-01,Negeri Sembilan,132.6
+2019-08-01,Negeri Sembilan,132.9
+2019-09-01,Negeri Sembilan,132.8
+2019-10-01,Negeri Sembilan,132.7
+2019-11-01,Negeri Sembilan,132.7
+2019-12-01,Negeri Sembilan,132.8
+2020-01-01,Negeri Sembilan,133.4
+2020-02-01,Negeri Sembilan,133.6
+2020-03-01,Negeri Sembilan,133.2
+2020-04-01,Negeri Sembilan,133.4
+2020-05-01,Negeri Sembilan,133.6
+2020-06-01,Negeri Sembilan,134.3
+2020-07-01,Negeri Sembilan,134.5
+2020-08-01,Negeri Sembilan,134.7
+2020-09-01,Negeri Sembilan,134.6
+2020-10-01,Negeri Sembilan,134.8
+2020-11-01,Negeri Sembilan,134.0
+2020-12-01,Negeri Sembilan,135.1
+2021-01-01,Negeri Sembilan,135.5
+2021-02-01,Negeri Sembilan,135.2
+2021-03-01,Negeri Sembilan,135.3
+2021-04-01,Negeri Sembilan,135.4
+2021-05-01,Negeri Sembilan,135.1
+2021-06-01,Negeri Sembilan,135.4
+2021-07-01,Negeri Sembilan,135.8
+2021-08-01,Negeri Sembilan,136.0
+2021-09-01,Negeri Sembilan,136.9
+2021-10-01,Negeri Sembilan,137.4
+2021-11-01,Negeri Sembilan,137.9
+2021-12-01,Negeri Sembilan,138.8
+2022-01-01,Negeri Sembilan,138.9
+2022-02-01,Negeri Sembilan,139.3
+2022-03-01,Negeri Sembilan,139.7
+2022-04-01,Negeri Sembilan,140.0
+2022-05-01,Negeri Sembilan,141.3
+2022-06-01,Negeri Sembilan,142.9
+2022-07-01,Negeri Sembilan,143.7
+2022-08-01,Negeri Sembilan,144.0
+2022-09-01,Negeri Sembilan,144.6
+2022-10-01,Negeri Sembilan,145.0
+2022-11-01,Negeri Sembilan,146.4
+2022-12-01,Negeri Sembilan,147.2
+2023-01-01,Negeri Sembilan,148.0
+2023-02-01,Negeri Sembilan,148.8
+2023-03-01,Negeri Sembilan,148.9
+2023-04-01,Negeri Sembilan,148.5
+2023-05-01,Negeri Sembilan,149.1
+2023-06-01,Negeri Sembilan,149.2
+2023-07-01,Negeri Sembilan,149.5
+2023-08-01,Negeri Sembilan,149.8
+2023-09-01,Negeri Sembilan,149.8
+2023-10-01,Negeri Sembilan,149.9
+2023-11-01,Negeri Sembilan,149.4
+2023-12-01,Negeri Sembilan,149.7
+2024-01-01,Negeri Sembilan,149.9
+2024-02-01,Negeri Sembilan,149.7
+2024-03-01,Negeri Sembilan,149.5
+2024-04-01,Negeri Sembilan,149.5
+2024-05-01,Negeri Sembilan,150.0
+2024-06-01,Negeri Sembilan,150.6
+2024-07-01,Negeri Sembilan,150.9
+2024-08-01,Negeri Sembilan,151.4
+2024-09-01,Negeri Sembilan,151.2
+2024-10-01,Negeri Sembilan,152.7
+2024-11-01,Negeri Sembilan,152.5
+2024-12-01,Negeri Sembilan,153.6
+2025-01-01,Negeri Sembilan,153.9
+2025-02-01,Negeri Sembilan,154.3
+2025-03-01,Negeri Sembilan,154.6
+2025-04-01,Negeri Sembilan,154.4
+2025-05-01,Negeri Sembilan,155.1
+2025-06-01,Negeri Sembilan,155.6
+2025-07-01,Negeri Sembilan,155.9
+2025-08-01,Negeri Sembilan,155.9
+2025-09-01,Negeri Sembilan,156.3
+2025-10-01,Negeri Sembilan,156.7
+2025-11-01,Negeri Sembilan,157.5
+2025-12-01,Negeri Sembilan,158.8
+2026-01-01,Negeri Sembilan,158.9
+2026-02-01,Negeri Sembilan,158.9
+2026-03-01,Negeri Sembilan,158.7
+2019-01-01,Pahang,132.0
+2019-02-01,Pahang,132.0
+2019-03-01,Pahang,131.2
+2019-04-01,Pahang,130.8
+2019-05-01,Pahang,131.4
+2019-06-01,Pahang,130.9
+2019-07-01,Pahang,131.7
+2019-08-01,Pahang,132.1
+2019-09-01,Pahang,131.7
+2019-10-01,Pahang,131.4
+2019-11-01,Pahang,131.3
+2019-12-01,Pahang,132.0
+2020-01-01,Pahang,132.2
+2020-02-01,Pahang,132.6
+2020-03-01,Pahang,132.4
+2020-04-01,Pahang,132.2
+2020-05-01,Pahang,132.7
+2020-06-01,Pahang,134.1
+2020-07-01,Pahang,134.0
+2020-08-01,Pahang,133.9
+2020-09-01,Pahang,133.6
+2020-10-01,Pahang,133.8
+2020-11-01,Pahang,133.1
+2020-12-01,Pahang,135.0
+2021-01-01,Pahang,135.4
+2021-02-01,Pahang,134.7
+2021-03-01,Pahang,134.9
+2021-04-01,Pahang,136.2
+2021-05-01,Pahang,135.2
+2021-06-01,Pahang,135.8
+2021-07-01,Pahang,135.8
+2021-08-01,Pahang,135.7
+2021-09-01,Pahang,137.2
+2021-10-01,Pahang,137.2
+2021-11-01,Pahang,137.7
+2021-12-01,Pahang,139.3
+2022-01-01,Pahang,139.3
+2022-02-01,Pahang,139.1
+2022-03-01,Pahang,139.8
+2022-04-01,Pahang,140.0
+2022-05-01,Pahang,141.1
+2022-06-01,Pahang,142.7
+2022-07-01,Pahang,143.8
+2022-08-01,Pahang,144.5
+2022-09-01,Pahang,145.1
+2022-10-01,Pahang,145.7
+2022-11-01,Pahang,147.1
+2022-12-01,Pahang,147.7
+2023-01-01,Pahang,148.5
+2023-02-01,Pahang,149.4
+2023-03-01,Pahang,149.5
+2023-04-01,Pahang,149.0
+2023-05-01,Pahang,149.6
+2023-06-01,Pahang,150.4
+2023-07-01,Pahang,150.7
+2023-08-01,Pahang,150.4
+2023-09-01,Pahang,150.2
+2023-10-01,Pahang,150.4
+2023-11-01,Pahang,150.4
+2023-12-01,Pahang,151.2
+2024-01-01,Pahang,153.0
+2024-02-01,Pahang,152.5
+2024-03-01,Pahang,151.6
+2024-04-01,Pahang,151.6
+2024-05-01,Pahang,152.3
+2024-06-01,Pahang,153.1
+2024-07-01,Pahang,153.1
+2024-08-01,Pahang,153.3
+2024-09-01,Pahang,153.5
+2024-10-01,Pahang,153.9
+2024-11-01,Pahang,153.7
+2024-12-01,Pahang,154.4
+2025-01-01,Pahang,155.0
+2025-02-01,Pahang,155.1
+2025-03-01,Pahang,155.2
+2025-04-01,Pahang,154.8
+2025-05-01,Pahang,155.1
+2025-06-01,Pahang,156.0
+2025-07-01,Pahang,156.4
+2025-08-01,Pahang,156.3
+2025-09-01,Pahang,156.6
+2025-10-01,Pahang,157.1
+2025-11-01,Pahang,157.2
+2025-12-01,Pahang,158.5
+2026-01-01,Pahang,159.0
+2026-02-01,Pahang,158.6
+2026-03-01,Pahang,158.4
+2019-01-01,Perak,126.0
+2019-02-01,Perak,126.4
+2019-03-01,Perak,125.9
+2019-04-01,Perak,125.5
+2019-05-01,Perak,125.8
+2019-06-01,Perak,125.8
+2019-07-01,Perak,126.4
+2019-08-01,Perak,126.8
+2019-09-01,Perak,126.5
+2019-10-01,Perak,126.3
+2019-11-01,Perak,126.4
+2019-12-01,Perak,126.7
+2020-01-01,Perak,127.3
+2020-02-01,Perak,127.5
+2020-03-01,Perak,127.2
+2020-04-01,Perak,127.8
+2020-05-01,Perak,128.1
+2020-06-01,Perak,128.6
+2020-07-01,Perak,128.5
+2020-08-01,Perak,128.6
+2020-09-01,Perak,128.4
+2020-10-01,Perak,128.5
+2020-11-01,Perak,128.2
+2020-12-01,Perak,129.2
+2021-01-01,Perak,129.4
+2021-02-01,Perak,129.4
+2021-03-01,Perak,129.3
+2021-04-01,Perak,129.6
+2021-05-01,Perak,129.4
+2021-06-01,Perak,129.9
+2021-07-01,Perak,130.2
+2021-08-01,Perak,130.2
+2021-09-01,Perak,131.5
+2021-10-01,Perak,131.6
+2021-11-01,Perak,132.1
+2021-12-01,Perak,133.4
+2022-01-01,Perak,134.0
+2022-02-01,Perak,134.0
+2022-03-01,Perak,134.6
+2022-04-01,Perak,135.0
+2022-05-01,Perak,136.1
+2022-06-01,Perak,137.6
+2022-07-01,Perak,138.4
+2022-08-01,Perak,139.0
+2022-09-01,Perak,139.3
+2022-10-01,Perak,139.9
+2022-11-01,Perak,140.9
+2022-12-01,Perak,141.6
+2023-01-01,Perak,142.5
+2023-02-01,Perak,143.4
+2023-03-01,Perak,143.7
+2023-04-01,Perak,143.5
+2023-05-01,Perak,144.1
+2023-06-01,Perak,144.1
+2023-07-01,Perak,144.6
+2023-08-01,Perak,144.6
+2023-09-01,Perak,144.6
+2023-10-01,Perak,144.6
+2023-11-01,Perak,144.4
+2023-12-01,Perak,144.7
+2024-01-01,Perak,144.3
+2024-02-01,Perak,144.7
+2024-03-01,Perak,144.5
+2024-04-01,Perak,144.3
+2024-05-01,Perak,144.7
+2024-06-01,Perak,144.8
+2024-07-01,Perak,144.5
+2024-08-01,Perak,144.5
+2024-09-01,Perak,144.8
+2024-10-01,Perak,145.9
+2024-11-01,Perak,145.9
+2024-12-01,Perak,146.6
+2025-01-01,Perak,146.4
+2025-02-01,Perak,146.6
+2025-03-01,Perak,146.7
+2025-04-01,Perak,146.3
+2025-05-01,Perak,146.1
+2025-06-01,Perak,146.0
+2025-07-01,Perak,146.1
+2025-08-01,Perak,146.2
+2025-09-01,Perak,146.5
+2025-10-01,Perak,146.6
+2025-11-01,Perak,146.6
+2025-12-01,Perak,148.1
+2026-01-01,Perak,148.3
+2026-02-01,Perak,148.1
+2026-03-01,Perak,147.7
+2019-01-01,Perlis,122.8
+2019-02-01,Perlis,122.9
+2019-03-01,Perlis,122.0
+2019-04-01,Perlis,121.4
+2019-05-01,Perlis,121.9
+2019-06-01,Perlis,121.9
+2019-07-01,Perlis,122.0
+2019-08-01,Perlis,122.7
+2019-09-01,Perlis,122.2
+2019-10-01,Perlis,122.0
+2019-11-01,Perlis,121.8
+2019-12-01,Perlis,122.9
+2020-01-01,Perlis,122.9
+2020-02-01,Perlis,122.6
+2020-03-01,Perlis,121.9
+2020-04-01,Perlis,122.3
+2020-05-01,Perlis,122.5
+2020-06-01,Perlis,123.9
+2020-07-01,Perlis,123.1
+2020-08-01,Perlis,123.3
+2020-09-01,Perlis,122.9
+2020-10-01,Perlis,122.9
+2020-11-01,Perlis,122.4
+2020-12-01,Perlis,123.7
+2021-01-01,Perlis,124.2
+2021-02-01,Perlis,124.0
+2021-03-01,Perlis,123.3
+2021-04-01,Perlis,123.1
+2021-05-01,Perlis,123.3
+2021-06-01,Perlis,123.5
+2021-07-01,Perlis,124.1
+2021-08-01,Perlis,124.2
+2021-09-01,Perlis,125.6
+2021-10-01,Perlis,125.4
+2021-11-01,Perlis,126.4
+2021-12-01,Perlis,128.0
+2022-01-01,Perlis,128.1
+2022-02-01,Perlis,128.7
+2022-03-01,Perlis,129.0
+2022-04-01,Perlis,129.4
+2022-05-01,Perlis,129.7
+2022-06-01,Perlis,131.0
+2022-07-01,Perlis,131.0
+2022-08-01,Perlis,130.6
+2022-09-01,Perlis,131.3
+2022-10-01,Perlis,133.1
+2022-11-01,Perlis,133.1
+2022-12-01,Perlis,133.4
+2023-01-01,Perlis,134.0
+2023-02-01,Perlis,134.2
+2023-03-01,Perlis,134.3
+2023-04-01,Perlis,134.5
+2023-05-01,Perlis,134.7
+2023-06-01,Perlis,135.0
+2023-07-01,Perlis,135.5
+2023-08-01,Perlis,136.7
+2023-09-01,Perlis,136.2
+2023-10-01,Perlis,136.5
+2023-11-01,Perlis,136.0
+2023-12-01,Perlis,136.5
+2024-01-01,Perlis,136.6
+2024-02-01,Perlis,137.1
+2024-03-01,Perlis,137.1
+2024-04-01,Perlis,136.8
+2024-05-01,Perlis,137.4
+2024-06-01,Perlis,137.8
+2024-07-01,Perlis,137.6
+2024-08-01,Perlis,137.6
+2024-09-01,Perlis,137.3
+2024-10-01,Perlis,138.7
+2024-11-01,Perlis,138.8
+2024-12-01,Perlis,139.0
+2025-01-01,Perlis,139.1
+2025-02-01,Perlis,139.0
+2025-03-01,Perlis,139.2
+2025-04-01,Perlis,139.2
+2025-05-01,Perlis,139.7
+2025-06-01,Perlis,139.5
+2025-07-01,Perlis,139.3
+2025-08-01,Perlis,139.2
+2025-09-01,Perlis,140.0
+2025-10-01,Perlis,140.2
+2025-11-01,Perlis,139.9
+2025-12-01,Perlis,140.2
+2026-01-01,Perlis,140.7
+2026-02-01,Perlis,140.4
+2026-03-01,Perlis,140.4
+2019-01-01,Pulau Pinang,137.5
+2019-02-01,Pulau Pinang,137.9
+2019-03-01,Pulau Pinang,137.5
+2019-04-01,Pulau Pinang,137.4
+2019-05-01,Pulau Pinang,137.3
+2019-06-01,Pulau Pinang,137.3
+2019-07-01,Pulau Pinang,138.1
+2019-08-01,Pulau Pinang,138.6
+2019-09-01,Pulau Pinang,138.4
+2019-10-01,Pulau Pinang,138.3
+2019-11-01,Pulau Pinang,138.5
+2019-12-01,Pulau Pinang,138.7
+2020-01-01,Pulau Pinang,139.0
+2020-02-01,Pulau Pinang,139.3
+2020-03-01,Pulau Pinang,139.2
+2020-04-01,Pulau Pinang,139.5
+2020-05-01,Pulau Pinang,139.7
+2020-06-01,Pulau Pinang,139.9
+2020-07-01,Pulau Pinang,139.9
+2020-08-01,Pulau Pinang,140.1
+2020-09-01,Pulau Pinang,139.8
+2020-10-01,Pulau Pinang,140.1
+2020-11-01,Pulau Pinang,139.9
+2020-12-01,Pulau Pinang,140.7
+2021-01-01,Pulau Pinang,140.9
+2021-02-01,Pulau Pinang,140.8
+2021-03-01,Pulau Pinang,140.7
+2021-04-01,Pulau Pinang,140.9
+2021-05-01,Pulau Pinang,140.3
+2021-06-01,Pulau Pinang,140.5
+2021-07-01,Pulau Pinang,140.6
+2021-08-01,Pulau Pinang,140.7
+2021-09-01,Pulau Pinang,141.2
+2021-10-01,Pulau Pinang,141.5
+2021-11-01,Pulau Pinang,143.2
+2021-12-01,Pulau Pinang,144.9
+2022-01-01,Pulau Pinang,145.6
+2022-02-01,Pulau Pinang,145.9
+2022-03-01,Pulau Pinang,146.7
+2022-04-01,Pulau Pinang,147.1
+2022-05-01,Pulau Pinang,148.4
+2022-06-01,Pulau Pinang,150.1
+2022-07-01,Pulau Pinang,151.4
+2022-08-01,Pulau Pinang,151.4
+2022-09-01,Pulau Pinang,151.8
+2022-10-01,Pulau Pinang,152.3
+2022-11-01,Pulau Pinang,153.3
+2022-12-01,Pulau Pinang,154.3
+2023-01-01,Pulau Pinang,155.7
+2023-02-01,Pulau Pinang,155.9
+2023-03-01,Pulau Pinang,156.0
+2023-04-01,Pulau Pinang,156.0
+2023-05-01,Pulau Pinang,156.9
+2023-06-01,Pulau Pinang,156.9
+2023-07-01,Pulau Pinang,157.5
+2023-08-01,Pulau Pinang,157.7
+2023-09-01,Pulau Pinang,158.6
+2023-10-01,Pulau Pinang,159.2
+2023-11-01,Pulau Pinang,158.9
+2023-12-01,Pulau Pinang,159.4
+2024-01-01,Pulau Pinang,159.9
+2024-02-01,Pulau Pinang,159.8
+2024-03-01,Pulau Pinang,160.4
+2024-04-01,Pulau Pinang,160.9
+2024-05-01,Pulau Pinang,161.1
+2024-06-01,Pulau Pinang,161.4
+2024-07-01,Pulau Pinang,161.9
+2024-08-01,Pulau Pinang,161.9
+2024-09-01,Pulau Pinang,161.8
+2024-10-01,Pulau Pinang,163.1
+2024-11-01,Pulau Pinang,163.1
+2024-12-01,Pulau Pinang,163.4
+2025-01-01,Pulau Pinang,163.6
+2025-02-01,Pulau Pinang,163.4
+2025-03-01,Pulau Pinang,163.6
+2025-04-01,Pulau Pinang,163.9
+2025-05-01,Pulau Pinang,163.8
+2025-06-01,Pulau Pinang,164.3
+2025-07-01,Pulau Pinang,164.2
+2025-08-01,Pulau Pinang,164.3
+2025-09-01,Pulau Pinang,164.6
+2025-10-01,Pulau Pinang,164.8
+2025-11-01,Pulau Pinang,164.8
+2025-12-01,Pulau Pinang,165.6
+2026-01-01,Pulau Pinang,165.9
+2026-02-01,Pulau Pinang,166.1
+2026-03-01,Pulau Pinang,166.2
+2019-01-01,Sabah,123.0
+2019-02-01,Sabah,123.0
+2019-03-01,Sabah,123.0
+2019-04-01,Sabah,122.7
+2019-05-01,Sabah,122.5
+2019-06-01,Sabah,122.6
+2019-07-01,Sabah,122.6
+2019-08-01,Sabah,122.9
+2019-09-01,Sabah,122.9
+2019-10-01,Sabah,123.0
+2019-11-01,Sabah,123.6
+2019-12-01,Sabah,123.8
+2020-01-01,Sabah,124.1
+2020-02-01,Sabah,123.9
+2020-03-01,Sabah,123.4
+2020-04-01,Sabah,122.7
+2020-05-01,Sabah,122.9
+2020-06-01,Sabah,122.8
+2020-07-01,Sabah,123.0
+2020-08-01,Sabah,123.2
+2020-09-01,Sabah,123.2
+2020-10-01,Sabah,123.2
+2020-11-01,Sabah,123.2
+2020-12-01,Sabah,123.3
+2021-01-01,Sabah,123.5
+2021-02-01,Sabah,123.6
+2021-03-01,Sabah,123.8
+2021-04-01,Sabah,123.9
+2021-05-01,Sabah,123.5
+2021-06-01,Sabah,123.9
+2021-07-01,Sabah,123.9
+2021-08-01,Sabah,124.0
+2021-09-01,Sabah,124.1
+2021-10-01,Sabah,124.3
+2021-11-01,Sabah,124.5
+2021-12-01,Sabah,125.1
+2022-01-01,Sabah,126.7
+2022-02-01,Sabah,127.3
+2022-03-01,Sabah,126.8
+2022-04-01,Sabah,127.2
+2022-05-01,Sabah,128.3
+2022-06-01,Sabah,129.7
+2022-07-01,Sabah,131.7
+2022-08-01,Sabah,132.2
+2022-09-01,Sabah,132.4
+2022-10-01,Sabah,133.2
+2022-11-01,Sabah,133.7
+2022-12-01,Sabah,134.3
+2023-01-01,Sabah,134.8
+2023-02-01,Sabah,135.2
+2023-03-01,Sabah,135.4
+2023-04-01,Sabah,135.1
+2023-05-01,Sabah,135.3
+2023-06-01,Sabah,135.1
+2023-07-01,Sabah,135.6
+2023-08-01,Sabah,136.0
+2023-09-01,Sabah,136.4
+2023-10-01,Sabah,136.4
+2023-11-01,Sabah,135.7
+2023-12-01,Sabah,135.8
+2024-01-01,Sabah,136.4
+2024-02-01,Sabah,136.8
+2024-03-01,Sabah,136.7
+2024-04-01,Sabah,137.3
+2024-05-01,Sabah,137.3
+2024-06-01,Sabah,137.5
+2024-07-01,Sabah,137.9
+2024-08-01,Sabah,137.9
+2024-09-01,Sabah,138.2
+2024-10-01,Sabah,138.6
+2024-11-01,Sabah,138.7
+2024-12-01,Sabah,138.9
+2025-01-01,Sabah,139.4
+2025-02-01,Sabah,140.4
+2025-03-01,Sabah,140.7
+2025-04-01,Sabah,141.0
+2025-05-01,Sabah,140.2
+2025-06-01,Sabah,140.1
+2025-07-01,Sabah,140.3
+2025-08-01,Sabah,140.3
+2025-09-01,Sabah,140.8
+2025-10-01,Sabah,140.6
+2025-11-01,Sabah,140.3
+2025-12-01,Sabah,140.4
+2026-01-01,Sabah,140.4
+2026-02-01,Sabah,141.0
+2026-03-01,Sabah,141.3
+2019-01-01,Sarawak,127.2
+2019-02-01,Sarawak,127.5
+2019-03-01,Sarawak,127.7
+2019-04-01,Sarawak,127.7
+2019-05-01,Sarawak,127.8
+2019-06-01,Sarawak,127.7
+2019-07-01,Sarawak,127.7
+2019-08-01,Sarawak,127.7
+2019-09-01,Sarawak,127.8
+2019-10-01,Sarawak,127.8
+2019-11-01,Sarawak,127.9
+2019-12-01,Sarawak,128.0
+2020-01-01,Sarawak,128.4
+2020-02-01,Sarawak,128.5
+2020-03-01,Sarawak,128.5
+2020-04-01,Sarawak,128.3
+2020-05-01,Sarawak,128.3
+2020-06-01,Sarawak,128.3
+2020-07-01,Sarawak,128.4
+2020-08-01,Sarawak,128.4
+2020-09-01,Sarawak,128.4
+2020-10-01,Sarawak,128.7
+2020-11-01,Sarawak,128.9
+2020-12-01,Sarawak,129.2
+2021-01-01,Sarawak,129.4
+2021-02-01,Sarawak,129.7
+2021-03-01,Sarawak,129.8
+2021-04-01,Sarawak,129.6
+2021-05-01,Sarawak,129.5
+2021-06-01,Sarawak,129.6
+2021-07-01,Sarawak,129.7
+2021-08-01,Sarawak,129.8
+2021-09-01,Sarawak,130.0
+2021-10-01,Sarawak,130.2
+2021-11-01,Sarawak,130.5
+2021-12-01,Sarawak,131.4
+2022-01-01,Sarawak,132.2
+2022-02-01,Sarawak,133.2
+2022-03-01,Sarawak,133.6
+2022-04-01,Sarawak,133.8
+2022-05-01,Sarawak,134.7
+2022-06-01,Sarawak,136.7
+2022-07-01,Sarawak,138.1
+2022-08-01,Sarawak,138.9
+2022-09-01,Sarawak,139.4
+2022-10-01,Sarawak,140.3
+2022-11-01,Sarawak,141.6
+2022-12-01,Sarawak,142.5
+2023-01-01,Sarawak,143.3
+2023-02-01,Sarawak,144.0
+2023-03-01,Sarawak,144.5
+2023-04-01,Sarawak,144.5
+2023-05-01,Sarawak,145.0
+2023-06-01,Sarawak,145.4
+2023-07-01,Sarawak,145.7
+2023-08-01,Sarawak,145.9
+2023-09-01,Sarawak,146.7
+2023-10-01,Sarawak,147.1
+2023-11-01,Sarawak,146.7
+2023-12-01,Sarawak,146.7
+2024-01-01,Sarawak,147.1
+2024-02-01,Sarawak,147.2
+2024-03-01,Sarawak,147.5
+2024-04-01,Sarawak,147.6
+2024-05-01,Sarawak,147.8
+2024-06-01,Sarawak,148.2
+2024-07-01,Sarawak,148.5
+2024-08-01,Sarawak,148.8
+2024-09-01,Sarawak,149.0
+2024-10-01,Sarawak,148.8
+2024-11-01,Sarawak,148.9
+2024-12-01,Sarawak,149.0
+2025-01-01,Sarawak,148.9
+2025-02-01,Sarawak,149.6
+2025-03-01,Sarawak,150.0
+2025-04-01,Sarawak,149.8
+2025-05-01,Sarawak,149.7
+2025-06-01,Sarawak,149.7
+2025-07-01,Sarawak,149.6
+2025-08-01,Sarawak,149.6
+2025-09-01,Sarawak,149.8
+2025-10-01,Sarawak,150.1
+2025-11-01,Sarawak,150.0
+2025-12-01,Sarawak,150.2
+2026-01-01,Sarawak,150.3
+2026-02-01,Sarawak,150.4
+2026-03-01,Sarawak,150.4
+2019-01-01,Selangor,136.4
+2019-02-01,Selangor,136.7
+2019-03-01,Selangor,136.1
+2019-04-01,Selangor,135.7
+2019-05-01,Selangor,136.0
+2019-06-01,Selangor,136.1
+2019-07-01,Selangor,136.6
+2019-08-01,Selangor,136.9
+2019-09-01,Selangor,136.7
+2019-10-01,Selangor,137.1
+2019-11-01,Selangor,137.4
+2019-12-01,Selangor,138.0
+2020-01-01,Selangor,138.2
+2020-02-01,Selangor,138.5
+2020-03-01,Selangor,138.5
+2020-04-01,Selangor,138.1
+2020-05-01,Selangor,138.9
+2020-06-01,Selangor,139.6
+2020-07-01,Selangor,139.7
+2020-08-01,Selangor,140.0
+2020-09-01,Selangor,140.1
+2020-10-01,Selangor,140.3
+2020-11-01,Selangor,140.2
+2020-12-01,Selangor,140.9
+2021-01-01,Selangor,141.3
+2021-02-01,Selangor,141.3
+2021-03-01,Selangor,141.5
+2021-04-01,Selangor,141.7
+2021-05-01,Selangor,141.7
+2021-06-01,Selangor,142.3
+2021-07-01,Selangor,142.4
+2021-08-01,Selangor,142.4
+2021-09-01,Selangor,143.2
+2021-10-01,Selangor,144.0
+2021-11-01,Selangor,145.2
+2021-12-01,Selangor,147.0
+2022-01-01,Selangor,148.2
+2022-02-01,Selangor,148.5
+2022-03-01,Selangor,149.0
+2022-04-01,Selangor,149.8
+2022-05-01,Selangor,151.2
+2022-06-01,Selangor,153.0
+2022-07-01,Selangor,154.4
+2022-08-01,Selangor,155.4
+2022-09-01,Selangor,155.9
+2022-10-01,Selangor,156.7
+2022-11-01,Selangor,158.2
+2022-12-01,Selangor,159.4
+2023-01-01,Selangor,160.2
+2023-02-01,Selangor,161.2
+2023-03-01,Selangor,161.3
+2023-04-01,Selangor,161.1
+2023-05-01,Selangor,162.2
+2023-06-01,Selangor,162.3
+2023-07-01,Selangor,163.1
+2023-08-01,Selangor,163.6
+2023-09-01,Selangor,163.6
+2023-10-01,Selangor,164.0
+2023-11-01,Selangor,163.8
+2023-12-01,Selangor,164.2
+2024-01-01,Selangor,164.4
+2024-02-01,Selangor,166.1
+2024-03-01,Selangor,166.4
+2024-04-01,Selangor,167.1
+2024-05-01,Selangor,167.7
+2024-06-01,Selangor,167.7
+2024-07-01,Selangor,168.0
+2024-08-01,Selangor,168.1
+2024-09-01,Selangor,168.2
+2024-10-01,Selangor,170.3
+2024-11-01,Selangor,170.3
+2024-12-01,Selangor,171.0
+2025-01-01,Selangor,171.4
+2025-02-01,Selangor,171.9
+2025-03-01,Selangor,171.9
+2025-04-01,Selangor,172.0
+2025-05-01,Selangor,172.5
+2025-06-01,Selangor,172.9
+2025-07-01,Selangor,172.8
+2025-08-01,Selangor,172.8
+2025-09-01,Selangor,173.0
+2025-10-01,Selangor,173.2
+2025-11-01,Selangor,172.9
+2025-12-01,Selangor,173.4
+2026-01-01,Selangor,173.6
+2026-02-01,Selangor,173.5
+2026-03-01,Selangor,173.3
+2019-01-01,Terengganu,126.4
+2019-02-01,Terengganu,126.3
+2019-03-01,Terengganu,124.8
+2019-04-01,Terengganu,124.4
+2019-05-01,Terengganu,125.6
+2019-06-01,Terengganu,126.3
+2019-07-01,Terengganu,126.1
+2019-08-01,Terengganu,126.3
+2019-09-01,Terengganu,125.9
+2019-10-01,Terengganu,125.8
+2019-11-01,Terengganu,125.6
+2019-12-01,Terengganu,126.7
+2020-01-01,Terengganu,127.0
+2020-02-01,Terengganu,126.9
+2020-03-01,Terengganu,126.8
+2020-04-01,Terengganu,126.7
+2020-05-01,Terengganu,126.9
+2020-06-01,Terengganu,128.1
+2020-07-01,Terengganu,128.3
+2020-08-01,Terengganu,128.2
+2020-09-01,Terengganu,127.9
+2020-10-01,Terengganu,127.9
+2020-11-01,Terengganu,127.9
+2020-12-01,Terengganu,129.2
+2021-01-01,Terengganu,129.5
+2021-02-01,Terengganu,129.6
+2021-03-01,Terengganu,129.3
+2021-04-01,Terengganu,130.3
+2021-05-01,Terengganu,130.6
+2021-06-01,Terengganu,130.6
+2021-07-01,Terengganu,129.9
+2021-08-01,Terengganu,129.7
+2021-09-01,Terengganu,130.7
+2021-10-01,Terengganu,131.2
+2021-11-01,Terengganu,131.8
+2021-12-01,Terengganu,132.9
+2022-01-01,Terengganu,133.8
+2022-02-01,Terengganu,134.2
+2022-03-01,Terengganu,134.6
+2022-04-01,Terengganu,134.9
+2022-05-01,Terengganu,135.9
+2022-06-01,Terengganu,137.6
+2022-07-01,Terengganu,137.9
+2022-08-01,Terengganu,137.5
+2022-09-01,Terengganu,138.1
+2022-10-01,Terengganu,138.9
+2022-11-01,Terengganu,139.6
+2022-12-01,Terengganu,140.0
+2023-01-01,Terengganu,140.8
+2023-02-01,Terengganu,141.3
+2023-03-01,Terengganu,141.6
+2023-04-01,Terengganu,141.3
+2023-05-01,Terengganu,141.5
+2023-06-01,Terengganu,141.8
+2023-07-01,Terengganu,142.3
+2023-08-01,Terengganu,142.1
+2023-09-01,Terengganu,142.2
+2023-10-01,Terengganu,142.3
+2023-11-01,Terengganu,141.7
+2023-12-01,Terengganu,142.8
+2024-01-01,Terengganu,142.8
+2024-02-01,Terengganu,143.5
+2024-03-01,Terengganu,143.6
+2024-04-01,Terengganu,143.4
+2024-05-01,Terengganu,143.8
+2024-06-01,Terengganu,144.1
+2024-07-01,Terengganu,144.6
+2024-08-01,Terengganu,144.4
+2024-09-01,Terengganu,144.3
+2024-10-01,Terengganu,145.3
+2024-11-01,Terengganu,145.6
+2024-12-01,Terengganu,146.9
+2025-01-01,Terengganu,147.7
+2025-02-01,Terengganu,147.6
+2025-03-01,Terengganu,147.4
+2025-04-01,Terengganu,147.4
+2025-05-01,Terengganu,147.6
+2025-06-01,Terengganu,147.8
+2025-07-01,Terengganu,147.6
+2025-08-01,Terengganu,148.1
+2025-09-01,Terengganu,148.1
+2025-10-01,Terengganu,147.8
+2025-11-01,Terengganu,147.6
+2025-12-01,Terengganu,149.2
+2026-01-01,Terengganu,149.1
+2026-02-01,Terengganu,148.7
+2026-03-01,Terengganu,148.0
+2019-01-01,W.P. Kuala Lumpur,136.0
+2019-02-01,W.P. Kuala Lumpur,136.4
+2019-03-01,W.P. Kuala Lumpur,136.2
+2019-04-01,W.P. Kuala Lumpur,136.2
+2019-05-01,W.P. Kuala Lumpur,136.3
+2019-06-01,W.P. Kuala Lumpur,136.7
+2019-07-01,W.P. Kuala Lumpur,137.3
+2019-08-01,W.P. Kuala Lumpur,137.7
+2019-09-01,W.P. Kuala Lumpur,137.1
+2019-10-01,W.P. Kuala Lumpur,137.0
+2019-11-01,W.P. Kuala Lumpur,137.1
+2019-12-01,W.P. Kuala Lumpur,137.4
+2020-01-01,W.P. Kuala Lumpur,137.3
+2020-02-01,W.P. Kuala Lumpur,137.2
+2020-03-01,W.P. Kuala Lumpur,137.1
+2020-04-01,W.P. Kuala Lumpur,137.1
+2020-05-01,W.P. Kuala Lumpur,137.2
+2020-06-01,W.P. Kuala Lumpur,137.4
+2020-07-01,W.P. Kuala Lumpur,137.4
+2020-08-01,W.P. Kuala Lumpur,138.7
+2020-09-01,W.P. Kuala Lumpur,138.7
+2020-10-01,W.P. Kuala Lumpur,138.7
+2020-11-01,W.P. Kuala Lumpur,138.3
+2020-12-01,W.P. Kuala Lumpur,138.7
+2021-01-01,W.P. Kuala Lumpur,139.0
+2021-02-01,W.P. Kuala Lumpur,138.5
+2021-03-01,W.P. Kuala Lumpur,138.9
+2021-04-01,W.P. Kuala Lumpur,139.3
+2021-05-01,W.P. Kuala Lumpur,139.1
+2021-06-01,W.P. Kuala Lumpur,139.3
+2021-07-01,W.P. Kuala Lumpur,139.1
+2021-08-01,W.P. Kuala Lumpur,139.4
+2021-09-01,W.P. Kuala Lumpur,139.9
+2021-10-01,W.P. Kuala Lumpur,139.7
+2021-11-01,W.P. Kuala Lumpur,140.9
+2021-12-01,W.P. Kuala Lumpur,142.1
+2022-01-01,W.P. Kuala Lumpur,143.0
+2022-02-01,W.P. Kuala Lumpur,143.2
+2022-03-01,W.P. Kuala Lumpur,143.3
+2022-04-01,W.P. Kuala Lumpur,143.9
+2022-05-01,W.P. Kuala Lumpur,145.5
+2022-06-01,W.P. Kuala Lumpur,146.8
+2022-07-01,W.P. Kuala Lumpur,147.3
+2022-08-01,W.P. Kuala Lumpur,147.9
+2022-09-01,W.P. Kuala Lumpur,148.3
+2022-10-01,W.P. Kuala Lumpur,149.4
+2022-11-01,W.P. Kuala Lumpur,150.3
+2022-12-01,W.P. Kuala Lumpur,150.9
+2023-01-01,W.P. Kuala Lumpur,151.9
+2023-02-01,W.P. Kuala Lumpur,152.0
+2023-03-01,W.P. Kuala Lumpur,152.2
+2023-04-01,W.P. Kuala Lumpur,152.2
+2023-05-01,W.P. Kuala Lumpur,153.0
+2023-06-01,W.P. Kuala Lumpur,153.0
+2023-07-01,W.P. Kuala Lumpur,153.4
+2023-08-01,W.P. Kuala Lumpur,153.4
+2023-09-01,W.P. Kuala Lumpur,153.2
+2023-10-01,W.P. Kuala Lumpur,153.2
+2023-11-01,W.P. Kuala Lumpur,152.4
+2023-12-01,W.P. Kuala Lumpur,152.5
+2024-01-01,W.P. Kuala Lumpur,153.7
+2024-02-01,W.P. Kuala Lumpur,153.5
+2024-03-01,W.P. Kuala Lumpur,153.3
+2024-04-01,W.P. Kuala Lumpur,153.4
+2024-05-01,W.P. Kuala Lumpur,153.4
+2024-06-01,W.P. Kuala Lumpur,154.7
+2024-07-01,W.P. Kuala Lumpur,155.2
+2024-08-01,W.P. Kuala Lumpur,155.2
+2024-09-01,W.P. Kuala Lumpur,154.9
+2024-10-01,W.P. Kuala Lumpur,156.2
+2024-11-01,W.P. Kuala Lumpur,156.3
+2024-12-01,W.P. Kuala Lumpur,157.2
+2025-01-01,W.P. Kuala Lumpur,157.1
+2025-02-01,W.P. Kuala Lumpur,157.2
+2025-03-01,W.P. Kuala Lumpur,157.2
+2025-04-01,W.P. Kuala Lumpur,157.3
+2025-05-01,W.P. Kuala Lumpur,157.4
+2025-06-01,W.P. Kuala Lumpur,157.4
+2025-07-01,W.P. Kuala Lumpur,158.0
+2025-08-01,W.P. Kuala Lumpur,158.4
+2025-09-01,W.P. Kuala Lumpur,158.8
+2025-10-01,W.P. Kuala Lumpur,159.3
+2025-11-01,W.P. Kuala Lumpur,159.6
+2025-12-01,W.P. Kuala Lumpur,159.7
+2026-01-01,W.P. Kuala Lumpur,160.2
+2026-02-01,W.P. Kuala Lumpur,160.1
+2026-03-01,W.P. Kuala Lumpur,160.1
+2019-01-01,W.P. Labuan,122.1
+2019-02-01,W.P. Labuan,122.5
+2019-03-01,W.P. Labuan,122.2
+2019-04-01,W.P. Labuan,122.0
+2019-05-01,W.P. Labuan,122.0
+2019-06-01,W.P. Labuan,122.3
+2019-07-01,W.P. Labuan,122.5
+2019-08-01,W.P. Labuan,122.5
+2019-09-01,W.P. Labuan,122.4
+2019-10-01,W.P. Labuan,122.3
+2019-11-01,W.P. Labuan,122.1
+2019-12-01,W.P. Labuan,122.4
+2020-01-01,W.P. Labuan,122.6
+2020-02-01,W.P. Labuan,122.8
+2020-03-01,W.P. Labuan,122.6
+2020-04-01,W.P. Labuan,122.9
+2020-05-01,W.P. Labuan,123.0
+2020-06-01,W.P. Labuan,123.1
+2020-07-01,W.P. Labuan,123.0
+2020-08-01,W.P. Labuan,123.5
+2020-09-01,W.P. Labuan,123.5
+2020-10-01,W.P. Labuan,123.5
+2020-11-01,W.P. Labuan,123.6
+2020-12-01,W.P. Labuan,123.8
+2021-01-01,W.P. Labuan,124.2
+2021-02-01,W.P. Labuan,124.1
+2021-03-01,W.P. Labuan,124.7
+2021-04-01,W.P. Labuan,124.6
+2021-05-01,W.P. Labuan,124.1
+2021-06-01,W.P. Labuan,124.3
+2021-07-01,W.P. Labuan,124.8
+2021-08-01,W.P. Labuan,125.0
+2021-09-01,W.P. Labuan,125.0
+2021-10-01,W.P. Labuan,125.2
+2021-11-01,W.P. Labuan,125.6
+2021-12-01,W.P. Labuan,126.4
+2022-01-01,W.P. Labuan,127.3
+2022-02-01,W.P. Labuan,128.0
+2022-03-01,W.P. Labuan,127.5
+2022-04-01,W.P. Labuan,128.0
+2022-05-01,W.P. Labuan,128.8
+2022-06-01,W.P. Labuan,129.3
+2022-07-01,W.P. Labuan,129.6
+2022-08-01,W.P. Labuan,129.3
+2022-09-01,W.P. Labuan,129.8
+2022-10-01,W.P. Labuan,130.3
+2022-11-01,W.P. Labuan,130.6
+2022-12-01,W.P. Labuan,131.3
+2023-01-01,W.P. Labuan,131.9
+2023-02-01,W.P. Labuan,132.7
+2023-03-01,W.P. Labuan,132.6
+2023-04-01,W.P. Labuan,132.8
+2023-05-01,W.P. Labuan,132.9
+2023-06-01,W.P. Labuan,133.7
+2023-07-01,W.P. Labuan,134.1
+2023-08-01,W.P. Labuan,134.7
+2023-09-01,W.P. Labuan,134.8
+2023-10-01,W.P. Labuan,135.0
+2023-11-01,W.P. Labuan,135.1
+2023-12-01,W.P. Labuan,135.6
+2024-01-01,W.P. Labuan,136.6
+2024-02-01,W.P. Labuan,135.7
+2024-03-01,W.P. Labuan,135.3
+2024-04-01,W.P. Labuan,134.9
+2024-05-01,W.P. Labuan,135.1
+2024-06-01,W.P. Labuan,136.2
+2024-07-01,W.P. Labuan,135.7
+2024-08-01,W.P. Labuan,135.0
+2024-09-01,W.P. Labuan,134.7
+2024-10-01,W.P. Labuan,136.0
+2024-11-01,W.P. Labuan,136.5
+2024-12-01,W.P. Labuan,136.8
+2025-01-01,W.P. Labuan,137.4
+2025-02-01,W.P. Labuan,138.0
+2025-03-01,W.P. Labuan,139.1
+2025-04-01,W.P. Labuan,137.8
+2025-05-01,W.P. Labuan,138.3
+2025-06-01,W.P. Labuan,139.0
+2025-07-01,W.P. Labuan,139.6
+2025-08-01,W.P. Labuan,139.0
+2025-09-01,W.P. Labuan,139.3
+2025-10-01,W.P. Labuan,139.4
+2025-11-01,W.P. Labuan,139.4
+2025-12-01,W.P. Labuan,140.1
+2026-01-01,W.P. Labuan,139.5
+2026-02-01,W.P. Labuan,139.8
+2026-03-01,W.P. Labuan,140.5
+2019-01-01,W.P. Putrajaya,139.0
+2019-02-01,W.P. Putrajaya,139.0
+2019-03-01,W.P. Putrajaya,138.6
+2019-04-01,W.P. Putrajaya,137.9
+2019-05-01,W.P. Putrajaya,138.4
+2019-06-01,W.P. Putrajaya,138.2
+2019-07-01,W.P. Putrajaya,139.2
+2019-08-01,W.P. Putrajaya,139.3
+2019-09-01,W.P. Putrajaya,139.2
+2019-10-01,W.P. Putrajaya,139.5
+2019-11-01,W.P. Putrajaya,139.9
+2019-12-01,W.P. Putrajaya,140.1
+2020-01-01,W.P. Putrajaya,141.1
+2020-02-01,W.P. Putrajaya,141.0
+2020-03-01,W.P. Putrajaya,142.6
+2020-04-01,W.P. Putrajaya,142.1
+2020-05-01,W.P. Putrajaya,143.0
+2020-06-01,W.P. Putrajaya,143.3
+2020-07-01,W.P. Putrajaya,143.8
+2020-08-01,W.P. Putrajaya,143.4
+2020-09-01,W.P. Putrajaya,143.3
+2020-10-01,W.P. Putrajaya,144.1
+2020-11-01,W.P. Putrajaya,144.0
+2020-12-01,W.P. Putrajaya,145.4
+2021-01-01,W.P. Putrajaya,146.8
+2021-02-01,W.P. Putrajaya,146.0
+2021-03-01,W.P. Putrajaya,146.2
+2021-04-01,W.P. Putrajaya,146.5
+2021-05-01,W.P. Putrajaya,145.9
+2021-06-01,W.P. Putrajaya,146.7
+2021-07-01,W.P. Putrajaya,146.6
+2021-08-01,W.P. Putrajaya,147.6
+2021-09-01,W.P. Putrajaya,150.7
+2021-10-01,W.P. Putrajaya,150.7
+2021-11-01,W.P. Putrajaya,151.5
+2021-12-01,W.P. Putrajaya,154.3
+2022-01-01,W.P. Putrajaya,155.3
+2022-02-01,W.P. Putrajaya,156.3
+2022-03-01,W.P. Putrajaya,156.4
+2022-04-01,W.P. Putrajaya,156.8
+2022-05-01,W.P. Putrajaya,158.1
+2022-06-01,W.P. Putrajaya,158.7
+2022-07-01,W.P. Putrajaya,160.4
+2022-08-01,W.P. Putrajaya,160.5
+2022-09-01,W.P. Putrajaya,161.0
+2022-10-01,W.P. Putrajaya,162.2
+2022-11-01,W.P. Putrajaya,164.9
+2022-12-01,W.P. Putrajaya,165.9
+2023-01-01,W.P. Putrajaya,166.8
+2023-02-01,W.P. Putrajaya,167.1
+2023-03-01,W.P. Putrajaya,167.8
+2023-04-01,W.P. Putrajaya,167.7
+2023-05-01,W.P. Putrajaya,169.4
+2023-06-01,W.P. Putrajaya,169.9
+2023-07-01,W.P. Putrajaya,170.1
+2023-08-01,W.P. Putrajaya,169.7
+2023-09-01,W.P. Putrajaya,170.5
+2023-10-01,W.P. Putrajaya,170.6
+2023-11-01,W.P. Putrajaya,169.9
+2023-12-01,W.P. Putrajaya,171.0
+2024-01-01,W.P. Putrajaya,171.5
+2024-02-01,W.P. Putrajaya,172.5
+2024-03-01,W.P. Putrajaya,172.1
+2024-04-01,W.P. Putrajaya,172.5
+2024-05-01,W.P. Putrajaya,172.5
+2024-06-01,W.P. Putrajaya,172.8
+2024-07-01,W.P. Putrajaya,172.6
+2024-08-01,W.P. Putrajaya,172.8
+2024-09-01,W.P. Putrajaya,172.9
+2024-10-01,W.P. Putrajaya,175.5
+2024-11-01,W.P. Putrajaya,175.7
+2024-12-01,W.P. Putrajaya,176.0
+2025-01-01,W.P. Putrajaya,177.5
+2025-02-01,W.P. Putrajaya,177.5
+2025-03-01,W.P. Putrajaya,178.3
+2025-04-01,W.P. Putrajaya,177.7
+2025-05-01,W.P. Putrajaya,177.9
+2025-06-01,W.P. Putrajaya,177.8
+2025-07-01,W.P. Putrajaya,177.5
+2025-08-01,W.P. Putrajaya,177.7
+2025-09-01,W.P. Putrajaya,177.9
+2025-10-01,W.P. Putrajaya,178.2
+2025-11-01,W.P. Putrajaya,178.6
+2025-12-01,W.P. Putrajaya,178.6
+2026-01-01,W.P. Putrajaya,179.0
+2026-02-01,W.P. Putrajaya,179.3
+2026-03-01,W.P. Putrajaya,179.4
