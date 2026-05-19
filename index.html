@@ -215,7 +215,7 @@
 
     .dual-chart .chart-card { height: 425px; }
 
-    #chart3, #chart4, #chart5, #chart6 {
+    #chart3, #chart4, #chart5, #chart6, #chart7, #chart8 {
       width: 100%;
       flex: 1 1 auto;
       min-height: 0;
@@ -231,7 +231,13 @@
     #chart5 .vega-embed svg,
     #chart6 .vega-embed,
     #chart6 .vega-embed > div,
-    #chart6 .vega-embed svg { width: 100% !important; height: 100% !important; display: block; }
+    #chart6 .vega-embed svg,
+    #chart7 .vega-embed,
+    #chart7 .vega-embed > div,
+    #chart7 .vega-embed svg,
+    #chart8 .vega-embed,
+    #chart8 .vega-embed > div,
+    #chart8 .vega-embed svg { width: 100% !important; height: 100% !important; display: block; }
 
     /* ── CALLOUTS — always 3 side by side ── */
     .callouts {
@@ -461,6 +467,27 @@
         <div class="chart-card-title">Price Spread: Cheapest vs Most Expensive State</div>
         <div class="chart-card-subtitle">How far prices stretch across Malaysia, per dish</div>
         <div id="chart6"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SECTION 5 -->
+  <section class="section">
+    <p class="section-label">Section 5 · Income vs Cost</p>
+    <h2 class="section-title">It's not what you pay — it's what you pay relative to what you earn</h2>
+
+    <div class="dual-chart">
+      <div class="chart-card">
+        <div class="chart-card-title">Household Income vs Food CPI, by State</div>
+        <div class="chart-card-subtitle">Each dot is a state · DOSM HIES 2022 + Food CPI 2019 – 2026</div>
+        <div id="chart7"></div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-card-title">Poverty Rate vs National Average</div>
+        <div class="chart-card-subtitle">% of households below the poverty line · National avg: 6.1%</div>
+        <div id="chart8"></div>
       </div>
     </div>
   </section>
@@ -1101,6 +1128,233 @@ const spec6 = {
 };
 
 vegaEmbed('#chart6', spec6, { actions: false, renderer: 'svg' });
+
+
+/* ───────────── CHART 7 — Scatter: Income vs Food CPI ───────────── */
+const SCATTER_DATA = [{"state":"Johor","short":"Johor","income_mean":8517,"income_median":6879,"food_cpi":168.93,"poverty":4.6,"gini":0.36646},{"state":"Kedah","short":"Kedah","income_mean":5550,"income_median":4402,"food_cpi":143.87,"poverty":9.0,"gini":0.35938},{"state":"Kelantan","short":"Kelantan","income_mean":4885,"income_median":3614,"food_cpi":146.07,"poverty":13.2,"gini":0.3854},{"state":"Melaka","short":"Melaka","income_mean":8057,"income_median":6210,"food_cpi":159.07,"poverty":4.2,"gini":0.36963},{"state":"Negeri Sembilan","short":"Negeri Sembilan","income_mean":6788,"income_median":5226,"food_cpi":158.83,"poverty":4.4,"gini":0.36853},{"state":"Pahang","short":"Pahang","income_mean":5777,"income_median":4753,"food_cpi":158.67,"poverty":6.3,"gini":0.3077},{"state":"Pulau Pinang","short":"Pulau Pinang","income_mean":8267,"income_median":6502,"food_cpi":166.07,"poverty":2.0,"gini":0.37058},{"state":"Perak","short":"Perak","income_mean":5779,"income_median":4494,"food_cpi":148.03,"poverty":7.5,"gini":0.36769},{"state":"Perlis","short":"Perlis","income_mean":5664,"income_median":4713,"food_cpi":140.5,"poverty":4.0,"gini":0.33589},{"state":"Selangor","short":"Selangor","income_mean":12233,"income_median":9983,"food_cpi":173.47,"poverty":1.5,"gini":0.36123},{"state":"Terengganu","short":"Terengganu","income_mean":7248,"income_median":5878,"food_cpi":148.6,"poverty":6.2,"gini":0.32631},{"state":"Sabah","short":"Sabah","income_mean":6171,"income_median":4577,"food_cpi":140.9,"poverty":19.7,"gini":0.39491},{"state":"Sarawak","short":"Sarawak","income_mean":6457,"income_median":4978,"food_cpi":150.37,"poverty":10.8,"gini":0.3818},{"state":"W.P. Kuala Lumpur","short":"Kuala Lumpur","income_mean":13325,"income_median":10234,"food_cpi":160.13,"poverty":1.4,"gini":0.3796},{"state":"W.P. Labuan","short":"Labuan","income_mean":8250,"income_median":6904,"food_cpi":139.93,"poverty":2.5,"gini":0.30028},{"state":"W.P. Putrajaya","short":"Putrajaya","income_mean":13473,"income_median":10056,"food_cpi":179.23,"poverty":0.1,"gini":0.3678}];
+
+/* States to label inside the scatter (highlight extremes + key narratives) */
+const LABEL_STATES = new Set([
+  "W.P. Putrajaya", "Selangor", "Kelantan", "Sabah", "W.P. Labuan", "Pulau Pinang"
+]);
+
+/* Per-state label offsets so they don't collide with dots or each other */
+const LABEL_OFFSETS = {
+  "W.P. Putrajaya":  { dx:  -8, dy: -10, align: "right" },
+  "Selangor":        { dx:   8, dy:  -6, align: "left"  },
+  "Kelantan":        { dx:   8, dy:   4, align: "left"  },
+  "Sabah":           { dx:   8, dy:  10, align: "left"  },
+  "W.P. Labuan":     { dx:  -8, dy:   4, align: "right" },
+  "Pulau Pinang":    { dx:   8, dy:  -4, align: "left"  }
+};
+
+function scatterLabelLayer(stateName) {
+  const o = LABEL_OFFSETS[stateName];
+  return {
+    "data": { "values": SCATTER_DATA.filter(d => d.state === stateName) },
+    "mark": {
+      "type": "text",
+      "fontSize": 9.5,
+      "fontWeight": "700",
+      "color": "#1a1a1a",
+      "align": o.align,
+      "dx": o.dx,
+      "dy": o.dy
+    },
+    "encoding": {
+      "x": { "field": "income_mean", "type": "quantitative" },
+      "y": { "field": "food_cpi", "type": "quantitative" },
+      "text": { "field": "short" }
+    }
+  };
+}
+
+const spec7 = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": "container",
+  "autosize": { "type": "fit", "contains": "padding", "resize": true },
+  "background": "white",
+  "config": {
+    "font": "Source Sans 3, sans-serif",
+    "axis": {
+      "labelFont": "Source Sans 3, sans-serif",
+      "titleFont": "Source Sans 3, sans-serif",
+      "labelFontSize": 10,
+      "titleFontSize": 11,
+      "gridColor": "#f0ece5",
+      "domainColor": "#ccc8c0",
+      "tickColor": "#ccc8c0"
+    },
+    "view": { "stroke": null }
+  },
+  "layer": [
+    /* Annotation: "Higher income →" axis hint at bottom-right */
+    /* Dots: size encodes poverty rate */
+    {
+      "data": { "values": SCATTER_DATA },
+      "mark": { "type": "circle", "color": "#3d4f5c", "opacity": 0.78, "stroke": "white", "strokeWidth": 1 },
+      "encoding": {
+        "x": {
+          "field": "income_mean", "type": "quantitative",
+          "axis": { "title": "Mean Household Income (RM)", "format": ",.0f" },
+          "scale": { "domain": [4000, 14500] }
+        },
+        "y": {
+          "field": "food_cpi", "type": "quantitative",
+          "axis": { "title": "Average Food CPI" },
+          "scale": { "domain": [135, 185] }
+        },
+        "size": {
+          "field": "poverty", "type": "quantitative",
+          "scale": { "range": [60, 500] },
+          "legend": { "title": "Poverty rate (%)", "orient": "bottom-right", "labelFontSize": 9, "titleFontSize": 10, "symbolFillColor": "#3d4f5c" }
+        },
+        "tooltip": [
+          { "field": "state", "type": "nominal", "title": "State" },
+          { "field": "income_mean", "type": "quantitative", "title": "Income (RM)", "format": ",.0f" },
+          { "field": "food_cpi", "type": "quantitative", "title": "Food CPI", "format": ".1f" },
+          { "field": "poverty", "type": "quantitative", "title": "Poverty (%)", "format": ".1f" }
+        ]
+      }
+    },
+    /* Per-state highlighted labels */
+    scatterLabelLayer("W.P. Putrajaya"),
+    scatterLabelLayer("Selangor"),
+    scatterLabelLayer("Kelantan"),
+    scatterLabelLayer("Sabah"),
+    scatterLabelLayer("W.P. Labuan"),
+    scatterLabelLayer("Pulau Pinang"),
+    /* Quadrant annotation: "Lower income, expensive food = squeeze zone" */
+    {
+      "data": { "values": [{"income_mean": 5400, "food_cpi": 182, "label": "Squeeze risk: low income"}] },
+      "mark": { "type": "text", "fontSize": 9, "fontStyle": "italic", "color": "#888", "align": "left" },
+      "encoding": {
+        "x": { "field": "income_mean", "type": "quantitative" },
+        "y": { "field": "food_cpi", "type": "quantitative" },
+        "text": { "field": "label" }
+      }
+    },
+    {
+      "data": { "values": [{"income_mean": 11500, "food_cpi": 138, "label": "Cushioned: high income"}] },
+      "mark": { "type": "text", "fontSize": 9, "fontStyle": "italic", "color": "#888", "align": "left" },
+      "encoding": {
+        "x": { "field": "income_mean", "type": "quantitative" },
+        "y": { "field": "food_cpi", "type": "quantitative" },
+        "text": { "field": "label" }
+      }
+    }
+  ]
+};
+
+vegaEmbed('#chart7', spec7, { actions: false, renderer: 'svg' });
+
+
+/* ───────────── CHART 8 — Diverging bar: poverty rate vs national avg ───────────── */
+const NATIONAL_AVG_POVERTY = 6.1;
+
+/* Pre-compute deviation from national average for each state */
+const POVERTY_DEV = SCATTER_DATA.map(d => ({
+  state: d.state,
+  short: d.short,
+  poverty: d.poverty,
+  deviation: +(d.poverty - NATIONAL_AVG_POVERTY).toFixed(2),
+  side: d.poverty >= NATIONAL_AVG_POVERTY ? "Above average" : "Below average"
+}));
+
+const spec8 = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": "container",
+  "autosize": { "type": "fit", "contains": "padding", "resize": true },
+  "background": "white",
+  "config": {
+    "font": "Source Sans 3, sans-serif",
+    "axis": {
+      "labelFont": "Source Sans 3, sans-serif",
+      "titleFont": "Source Sans 3, sans-serif",
+      "labelFontSize": 9,
+      "titleFontSize": 11,
+      "gridColor": "#f0ece5",
+      "domainColor": "#ccc8c0",
+      "tickColor": "#ccc8c0"
+    },
+    "view": { "stroke": null }
+  },
+  "data": { "values": POVERTY_DEV },
+  "layer": [
+    /* The bars */
+    {
+      "mark": { "type": "bar", "cornerRadiusEnd": 2, "height": {"band": 0.75} },
+      "encoding": {
+        "y": {
+          "field": "short", "type": "nominal",
+          "sort": { "field": "deviation", "order": "ascending" },
+          "axis": { "title": null, "labelLimit": 100 }
+        },
+        "x": {
+          "field": "deviation", "type": "quantitative",
+          "axis": { "title": "Difference from national average (% pts)", "format": "+.0f" },
+          "scale": { "domain": [-7, 15] }
+        },
+        "color": {
+          "field": "side", "type": "nominal",
+          "scale": {
+            "domain": ["Below average", "Above average"],
+            "range":  ["#3a7d44",       "#d4912a"]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          { "field": "state", "type": "nominal", "title": "State" },
+          { "field": "poverty", "type": "quantitative", "title": "Poverty rate (%)", "format": ".1f" },
+          { "field": "deviation", "type": "quantitative", "title": "vs national avg", "format": "+.1f" }
+        ]
+      }
+    },
+    /* Value labels showing actual poverty % (not deviation) at bar tip */
+    {
+      "mark": { "type": "text", "fontSize": 9, "fontWeight": "600", "color": "#1a1a1a" },
+      "encoding": {
+        "y": {
+          "field": "short", "type": "nominal",
+          "sort": { "field": "deviation", "order": "ascending" }
+        },
+        "x": { "field": "deviation", "type": "quantitative" },
+        "text": { "field": "poverty", "type": "quantitative", "format": ".1f" },
+        "align": {
+          "condition": { "test": "datum.deviation < 0", "value": "right" },
+          "value": "left"
+        },
+        "dx": {
+          "condition": { "test": "datum.deviation < 0", "value": -4 },
+          "value": 4
+        }
+      }
+    },
+    /* The reference line at zero (national average) */
+    {
+      "data": { "values": [{"x": 0}] },
+      "mark": { "type": "rule", "color": "#1a1a1a", "strokeWidth": 1.2, "strokeDash": [3, 3] },
+      "encoding": {
+        "x": { "field": "x", "type": "quantitative" }
+      }
+    },
+    /* Annotation for the reference line */
+    {
+      "data": { "values": [{"x": 0, "y": "Sab0ah", "label": "National avg 6.1%"}] },
+      "mark": { "type": "text", "fontSize": 9, "fontStyle": "italic", "color": "#1a1a1a", "align": "left", "dx": 6, "dy": -8, "fontWeight": "600" },
+      "encoding": {
+        "x": { "field": "x", "type": "quantitative" },
+        "y": { "field": "y", "type": "nominal" },
+        "text": { "field": "label" }
+      }
+    }
+  ]
+};
+
+vegaEmbed('#chart8', spec8, { actions: false, renderer: 'svg' });
+
 
 
 
