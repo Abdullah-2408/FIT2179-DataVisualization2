@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Price of Living — Malaysia's Food Cost Story</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+  <style>
+    :root {
+      --bg:        #f7f4ef;
+      --white:     #ffffff;
+      --ink:       #1a1a1a;
+      --ink-light: #555550;
+      --accent:    #c0392b;
+      --accent2:   #e67e22;
+      --accent3:   #2c7873;
+      --rule:      #ddd8d0;
+      --serif:     'Playfair Display', Georgia, serif;
+      --sans:      'Source Sans 3', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.7;
+      border: 14px solid var(--white);
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 40px 80px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      border-bottom: 2px solid var(--rule);
+      padding-bottom: 48px;
+      margin-bottom: 64px;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+
+    .hero-title span { color: var(--accent); }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+      font-weight: 300;
+      color: var(--ink-light);
+      max-width: 640px;
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    /* 2x2 stat grid — perfect vertical alignment in both columns */
+    .hero-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--rule);
+    }
+
+    .hero-stat {
+      display: flex;
+      flex-direction: column;
+      padding: 24px 32px 24px 0;
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .hero-stat:nth-child(even) {
+      border-right: none;
+      padding-left: 32px;
+      padding-right: 0;
+    }
+
+    .hero-stat:nth-child(3),
+    .hero-stat:nth-child(4) {
+      border-bottom: none;
+    }
+
+    .hero-stat-value {
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .hero-stat-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-top: 6px;
+    }
+
+    /* ── SECTION ── */
+    .section { margin-bottom: 72px; }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.25;
+      margin-bottom: 24px;
+    }
+
+    .section-body {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 32px;
+      align-items: stretch;
+      margin-bottom: 24px;
+      height: 425px;
+    }
+
+    .section-prose {
+      font-size: 0.88rem;
+      color: var(--ink-light);
+      line-height: 1.7;
+      overflow: hidden;
+    }
+
+    .section-prose strong { color: var(--ink); }
+
+    .chart-card {
+      background: var(--white);
+      border: 1.5px solid var(--rule);
+      border-radius: 4px;
+      padding: 20px 24px 16px;
+      min-width: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Section 2 chart card — shorter so its bottom aligns with the prose */
+    .chart-card:has(#chart2) {
+      height: 400px;
+      align-self: start;
+    }
+
+    .chart-card-title {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
+      flex: 0 0 auto;
+    }
+
+    .chart-card-subtitle {
+      font-size: 0.82rem;
+      color: var(--ink-light);
+      margin-bottom: 12px;
+      flex: 0 0 auto;
+    }
+
+    #chart1, #chart2 {
+      width: 100%;
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+    #chart1 .vega-embed,
+    #chart1 .vega-embed > div,
+    #chart1 .vega-embed svg,
+    #chart2 .vega-embed,
+    #chart2 .vega-embed > div,
+    #chart2 .vega-embed svg { width: 100% !important; height: 100% !important; display: block; }
+
+    /* ── DUAL CHART ROW (Section 3) ── */
+    .dual-chart {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .dual-chart .chart-card { height: 425px; }
+
+    #chart3, #chart4, #chart5, #chart6 {
+      width: 100%;
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+    #chart3 .vega-embed,
+    #chart3 .vega-embed > div,
+    #chart3 .vega-embed svg,
+    #chart4 .vega-embed,
+    #chart4 .vega-embed > div,
+    #chart4 .vega-embed svg,
+    #chart5 .vega-embed,
+    #chart5 .vega-embed > div,
+    #chart5 .vega-embed svg,
+    #chart6 .vega-embed,
+    #chart6 .vega-embed > div,
+    #chart6 .vega-embed svg { width: 100% !important; height: 100% !important; display: block; }
+
+    /* ── CALLOUTS — always 3 side by side ── */
+    .callouts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .callout {
+      border-left: 3px solid var(--accent);
+      padding: 10px 12px;
+      background: #fdf8f5;
+      min-width: 0;
+    }
+
+    .callout.teal  { border-color: var(--accent3); }
+    .callout.amber { border-color: var(--accent2); }
+
+    .callout-year {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+
+    .callout-head {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 5px;
+    }
+
+    .callout-body {
+      font-size: 0.78rem;
+      color: var(--ink-light);
+      line-height: 1.45;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      border-top: 1px solid var(--rule);
+      padding-top: 32px;
+      margin-top: 80px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer p { font-size: 0.78rem; color: var(--ink-light); line-height: 1.6; }
+    .footer a  { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 560px) {
+      .section-body        { grid-template-columns: 1fr; }
+      .hero-meta           { grid-template-columns: 1fr; }
+      .hero-stat           { border-right: none; border-bottom: 1px solid var(--rule); padding: 16px 0; }
+      .hero-stat:last-child{ border-bottom: none; }
+      .page                { padding: 32px 20px 60px; }
+      .dual-chart          { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <header class="hero">
+    <p class="hero-eyebrow">A Data Story · Malaysia · 2019 – 2026</p>
+    <h1 class="hero-title">The Price of Living<br><span>in Malaysia</span></h1>
+    <p class="hero-subtitle">
+      From your morning teh tarik to the weekly grocery run, the cost of food shapes
+      everyday life for millions of Malaysians. This is the story of how prices have
+      changed — and what it means for households across the country.
+    </p>
+
+    <div class="hero-meta">
+      <div class="hero-stat">
+        <span class="hero-stat-value">+18.4%</span>
+        <span class="hero-stat-label">Food price rise since 2019</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">16</span>
+        <span class="hero-stat-label">States compared</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">RM 7,017</span>
+        <span class="hero-stat-label">National median income (2024)</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">7 yrs</span>
+        <span class="hero-stat-label">Of monthly data tracked</span>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- SECTION 1 -->
+  <section class="section">
+    <p class="section-label">Section 1 · The Big Picture</p>
+    <h2 class="section-title">Food in Malaysia has never been more expensive</h2>
+
+    <div class="section-body">
+
+      <p class="section-prose">
+        The Food Consumer Price Index (CPI) measures how much the price of a typical
+        basket of food has changed over time. A value of 100 represents the baseline year.
+        <br><br>
+        Since January 2019, Malaysia's food CPI has climbed from <strong>131</strong> to over
+        <strong>155</strong> — an increase of more than 18%.
+        <br><br>
+        The steepest rise happened in <strong>2022</strong>, driven by global supply chain
+        disruptions, surging commodity prices, and a weakening ringgit.
+        <br><br>
+        While the pace of increase has since slowed, prices show no sign of returning to
+        pre-pandemic levels. Malaysians are now permanently paying more for the same
+        basket of food.
+      </p>
+
+      <div class="chart-card">
+        <div class="chart-card-title">Malaysia National Food CPI, 2019 – 2026</div>
+        <div class="chart-card-subtitle">Monthly food price index · Source: DOSM</div>
+        <div id="chart1"></div>
+      </div>
+
+    </div>
+
+    <div class="callouts">
+      <div class="callout">
+        <div class="callout-year">2020</div>
+        <div class="callout-head">COVID-19 Lockdowns</div>
+        <div class="callout-body">
+          Supply chains strained as Malaysia entered the MCO. Food prices began a slow
+          but steady climb from 132 to 133.
+        </div>
+      </div>
+      <div class="callout amber">
+        <div class="callout-year">2022</div>
+        <div class="callout-head">Sharpest Single-Year Jump</div>
+        <div class="callout-body">
+          Food CPI surged from 138 to 146 — the fastest annual rise in the dataset,
+          driven by global commodity prices and the weakening ringgit.
+        </div>
+      </div>
+      <div class="callout teal">
+        <div class="callout-year">2024 – 26</div>
+        <div class="callout-head">Slower But Still Rising</div>
+        <div class="callout-body">
+          The rate of increase has slowed, but prices have not fallen. By March 2026
+          the index stood at 155 — a new all-time high.
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SECTION 2 -->
+  <section class="section">
+    <p class="section-label">Section 2 · The Geography of Cost</p>
+    <h2 class="section-title">Not every state pays the same price</h2>
+
+    <div class="section-body">
+
+      <p class="section-prose">
+        National averages hide a striking divide. Food costs vary dramatically across
+        Malaysia's 16 states — by as much as <strong>28%</strong> between the cheapest and
+        most expensive regions.
+        <br><br>
+        The <strong>federal territories</strong> of Putrajaya, Kuala Lumpur, and the
+        industrialised states of <strong>Selangor</strong> and <strong>Johor</strong> sit at
+        the top of the price ladder.
+        <br><br>
+        Meanwhile, <strong>East Malaysia</strong> (Sabah, Labuan) and the
+        <strong>northern states</strong> (Perlis, Kedah) enjoy noticeably lower food costs.
+        <br><br>
+        Hover over a state to see its exact average food CPI.
+      </p>
+
+      <div class="chart-card">
+        <div class="chart-card-title">Average Food CPI by State, 2019 – 2026</div>
+        <div class="chart-card-subtitle">Darker red = more expensive · Source: DOSM</div>
+        <div id="chart2"></div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- SECTION 3 -->
+  <section class="section">
+    <p class="section-label">Section 3 · The Growing Divide</p>
+    <h2 class="section-title">The gap between states is widening, not closing</h2>
+
+    <div class="dual-chart">
+      <div class="chart-card">
+        <div class="chart-card-title">Food CPI Trajectory, by State (2019 – 2026)</div>
+        <div class="chart-card-subtitle">Top 3 risers in red · Bottom 3 in teal · Source: DOSM</div>
+        <div id="chart3"></div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-card-title">Total Food Inflation Since Jan 2019</div>
+        <div class="chart-card-subtitle">% change in food CPI · Putrajaya rose 2.6× faster than Kelantan</div>
+        <div id="chart4"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SECTION 4 -->
+  <section class="section">
+    <p class="section-label">Section 4 · From Plate to Wallet</p>
+    <h2 class="section-title">What your meals actually cost depends on where you live</h2>
+
+    <div class="dual-chart">
+      <div class="chart-card">
+        <div class="chart-card-title">Average Hawker Price by State &amp; Dish</div>
+        <div class="chart-card-subtitle">Darker = more expensive · Jan 2022 snapshot · Source: DOSM PriceCatcher</div>
+        <div id="chart5"></div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-card-title">Price Spread: Cheapest vs Most Expensive State</div>
+        <div class="chart-card-subtitle">How far prices stretch across Malaysia, per dish</div>
+        <div id="chart6"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>
+      <strong>Data sources:</strong> Department of Statistics Malaysia (DOSM) —
+      Food CPI, Household Income &amp; Expenditure Survey 2022 · OpenDOSM PriceCatcher<br>
+      <a href="https://open.dosm.gov.my" target="_blank">open.dosm.gov.my</a>
+    </p>
+    <p>
+      Visualisation by Abdullah Zakaria Habibullah · FIT2179 Data Visualisation 2 ·
+      Monash University Malaysia · 2026
+    </p>
+  </footer>
+
+</div>
+
+
+<!-- VEGA-LITE CHART 1 -->
+<script>
+const CPI_DATA = [{"date":"2019-01-01","food_cpi":131.01},{"date":"2019-02-01","food_cpi":131.15},{"date":"2019-03-01","food_cpi":130.56},{"date":"2019-04-01","food_cpi":130.23},{"date":"2019-05-01","food_cpi":130.66},{"date":"2019-06-01","food_cpi":130.73},{"date":"2019-07-01","food_cpi":131.11},{"date":"2019-08-01","food_cpi":131.41},{"date":"2019-09-01","food_cpi":131.15},{"date":"2019-10-01","food_cpi":131.12},{"date":"2019-11-01","food_cpi":131.14},{"date":"2019-12-01","food_cpi":131.64},{"date":"2020-01-01","food_cpi":131.94},{"date":"2020-02-01","food_cpi":131.98},{"date":"2020-03-01","food_cpi":131.9},{"date":"2020-04-01","food_cpi":131.81},{"date":"2020-05-01","food_cpi":132.16},{"date":"2020-06-01","food_cpi":132.79},{"date":"2020-07-01","food_cpi":132.8},{"date":"2020-08-01","food_cpi":132.93},{"date":"2020-09-01","food_cpi":132.78},{"date":"2020-10-01","food_cpi":132.93},{"date":"2020-11-01","food_cpi":132.75},{"date":"2020-12-01","food_cpi":133.56},{"date":"2021-01-01","food_cpi":133.97},{"date":"2021-02-01","food_cpi":133.81},{"date":"2021-03-01","food_cpi":133.83},{"date":"2021-04-01","food_cpi":134.2},{"date":"2021-05-01","food_cpi":133.96},{"date":"2021-06-01","food_cpi":134.28},{"date":"2021-07-01","food_cpi":134.32},{"date":"2021-08-01","food_cpi":134.48},{"date":"2021-09-01","food_cpi":135.41},{"date":"2021-10-01","food_cpi":135.61},{"date":"2021-11-01","food_cpi":136.35},{"date":"2021-12-01","food_cpi":137.68},{"date":"2022-01-01","food_cpi":138.39},{"date":"2022-02-01","food_cpi":138.74},{"date":"2022-03-01","food_cpi":139.05},{"date":"2022-04-01","food_cpi":139.45},{"date":"2022-05-01","food_cpi":140.56},{"date":"2022-06-01","food_cpi":142.0},{"date":"2022-07-01","food_cpi":142.88},{"date":"2022-08-01","food_cpi":143.09},{"date":"2022-09-01","food_cpi":143.56},{"date":"2022-10-01","food_cpi":144.33},{"date":"2022-11-01","food_cpi":145.36},{"date":"2022-12-01","food_cpi":146.06},{"date":"2023-01-01","food_cpi":146.88},{"date":"2023-02-01","food_cpi":147.45},{"date":"2023-03-01","food_cpi":147.64},{"date":"2023-04-01","food_cpi":147.48},{"date":"2023-05-01","food_cpi":148.08},{"date":"2023-06-01","food_cpi":148.32},{"date":"2023-07-01","food_cpi":148.76},{"date":"2023-08-01","food_cpi":148.91},{"date":"2023-09-01","food_cpi":149.06},{"date":"2023-10-01","food_cpi":149.24},{"date":"2023-11-01","food_cpi":148.79},{"date":"2023-12-01","food_cpi":149.31},{"date":"2024-01-01","food_cpi":149.82},{"date":"2024-02-01","food_cpi":149.99},{"date":"2024-03-01","food_cpi":149.87},{"date":"2024-04-01","food_cpi":149.91},{"date":"2024-05-01","food_cpi":150.26},{"date":"2024-06-01","food_cpi":150.73},{"date":"2024-07-01","food_cpi":150.76},{"date":"2024-08-01","food_cpi":150.76},{"date":"2024-09-01","food_cpi":150.77},{"date":"2024-10-01","food_cpi":151.97},{"date":"2024-11-01","food_cpi":152.01},{"date":"2024-12-01","food_cpi":152.62},{"date":"2025-01-01","food_cpi":152.99},{"date":"2025-02-01","food_cpi":153.24},{"date":"2025-03-01","food_cpi":153.41},{"date":"2025-04-01","food_cpi":153.23},{"date":"2025-05-01","food_cpi":153.31},{"date":"2025-06-01","food_cpi":153.54},{"date":"2025-07-01","food_cpi":153.52},{"date":"2025-08-01","food_cpi":153.61},{"date":"2025-09-01","food_cpi":153.94},{"date":"2025-10-01","food_cpi":154.19},{"date":"2025-11-01","food_cpi":154.25},{"date":"2025-12-01","food_cpi":155.04},{"date":"2026-01-01","food_cpi":155.24},{"date":"2026-02-01","food_cpi":155.18},{"date":"2026-03-01","food_cpi":155.08}];
+
+const spec1 = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": "container",
+  "autosize": { "type": "fit", "contains": "padding", "resize": true },
+  "background": "white",
+  "config": {
+    "font": "Source Sans 3, sans-serif",
+    "axis": {
+      "labelFont": "Source Sans 3, sans-serif",
+      "titleFont": "Source Sans 3, sans-serif",
+      "labelFontSize": 11,
+      "titleFontSize": 12,
+      "gridColor": "#f0ece5",
+      "domainColor": "#ccc8c0",
+      "tickColor": "#ccc8c0"
+    },
+    "view": { "stroke": null }
+  },
+  "layer": [
+    {
+      "data": { "values": CPI_DATA },
+      "mark": { "type": "line", "strokeWidth": 2.5, "color": "#c0392b", "interpolate": "monotone" },
+      "encoding": {
+        "x": {
+          "field": "date", "type": "temporal",
+          "axis": { "title": null, "format": "%Y", "tickCount": "year", "labelAngle": 0 }
+        },
+        "y": {
+          "field": "food_cpi", "type": "quantitative",
+          "axis": { "title": "Food CPI", "tickCount": 6 },
+          "scale": { "domain": [128, 158] }
+        },
+        "tooltip": [
+          { "field": "date",     "type": "temporal",     "title": "Month",    "format": "%B %Y" },
+          { "field": "food_cpi", "type": "quantitative", "title": "Food CPI", "format": ".2f" }
+        ]
+      }
+    },
+    {
+      "data": { "values": [{"date":"2019-01-01","food_cpi":131.01}] },
+      "mark": { "type": "point", "filled": true, "size": 60, "color": "#c0392b" },
+      "encoding": {
+        "x": { "field": "date", "type": "temporal" },
+        "y": { "field": "food_cpi", "type": "quantitative", "scale": { "domain": [128, 158] } }
+      }
+    },
+    {
+      "data": { "values": [{"date":"2019-01-01","food_cpi":129.6,"label":"131.0 (Jan 2019)"}] },
+      "mark": { "type": "text", "fontSize": 10, "color": "#555", "align": "left", "dx": 6 },
+      "encoding": {
+        "x": { "field": "date", "type": "temporal" },
+        "y": { "field": "food_cpi", "type": "quantitative", "scale": { "domain": [128, 158] } },
+        "text": { "field": "label" }
+      }
+    },
+    {
+      "data": { "values": [{"date":"2026-03-01","food_cpi":155.08}] },
+      "mark": { "type": "point", "filled": true, "size": 60, "color": "#c0392b" },
+      "encoding": {
+        "x": { "field": "date", "type": "temporal" },
+        "y": { "field": "food_cpi", "type": "quantitative", "scale": { "domain": [128, 158] } }
+      }
+    },
+    {
+      "data": { "values": [{"date":"2026-03-01","food_cpi":153.6,"label":"155.1 (Mar 2026)"}] },
+      "mark": { "type": "text", "fontSize": 10, "color": "#555", "align": "right", "dx": -6 },
+      "encoding": {
+        "x": { "field": "date", "type": "temporal" },
+        "y": { "field": "food_cpi", "type": "quantitative", "scale": { "domain": [128, 158] } },
+        "text": { "field": "label" }
+      }
+    }
+  ]
+};
+
+vegaEmbed('#chart1', spec1, { actions: false, renderer: 'svg' });
+
+
+/* ───────────── CHART 2 — Choropleth map ───────────── */
+const MALAYSIA_TOPO = {"type":"Topology","transform":{"scale":[0.002840497942569259,0.0030113831331985866],"translate":[100.11978149414062,0.8623941932270406]},"arcs":[[[535,786],[42,-13],[-3,-45],[-29,-5],[-10,63]],[[4324,1503],[9,-33],[-19,-2],[-6,20],[16,15]],[[549,700],[19,-5],[0,-9],[-21,-2],[2,16]],[[1238,596],[42,-11],[29,-62],[42,-42],[1,-35],[53,-77],[61,-152],[-2,-50],[-170,39],[-68,-45],[-56,-9],[-30,73],[-147,67],[-43,38],[-47,6],[-69,75]],[[834,411],[18,96],[20,7]],[[872,514],[37,140]],[[909,654],[34,-10],[61,-70],[63,-24],[72,23],[89,-42],[10,65]],[[77,1566],[3,132],[-53,94]],[[27,1792],[60,65],[0,29]],[[87,1886],[101,-32],[56,0],[14,-70],[85,10],[9,-96],[-46,-64]],[[306,1634],[-21,-94],[-26,-52],[-41,-8],[-66,-79],[-21,16]],[[131,1417],[20,5],[-7,137],[-67,7]],[[851,1655],[-56,-51],[19,-107],[-7,-63],[33,-32],[12,-59],[41,-49]],[[893,1294],[-18,-24],[-85,8],[-47,-28],[-37,30],[-63,14],[-1,-34],[-43,20],[-70,-57],[-88,23]],[[441,1246],[-14,23],[39,59],[-8,39],[36,95],[75,29],[2,51],[-30,5],[12,78]],[[553,1625],[45,1],[45,37],[11,53],[40,69],[96,-33],[61,-97]],[[834,411],[-118,39],[-63,57]],[[653,507],[71,37],[66,-2],[82,-28]],[[653,507],[-42,8],[-21,54],[-29,6]],[[561,575],[13,92],[47,-1],[30,52],[-19,78]],[[632,796],[168,-47],[109,-95]],[[1162,1100],[6,-71],[-25,-14],[-14,-64],[53,-72],[-23,-52],[13,-51],[-6,-86],[14,-38],[58,-56]],[[632,796],[-54,47],[18,67],[-66,56]],[[530,966],[-18,108],[-42,41],[-6,56],[-29,4],[6,71]],[[893,1294],[67,-27],[12,-70],[44,-9],[-27,-51],[0,-63],[50,6],[83,-65],[5,84],[35,1]],[[97,1416],[4,71],[-24,79]],[[131,1417],[-34,-1]],[[48,1534],[32,-21],[-18,-43],[-35,6],[21,58]],[[245,992],[-40,13],[24,65],[-54,26],[-17,51],[15,36],[-24,150],[-37,12],[-15,71]],[[306,1634],[53,-56],[49,67],[108,40],[37,-60]],[[530,966],[-98,-20],[-96,8],[-6,21],[-85,17]],[[27,1792],[-27,52],[18,94],[43,4],[26,-56]],[[4381,1362],[53,57],[-72,60],[87,100],[47,-33],[50,22],[4,50],[52,28],[25,110],[195,191],[33,-46],[83,31],[26,98],[65,-16],[20,-107],[75,2],[74,-58],[0,-69],[-53,-20],[35,-91],[122,55],[37,-68],[317,-148],[31,18],[42,-26],[12,-63],[-75,-46],[-200,-47],[-54,35],[-73,-44],[52,-82],[174,-65],[-87,-29],[-197,-46],[-120,53],[-9,-69],[-50,4],[-73,63],[-81,-15],[-159,16],[-47,-27],[-26,30],[-71,-1],[-28,-37],[-67,38],[-26,-55],[-51,-36]],[[4473,1079],[0,68],[-32,15],[-12,82],[40,55],[-18,70],[-70,-7]],[[4473,1079],[-30,-170],[25,-57],[-28,5],[-26,-140],[-120,-27],[-25,-36],[1,-132],[-65,-60],[-34,7],[-8,-138],[-78,-141],[-60,26],[-66,-35],[-17,18],[-124,-30],[6,-25],[-76,-29],[-14,30],[-51,-5],[-30,29],[-66,4],[-25,53],[-210,14],[-96,-49],[-20,-102],[-80,-6],[-32,-40],[-61,13],[-45,-25],[-17,26],[-95,15],[-109,-20],[-31,-28],[-83,-24],[-106,45],[-32,63],[-42,7],[-41,64],[-40,9],[-63,64],[8,53],[-37,7],[-18,40],[32,20],[123,-102],[182,16],[2,-43],[94,-22],[18,25],[68,-33],[69,197],[0,97],[27,11],[6,118],[39,-47],[91,62],[466,106],[166,205],[124,120],[58,68],[-2,87],[98,-22],[29,-89],[41,5],[62,-85],[66,40],[31,91],[-26,11],[-23,96],[74,31],[21,-24],[26,-124],[68,-14],[-4,100],[-38,111],[54,-20],[27,18]],[[561,575],[-83,33],[-74,66],[33,36],[-20,75],[-42,42],[-46,82],[-83,59],[-1,24]],[[851,1655],[105,-86],[51,-23],[74,-83],[88,-161],[1,-103],[18,-49],[-26,-50]]],"objects":{"states":{"type":"GeometryCollection","geometries":[{"type":"Polygon","arcs":[[0]],"id":"Kuala Lumpur","properties":{"Name":"Kuala Lumpur"}},{"type":"Polygon","arcs":[[1]],"id":"Labuan","properties":{"Name":"Labuan"}},{"type":"Polygon","arcs":[[2]],"id":"Putrajaya","properties":{"Name":"Putrajaya"}},{"type":"Polygon","arcs":[[3,4,5,6]],"id":"Johor","properties":{"Name":"Johor"}},{"type":"Polygon","arcs":[[7,8,9,10,11]],"id":"Kedah","properties":{"Name":"Kedah"}},{"type":"Polygon","arcs":[[12,13,14,15]],"id":"Kelantan","properties":{"Name":"Kelantan"}},{"type":"Polygon","arcs":[[16,17,-5]],"id":"Melaka","properties":{"Name":"Melaka"}},{"type":"Polygon","arcs":[[18,19,20,-6,-18]],"id":"Negeri Sembilan","properties":{"Name":"Negeri Sembilan"}},{"type":"Polygon","arcs":[[21,-7,-21,22,23,-14,24]],"id":"Pahang","properties":{"Name":"Pahang"}},{"type":"MultiPolygon","arcs":[[[25,-12,26]],[[27]]],"id":"Penang","properties":{"Name":"Penang"}},{"type":"Polygon","arcs":[[28,-27,-11,29,-15,-24,30]],"id":"Perak","properties":{"Name":"Perak"}},{"type":"Polygon","arcs":[[31,-9]],"id":"Perlis","properties":{"Name":"Perlis"}},{"type":"Polygon","arcs":[[32,33]],"id":"Sabah","properties":{"Name":"Sabah"}},{"type":"Polygon","arcs":[[-34,34]],"id":"Sarawak","properties":{"Name":"Sarawak"}},{"type":"Polygon","arcs":[[35,-31,-23,-20],[-1],[-3]],"id":"Selangor","properties":{"Name":"Selangor"}},{"type":"Polygon","arcs":[[36,-25,-13]],"id":"Terengganu","properties":{"Name":"Terengganu"}}]}},"bbox":[100.11978149414062,0.8623941932270406,119.267578125,6.975501953620172]};
+
+const STATE_CPI = [{"state":"Johor","avg_food_cpi":168.93},{"state":"Kedah","avg_food_cpi":143.87},{"state":"Kelantan","avg_food_cpi":146.07},{"state":"Melaka","avg_food_cpi":159.07},{"state":"Negeri Sembilan","avg_food_cpi":158.83},{"state":"Pahang","avg_food_cpi":158.67},{"state":"Perak","avg_food_cpi":148.03},{"state":"Perlis","avg_food_cpi":140.50},{"state":"Pulau Pinang","avg_food_cpi":166.07},{"state":"Sabah","avg_food_cpi":140.90},{"state":"Sarawak","avg_food_cpi":150.37},{"state":"Selangor","avg_food_cpi":173.47},{"state":"Terengganu","avg_food_cpi":148.60},{"state":"W.P. Kuala Lumpur","avg_food_cpi":160.13},{"state":"W.P. Labuan","avg_food_cpi":139.93},{"state":"W.P. Putrajaya","avg_food_cpi":179.23}];
+
+const ANNOTATIONS = [
+  { "state": "W.P. Putrajaya", "lon": 101.70, "lat": 2.93, "cpi": 179.23, "blurb": "Most expensive · federal capital" },
+  { "state": "Selangor",       "lon": 101.52, "lat": 3.30, "cpi": 173.47, "blurb": "Klang Valley premium" },
+  { "state": "W.P. Labuan",    "lon": 115.25, "lat": 5.28, "cpi": 139.93, "blurb": "Cheapest · duty-free island" }
+];
+
+/* Per-state offsets in pixels: name (top of stack), cpi, blurb */
+const PUTRAJAYA_OFFSETS = { dx:  100, dyName:  40, dyCpi:  56, dyBlurb:  70 };
+const SELANGOR_OFFSETS  = { dx: -100, dyName: -60, dyCpi: -44, dyBlurb: -30 };
+const LABUAN_OFFSETS    = { dx:  -65, dyName: -60, dyCpi: -44, dyBlurb: -30 };
+
+function annotationLayers(stateName, offsets) {
+  return [
+    {
+      "data": { "values": ANNOTATIONS.filter(d => d.state === stateName) },
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": "700",
+        "color": "#1a1a1a",
+        "align": "center",
+        "dx": offsets.dx,
+        "dy": offsets.dyName
+      },
+      "encoding": {
+        "longitude": { "field": "lon", "type": "quantitative" },
+        "latitude":  { "field": "lat", "type": "quantitative" },
+        "text":      { "field": "state", "type": "nominal" }
+      }
+    },
+    {
+      "data": { "values": ANNOTATIONS.filter(d => d.state === stateName) },
+      "mark": {
+        "type": "text",
+        "fontSize": 14,
+        "fontWeight": "700",
+        "color": "#c0392b",
+        "align": "center",
+        "dx": offsets.dx,
+        "dy": offsets.dyCpi
+      },
+      "encoding": {
+        "longitude": { "field": "lon", "type": "quantitative" },
+        "latitude":  { "field": "lat", "type": "quantitative" },
+        "text":      { "field": "cpi", "type": "quantitative", "format": ".1f" }
+      }
+    },
+    {
+      "data": { "values": ANNOTATIONS.filter(d => d.state === stateName) },
+      "mark": {
+        "type": "text",
+        "fontSize": 9,
+        "color": "#555550",
+        "align": "center",
+        "dx": offsets.dx,
+        "dy": offsets.dyBlurb
+      },
+      "encoding": {
+        "longitude": { "field": "lon", "type": "quantitative" },
+        "latitude":  { "field": "lat", "type": "quantitative" },
+        "text":      { "field": "blurb", "type": "nominal" }
+      }
+    }
+  ];
+}
+
+const spec2 = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": "container",
+  "autosize": { "type": "fit", "contains": "padding", "resize": true },
+  "background": "white",
+  "config": {
+    "font": "Source Sans 3, sans-serif",
+    "view": { "stroke": null }
+  },
+  "projection": { "type": "mercator" },
+  "layer": [
+    {
+      "data": {
+        "values": MALAYSIA_TOPO,
+        "format": { "type": "topojson", "feature": "states" }
+      },
+      "transform": [
+        {
+          "calculate": "datum.properties.Name === 'Kuala Lumpur' ? 'W.P. Kuala Lumpur' : datum.properties.Name === 'Labuan' ? 'W.P. Labuan' : datum.properties.Name === 'Putrajaya' ? 'W.P. Putrajaya' : datum.properties.Name === 'Penang' ? 'Pulau Pinang' : datum.properties.Name",
+          "as": "state_match"
+        },
+        {
+          "lookup": "state_match",
+          "from": {
+            "data": { "values": STATE_CPI },
+            "key": "state",
+            "fields": ["avg_food_cpi"]
+          }
+        }
+      ],
+      "mark": { "type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1 },
+      "encoding": {
+        "color": {
+          "field": "avg_food_cpi",
+          "type": "quantitative",
+          "scale": { "scheme": "reds", "domain": [135, 180] },
+          "legend": {
+            "title": "Food CPI",
+            "orient": "right",
+            "gradientLength": 160,
+            "titleFontSize": 11,
+            "labelFontSize": 10
+          }
+        },
+        "tooltip": [
+          { "field": "state_match", "type": "nominal", "title": "State" },
+          { "field": "avg_food_cpi", "type": "quantitative", "title": "Avg Food CPI", "format": ".2f" }
+        ]
+      }
+    },
+    {
+      "data": { "values": ANNOTATIONS },
+      "mark": { "type": "circle", "size": 60, "color": "#1a1a1a", "stroke": "#fff", "strokeWidth": 1.5 },
+      "encoding": {
+        "longitude": { "field": "lon", "type": "quantitative" },
+        "latitude":  { "field": "lat", "type": "quantitative" }
+      }
+    },
+    ...annotationLayers("W.P. Putrajaya", PUTRAJAYA_OFFSETS),
+    ...annotationLayers("Selangor",       SELANGOR_OFFSETS),
+    ...annotationLayers("W.P. Labuan",    LABUAN_OFFSETS)
+  ]
+};
+
+vegaEmbed('#chart2', spec2, { actions: false, renderer: 'svg' });
+
+
+/* ───────────── CHART 3 — Spaghetti line: all 16 states ───────────── */
+const STATE_TS = [{"date":"2019-01-01","state":"Johor","food_cpi":138.9},{"date":"2019-02-01","state":"Johor","food_cpi":139.1},{"date":"2019-03-01","state":"Johor","food_cpi":138.1},{"date":"2019-04-01","state":"Johor","food_cpi":137.8},{"date":"2019-05-01","state":"Johor","food_cpi":138.8},{"date":"2019-06-01","state":"Johor","food_cpi":138.9},{"date":"2019-07-01","state":"Johor","food_cpi":139.5},{"date":"2019-08-01","state":"Johor","food_cpi":139.3},{"date":"2019-09-01","state":"Johor","food_cpi":139.3},{"date":"2019-10-01","state":"Johor","food_cpi":139.6},{"date":"2019-11-01","state":"Johor","food_cpi":139.2},{"date":"2019-12-01","state":"Johor","food_cpi":140.4},{"date":"2020-01-01","state":"Johor","food_cpi":140.7},{"date":"2020-02-01","state":"Johor","food_cpi":140.9},{"date":"2020-03-01","state":"Johor","food_cpi":140.6},{"date":"2020-04-01","state":"Johor","food_cpi":140.2},{"date":"2020-05-01","state":"Johor","food_cpi":140.6},{"date":"2020-06-01","state":"Johor","food_cpi":141.7},{"date":"2020-07-01","state":"Johor","food_cpi":141.7},{"date":"2020-08-01","state":"Johor","food_cpi":141.6},{"date":"2020-09-01","state":"Johor","food_cpi":141.4},{"date":"2020-10-01","state":"Johor","food_cpi":141.5},{"date":"2020-11-01","state":"Johor","food_cpi":141.6},{"date":"2020-12-01","state":"Johor","food_cpi":141.8},{"date":"2021-01-01","state":"Johor","food_cpi":142.3},{"date":"2021-02-01","state":"Johor","food_cpi":142.6},{"date":"2021-03-01","state":"Johor","food_cpi":142.6},{"date":"2021-04-01","state":"Johor","food_cpi":143.2},{"date":"2021-05-01","state":"Johor","food_cpi":142.8},{"date":"2021-06-01","state":"Johor","food_cpi":143.3},{"date":"2021-07-01","state":"Johor","food_cpi":143.2},{"date":"2021-08-01","state":"Johor","food_cpi":143.2},{"date":"2021-09-01","state":"Johor","food_cpi":144.5},{"date":"2021-10-01","state":"Johor","food_cpi":144.6},{"date":"2021-11-01","state":"Johor","food_cpi":145.6},{"date":"2021-12-01","state":"Johor","food_cpi":147.1},{"date":"2022-01-01","state":"Johor","food_cpi":148.0},{"date":"2022-02-01","state":"Johor","food_cpi":147.9},{"date":"2022-03-01","state":"Johor","food_cpi":148.6},{"date":"2022-04-01","state":"Johor","food_cpi":149.2},{"date":"2022-05-01","state":"Johor","food_cpi":151.3},{"date":"2022-06-01","state":"Johor","food_cpi":153.7},{"date":"2022-07-01","state":"Johor","food_cpi":154.2},{"date":"2022-08-01","state":"Johor","food_cpi":154.4},{"date":"2022-09-01","state":"Johor","food_cpi":154.8},{"date":"2022-10-01","state":"Johor","food_cpi":155.1},{"date":"2022-11-01","state":"Johor","food_cpi":156.6},{"date":"2022-12-01","state":"Johor","food_cpi":157.2},{"date":"2023-01-01","state":"Johor","food_cpi":158.0},{"date":"2023-02-01","state":"Johor","food_cpi":159.0},{"date":"2023-03-01","state":"Johor","food_cpi":158.9},{"date":"2023-04-01","state":"Johor","food_cpi":158.3},{"date":"2023-05-01","state":"Johor","food_cpi":159.0},{"date":"2023-06-01","state":"Johor","food_cpi":159.0},{"date":"2023-07-01","state":"Johor","food_cpi":159.5},{"date":"2023-08-01","state":"Johor","food_cpi":159.6},{"date":"2023-09-01","state":"Johor","food_cpi":159.7},{"date":"2023-10-01","state":"Johor","food_cpi":159.7},{"date":"2023-11-01","state":"Johor","food_cpi":159.2},{"date":"2023-12-01","state":"Johor","food_cpi":160.1},{"date":"2024-01-01","state":"Johor","food_cpi":160.9},{"date":"2024-02-01","state":"Johor","food_cpi":161.0},{"date":"2024-03-01","state":"Johor","food_cpi":160.7},{"date":"2024-04-01","state":"Johor","food_cpi":160.3},{"date":"2024-05-01","state":"Johor","food_cpi":161.0},{"date":"2024-06-01","state":"Johor","food_cpi":161.8},{"date":"2024-07-01","state":"Johor","food_cpi":161.5},{"date":"2024-08-01","state":"Johor","food_cpi":161.7},{"date":"2024-09-01","state":"Johor","food_cpi":162.0},{"date":"2024-10-01","state":"Johor","food_cpi":163.6},{"date":"2024-11-01","state":"Johor","food_cpi":163.8},{"date":"2024-12-01","state":"Johor","food_cpi":164.9},{"date":"2025-01-01","state":"Johor","food_cpi":165.1},{"date":"2025-02-01","state":"Johor","food_cpi":165.6},{"date":"2025-03-01","state":"Johor","food_cpi":165.3},{"date":"2025-04-01","state":"Johor","food_cpi":165.1},{"date":"2025-05-01","state":"Johor","food_cpi":164.8},{"date":"2025-06-01","state":"Johor","food_cpi":165.3},{"date":"2025-07-01","state":"Johor","food_cpi":164.9},{"date":"2025-08-01","state":"Johor","food_cpi":165.4},{"date":"2025-09-01","state":"Johor","food_cpi":165.5},{"date":"2025-10-01","state":"Johor","food_cpi":166.7},{"date":"2025-11-01","state":"Johor","food_cpi":167.0},{"date":"2025-12-01","state":"Johor","food_cpi":168.7},{"date":"2026-01-01","state":"Johor","food_cpi":169.2},{"date":"2026-02-01","state":"Johor","food_cpi":169.1},{"date":"2026-03-01","state":"Johor","food_cpi":168.5},{"date":"2019-01-01","state":"Kedah","food_cpi":128.7},{"date":"2019-02-01","state":"Kedah","food_cpi":128.9},{"date":"2019-03-01","state":"Kedah","food_cpi":128.6},{"date":"2019-04-01","state":"Kedah","food_cpi":128.1},{"date":"2019-05-01","state":"Kedah","food_cpi":128.3},{"date":"2019-06-01","state":"Kedah","food_cpi":128.5},{"date":"2019-07-01","state":"Kedah","food_cpi":128.6},{"date":"2019-08-01","state":"Kedah","food_cpi":129.3},{"date":"2019-09-01","state":"Kedah","food_cpi":129.1},{"date":"2019-10-01","state":"Kedah","food_cpi":129.1},{"date":"2019-11-01","state":"Kedah","food_cpi":129.0},{"date":"2019-12-01","state":"Kedah","food_cpi":129.2},{"date":"2020-01-01","state":"Kedah","food_cpi":129.3},{"date":"2020-02-01","state":"Kedah","food_cpi":129.3},{"date":"2020-03-01","state":"Kedah","food_cpi":129.3},{"date":"2020-04-01","state":"Kedah","food_cpi":128.7},{"date":"2020-05-01","state":"Kedah","food_cpi":129.5},{"date":"2020-06-01","state":"Kedah","food_cpi":130.1},{"date":"2020-07-01","state":"Kedah","food_cpi":130.1},{"date":"2020-08-01","state":"Kedah","food_cpi":130.0},{"date":"2020-09-01","state":"Kedah","food_cpi":129.8},{"date":"2020-10-01","state":"Kedah","food_cpi":129.8},{"date":"2020-11-01","state":"Kedah","food_cpi":129.8},{"date":"2020-12-01","state":"Kedah","food_cpi":130.1},{"date":"2021-01-01","state":"Kedah","food_cpi":130.3},{"date":"2021-02-01","state":"Kedah","food_cpi":130.3},{"date":"2021-03-01","state":"Kedah","food_cpi":130.3},{"date":"2021-04-01","state":"Kedah","food_cpi":130.9},{"date":"2021-05-01","state":"Kedah","food_cpi":130.9},{"date":"2021-06-01","state":"Kedah","food_cpi":130.9},{"date":"2021-07-01","state":"Kedah","food_cpi":130.9},{"date":"2021-08-01","state":"Kedah","food_cpi":131.1},{"date":"2021-09-01","state":"Kedah","food_cpi":131.5},{"date":"2021-10-01","state":"Kedah","food_cpi":131.7},{"date":"2021-11-01","state":"Kedah","food_cpi":132.5},{"date":"2021-12-01","state":"Kedah","food_cpi":133.9},{"date":"2022-01-01","state":"Kedah","food_cpi":134.2},{"date":"2022-02-01","state":"Kedah","food_cpi":134.4},{"date":"2022-03-01","state":"Kedah","food_cpi":134.6},{"date":"2022-04-01","state":"Kedah","food_cpi":134.8},{"date":"2022-05-01","state":"Kedah","food_cpi":135.4},{"date":"2022-06-01","state":"Kedah","food_cpi":136.1},{"date":"2022-07-01","state":"Kedah","food_cpi":136.6},{"date":"2022-08-01","state":"Kedah","food_cpi":136.6},{"date":"2022-09-01","state":"Kedah","food_cpi":136.8},{"date":"2022-10-01","state":"Kedah","food_cpi":137.3},{"date":"2022-11-01","state":"Kedah","food_cpi":138.0},{"date":"2022-12-01","state":"Kedah","food_cpi":138.4},{"date":"2023-01-01","state":"Kedah","food_cpi":139.1},{"date":"2023-02-01","state":"Kedah","food_cpi":139.4},{"date":"2023-03-01","state":"Kedah","food_cpi":139.5},{"date":"2023-04-01","state":"Kedah","food_cpi":139.3},{"date":"2023-05-01","state":"Kedah","food_cpi":139.8},{"date":"2023-06-01","state":"Kedah","food_cpi":140.2},{"date":"2023-07-01","state":"Kedah","food_cpi":140.4},{"date":"2023-08-01","state":"Kedah","food_cpi":140.3},{"date":"2023-09-01","state":"Kedah","food_cpi":140.4},{"date":"2023-10-01","state":"Kedah","food_cpi":140.5},{"date":"2023-11-01","state":"Kedah","food_cpi":140.5},{"date":"2023-12-01","state":"Kedah","food_cpi":140.9},{"date":"2024-01-01","state":"Kedah","food_cpi":141.4},{"date":"2024-02-01","state":"Kedah","food_cpi":140.6},{"date":"2024-03-01","state":"Kedah","food_cpi":140.6},{"date":"2024-04-01","state":"Kedah","food_cpi":140.2},{"date":"2024-05-01","state":"Kedah","food_cpi":140.7},{"date":"2024-06-01","state":"Kedah","food_cpi":140.9},{"date":"2024-07-01","state":"Kedah","food_cpi":140.6},{"date":"2024-08-01","state":"Kedah","food_cpi":140.7},{"date":"2024-09-01","state":"Kedah","food_cpi":140.6},{"date":"2024-10-01","state":"Kedah","food_cpi":141.6},{"date":"2024-11-01","state":"Kedah","food_cpi":141.7},{"date":"2024-12-01","state":"Kedah","food_cpi":141.8},{"date":"2025-01-01","state":"Kedah","food_cpi":141.9},{"date":"2025-02-01","state":"Kedah","food_cpi":141.8},{"date":"2025-03-01","state":"Kedah","food_cpi":141.7},{"date":"2025-04-01","state":"Kedah","food_cpi":141.9},{"date":"2025-05-01","state":"Kedah","food_cpi":141.7},{"date":"2025-06-01","state":"Kedah","food_cpi":142.1},{"date":"2025-07-01","state":"Kedah","food_cpi":141.8},{"date":"2025-08-01","state":"Kedah","food_cpi":141.8},{"date":"2025-09-01","state":"Kedah","food_cpi":142.3},{"date":"2025-10-01","state":"Kedah","food_cpi":142.5},{"date":"2025-11-01","state":"Kedah","food_cpi":142.6},{"date":"2025-12-01","state":"Kedah","food_cpi":143.7},{"date":"2026-01-01","state":"Kedah","food_cpi":143.9},{"date":"2026-02-01","state":"Kedah","food_cpi":144.0},{"date":"2026-03-01","state":"Kedah","food_cpi":143.7},{"date":"2019-01-01","state":"Kelantan","food_cpi":131.5},{"date":"2019-02-01","state":"Kelantan","food_cpi":131.0},{"date":"2019-03-01","state":"Kelantan","food_cpi":129.6},{"date":"2019-04-01","state":"Kelantan","food_cpi":129.3},{"date":"2019-05-01","state":"Kelantan","food_cpi":130.8},{"date":"2019-06-01","state":"Kelantan","food_cpi":131.1},{"date":"2019-07-01","state":"Kelantan","food_cpi":130.9},{"date":"2019-08-01","state":"Kelantan","food_cpi":131.4},{"date":"2019-09-01","state":"Kelantan","food_cpi":130.5},{"date":"2019-10-01","state":"Kelantan","food_cpi":130.3},{"date":"2019-11-01","state":"Kelantan","food_cpi":130.1},{"date":"2019-12-01","state":"Kelantan","food_cpi":131.2},{"date":"2020-01-01","state":"Kelantan","food_cpi":131.4},{"date":"2020-02-01","state":"Kelantan","food_cpi":131.2},{"date":"2020-03-01","state":"Kelantan","food_cpi":131.1},{"date":"2020-04-01","state":"Kelantan","food_cpi":130.7},{"date":"2020-05-01","state":"Kelantan","food_cpi":131.0},{"date":"2020-06-01","state":"Kelantan","food_cpi":132.1},{"date":"2020-07-01","state":"Kelantan","food_cpi":132.4},{"date":"2020-08-01","state":"Kelantan","food_cpi":132.2},{"date":"2020-09-01","state":"Kelantan","food_cpi":132.0},{"date":"2020-10-01","state":"Kelantan","food_cpi":132.0},{"date":"2020-11-01","state":"Kelantan","food_cpi":132.1},{"date":"2020-12-01","state":"Kelantan","food_cpi":133.3},{"date":"2021-01-01","state":"Kelantan","food_cpi":133.8},{"date":"2021-02-01","state":"Kelantan","food_cpi":133.8},{"date":"2021-03-01","state":"Kelantan","food_cpi":133.4},{"date":"2021-04-01","state":"Kelantan","food_cpi":134.1},{"date":"2021-05-01","state":"Kelantan","food_cpi":134.4},{"date":"2021-06-01","state":"Kelantan","food_cpi":134.4},{"date":"2021-07-01","state":"Kelantan","food_cpi":134.1},{"date":"2021-08-01","state":"Kelantan","food_cpi":134.1},{"date":"2021-09-01","state":"Kelantan","food_cpi":134.8},{"date":"2021-10-01","state":"Kelantan","food_cpi":135.2},{"date":"2021-11-01","state":"Kelantan","food_cpi":135.7},{"date":"2021-12-01","state":"Kelantan","food_cpi":137.3},{"date":"2022-01-01","state":"Kelantan","food_cpi":137.7},{"date":"2022-02-01","state":"Kelantan","food_cpi":137.9},{"date":"2022-03-01","state":"Kelantan","food_cpi":138.4},{"date":"2022-04-01","state":"Kelantan","food_cpi":138.8},{"date":"2022-05-01","state":"Kelantan","food_cpi":140.0},{"date":"2022-06-01","state":"Kelantan","food_cpi":141.4},{"date":"2022-07-01","state":"Kelantan","food_cpi":141.5},{"date":"2022-08-01","state":"Kelantan","food_cpi":141.2},{"date":"2022-09-01","state":"Kelantan","food_cpi":141.8},{"date":"2022-10-01","state":"Kelantan","food_cpi":142.3},{"date":"2022-11-01","state":"Kelantan","food_cpi":143.0},{"date":"2022-12-01","state":"Kelantan","food_cpi":143.6},{"date":"2023-01-01","state":"Kelantan","food_cpi":144.2},{"date":"2023-02-01","state":"Kelantan","food_cpi":144.7},{"date":"2023-03-01","state":"Kelantan","food_cpi":145.0},{"date":"2023-04-01","state":"Kelantan","food_cpi":144.8},{"date":"2023-05-01","state":"Kelantan","food_cpi":145.0},{"date":"2023-06-01","state":"Kelantan","food_cpi":145.3},{"date":"2023-07-01","state":"Kelantan","food_cpi":145.6},{"date":"2023-08-01","state":"Kelantan","food_cpi":145.5},{"date":"2023-09-01","state":"Kelantan","food_cpi":145.4},{"date":"2023-10-01","state":"Kelantan","food_cpi":145.5},{"date":"2023-11-01","state":"Kelantan","food_cpi":144.8},{"date":"2023-12-01","state":"Kelantan","food_cpi":145.7},{"date":"2024-01-01","state":"Kelantan","food_cpi":146.1},{"date":"2024-02-01","state":"Kelantan","food_cpi":146.5},{"date":"2024-03-01","state":"Kelantan","food_cpi":146.2},{"date":"2024-04-01","state":"Kelantan","food_cpi":146.3},{"date":"2024-05-01","state":"Kelantan","food_cpi":146.4},{"date":"2024-06-01","state":"Kelantan","food_cpi":146.7},{"date":"2024-07-01","state":"Kelantan","food_cpi":146.2},{"date":"2024-08-01","state":"Kelantan","food_cpi":145.8},{"date":"2024-09-01","state":"Kelantan","food_cpi":145.8},{"date":"2024-10-01","state":"Kelantan","food_cpi":146.7},{"date":"2024-11-01","state":"Kelantan","food_cpi":146.2},{"date":"2024-12-01","state":"Kelantan","food_cpi":146.5},{"date":"2025-01-01","state":"Kelantan","food_cpi":146.8},{"date":"2025-02-01","state":"Kelantan","food_cpi":147.0},{"date":"2025-03-01","state":"Kelantan","food_cpi":147.0},{"date":"2025-04-01","state":"Kelantan","food_cpi":146.8},{"date":"2025-05-01","state":"Kelantan","food_cpi":146.6},{"date":"2025-06-01","state":"Kelantan","food_cpi":146.6},{"date":"2025-07-01","state":"Kelantan","food_cpi":146.0},{"date":"2025-08-01","state":"Kelantan","food_cpi":146.0},{"date":"2025-09-01","state":"Kelantan","food_cpi":146.2},{"date":"2025-10-01","state":"Kelantan","food_cpi":145.8},{"date":"2025-11-01","state":"Kelantan","food_cpi":145.8},{"date":"2025-12-01","state":"Kelantan","food_cpi":146.1},{"date":"2026-01-01","state":"Kelantan","food_cpi":146.4},{"date":"2026-02-01","state":"Kelantan","food_cpi":145.9},{"date":"2026-03-01","state":"Kelantan","food_cpi":145.9},{"date":"2019-01-01","state":"Melaka","food_cpi":136.1},{"date":"2019-02-01","state":"Melaka","food_cpi":136.1},{"date":"2019-03-01","state":"Melaka","food_cpi":135.4},{"date":"2019-04-01","state":"Melaka","food_cpi":134.8},{"date":"2019-05-01","state":"Melaka","food_cpi":135.4},{"date":"2019-06-01","state":"Melaka","food_cpi":135.3},{"date":"2019-07-01","state":"Melaka","food_cpi":135.9},{"date":"2019-08-01","state":"Melaka","food_cpi":136.2},{"date":"2019-09-01","state":"Melaka","food_cpi":135.9},{"date":"2019-10-01","state":"Melaka","food_cpi":135.8},{"date":"2019-11-01","state":"Melaka","food_cpi":135.6},{"date":"2019-12-01","state":"Melaka","food_cpi":135.9},{"date":"2020-01-01","state":"Melaka","food_cpi":136.1},{"date":"2020-02-01","state":"Melaka","food_cpi":135.9},{"date":"2020-03-01","state":"Melaka","food_cpi":136.0},{"date":"2020-04-01","state":"Melaka","food_cpi":136.2},{"date":"2020-05-01","state":"Melaka","food_cpi":136.6},{"date":"2020-06-01","state":"Melaka","food_cpi":137.3},{"date":"2020-07-01","state":"Melaka","food_cpi":137.0},{"date":"2020-08-01","state":"Melaka","food_cpi":137.1},{"date":"2020-09-01","state":"Melaka","food_cpi":136.8},{"date":"2020-10-01","state":"Melaka","food_cpi":137.0},{"date":"2020-11-01","state":"Melaka","food_cpi":136.8},{"date":"2020-12-01","state":"Melaka","food_cpi":137.6},{"date":"2021-01-01","state":"Melaka","food_cpi":138.0},{"date":"2021-02-01","state":"Melaka","food_cpi":137.3},{"date":"2021-03-01","state":"Melaka","food_cpi":137.3},{"date":"2021-04-01","state":"Melaka","food_cpi":137.9},{"date":"2021-05-01","state":"Melaka","food_cpi":137.6},{"date":"2021-06-01","state":"Melaka","food_cpi":138.0},{"date":"2021-07-01","state":"Melaka","food_cpi":138.0},{"date":"2021-08-01","state":"Melaka","food_cpi":138.5},{"date":"2021-09-01","state":"Melaka","food_cpi":139.8},{"date":"2021-10-01","state":"Melaka","food_cpi":139.8},{"date":"2021-11-01","state":"Melaka","food_cpi":140.5},{"date":"2021-12-01","state":"Melaka","food_cpi":141.0},{"date":"2022-01-01","state":"Melaka","food_cpi":142.0},{"date":"2022-02-01","state":"Melaka","food_cpi":141.9},{"date":"2022-03-01","state":"Melaka","food_cpi":142.2},{"date":"2022-04-01","state":"Melaka","food_cpi":142.5},{"date":"2022-05-01","state":"Melaka","food_cpi":143.1},{"date":"2022-06-01","state":"Melaka","food_cpi":144.7},{"date":"2022-07-01","state":"Melaka","food_cpi":146.1},{"date":"2022-08-01","state":"Melaka","food_cpi":146.1},{"date":"2022-09-01","state":"Melaka","food_cpi":146.6},{"date":"2022-10-01","state":"Melaka","food_cpi":147.6},{"date":"2022-11-01","state":"Melaka","food_cpi":148.5},{"date":"2022-12-01","state":"Melaka","food_cpi":149.3},{"date":"2023-01-01","state":"Melaka","food_cpi":150.3},{"date":"2023-02-01","state":"Melaka","food_cpi":150.9},{"date":"2023-03-01","state":"Melaka","food_cpi":151.0},{"date":"2023-04-01","state":"Melaka","food_cpi":151.0},{"date":"2023-05-01","state":"Melaka","food_cpi":151.8},{"date":"2023-06-01","state":"Melaka","food_cpi":151.9},{"date":"2023-07-01","state":"Melaka","food_cpi":152.5},{"date":"2023-08-01","state":"Melaka","food_cpi":152.6},{"date":"2023-09-01","state":"Melaka","food_cpi":152.6},{"date":"2023-10-01","state":"Melaka","food_cpi":153.0},{"date":"2023-11-01","state":"Melaka","food_cpi":151.8},{"date":"2023-12-01","state":"Melaka","food_cpi":152.2},{"date":"2024-01-01","state":"Melaka","food_cpi":152.6},{"date":"2024-02-01","state":"Melaka","food_cpi":152.6},{"date":"2024-03-01","state":"Melaka","food_cpi":152.4},{"date":"2024-04-01","state":"Melaka","food_cpi":152.4},{"date":"2024-05-01","state":"Melaka","food_cpi":152.9},{"date":"2024-06-01","state":"Melaka","food_cpi":153.4},{"date":"2024-07-01","state":"Melaka","food_cpi":153.4},{"date":"2024-08-01","state":"Melaka","food_cpi":153.1},{"date":"2024-09-01","state":"Melaka","food_cpi":153.1},{"date":"2024-10-01","state":"Melaka","food_cpi":154.6},{"date":"2024-11-01","state":"Melaka","food_cpi":154.5},{"date":"2024-12-01","state":"Melaka","food_cpi":156.0},{"date":"2025-01-01","state":"Melaka","food_cpi":156.7},{"date":"2025-02-01","state":"Melaka","food_cpi":156.8},{"date":"2025-03-01","state":"Melaka","food_cpi":156.6},{"date":"2025-04-01","state":"Melaka","food_cpi":156.3},{"date":"2025-05-01","state":"Melaka","food_cpi":156.4},{"date":"2025-06-01","state":"Melaka","food_cpi":156.5},{"date":"2025-07-01","state":"Melaka","food_cpi":156.4},{"date":"2025-08-01","state":"Melaka","food_cpi":156.7},{"date":"2025-09-01","state":"Melaka","food_cpi":157.3},{"date":"2025-10-01","state":"Melaka","food_cpi":158.1},{"date":"2025-11-01","state":"Melaka","food_cpi":158.2},{"date":"2025-12-01","state":"Melaka","food_cpi":159.3},{"date":"2026-01-01","state":"Melaka","food_cpi":159.4},{"date":"2026-02-01","state":"Melaka","food_cpi":159.0},{"date":"2026-03-01","state":"Melaka","food_cpi":158.8},{"date":"2019-01-01","state":"Negeri Sembilan","food_cpi":132.5},{"date":"2019-02-01","state":"Negeri Sembilan","food_cpi":132.7},{"date":"2019-03-01","state":"Negeri Sembilan","food_cpi":132.1},{"date":"2019-04-01","state":"Negeri Sembilan","food_cpi":132.0},{"date":"2019-05-01","state":"Negeri Sembilan","food_cpi":132.2},{"date":"2019-06-01","state":"Negeri Sembilan","food_cpi":132.1},{"date":"2019-07-01","state":"Negeri Sembilan","food_cpi":132.6},{"date":"2019-08-01","state":"Negeri Sembilan","food_cpi":132.9},{"date":"2019-09-01","state":"Negeri Sembilan","food_cpi":132.8},{"date":"2019-10-01","state":"Negeri Sembilan","food_cpi":132.7},{"date":"2019-11-01","state":"Negeri Sembilan","food_cpi":132.7},{"date":"2019-12-01","state":"Negeri Sembilan","food_cpi":132.8},{"date":"2020-01-01","state":"Negeri Sembilan","food_cpi":133.4},{"date":"2020-02-01","state":"Negeri Sembilan","food_cpi":133.6},{"date":"2020-03-01","state":"Negeri Sembilan","food_cpi":133.2},{"date":"2020-04-01","state":"Negeri Sembilan","food_cpi":133.4},{"date":"2020-05-01","state":"Negeri Sembilan","food_cpi":133.6},{"date":"2020-06-01","state":"Negeri Sembilan","food_cpi":134.3},{"date":"2020-07-01","state":"Negeri Sembilan","food_cpi":134.5},{"date":"2020-08-01","state":"Negeri Sembilan","food_cpi":134.7},{"date":"2020-09-01","state":"Negeri Sembilan","food_cpi":134.6},{"date":"2020-10-01","state":"Negeri Sembilan","food_cpi":134.8},{"date":"2020-11-01","state":"Negeri Sembilan","food_cpi":134.0},{"date":"2020-12-01","state":"Negeri Sembilan","food_cpi":135.1},{"date":"2021-01-01","state":"Negeri Sembilan","food_cpi":135.5},{"date":"2021-02-01","state":"Negeri Sembilan","food_cpi":135.2},{"date":"2021-03-01","state":"Negeri Sembilan","food_cpi":135.3},{"date":"2021-04-01","state":"Negeri Sembilan","food_cpi":135.4},{"date":"2021-05-01","state":"Negeri Sembilan","food_cpi":135.1},{"date":"2021-06-01","state":"Negeri Sembilan","food_cpi":135.4},{"date":"2021-07-01","state":"Negeri Sembilan","food_cpi":135.8},{"date":"2021-08-01","state":"Negeri Sembilan","food_cpi":136.0},{"date":"2021-09-01","state":"Negeri Sembilan","food_cpi":136.9},{"date":"2021-10-01","state":"Negeri Sembilan","food_cpi":137.4},{"date":"2021-11-01","state":"Negeri Sembilan","food_cpi":137.9},{"date":"2021-12-01","state":"Negeri Sembilan","food_cpi":138.8},{"date":"2022-01-01","state":"Negeri Sembilan","food_cpi":138.9},{"date":"2022-02-01","state":"Negeri Sembilan","food_cpi":139.3},{"date":"2022-03-01","state":"Negeri Sembilan","food_cpi":139.7},{"date":"2022-04-01","state":"Negeri Sembilan","food_cpi":140.0},{"date":"2022-05-01","state":"Negeri Sembilan","food_cpi":141.3},{"date":"2022-06-01","state":"Negeri Sembilan","food_cpi":142.9},{"date":"2022-07-01","state":"Negeri Sembilan","food_cpi":143.7},{"date":"2022-08-01","state":"Negeri Sembilan","food_cpi":144.0},{"date":"2022-09-01","state":"Negeri Sembilan","food_cpi":144.6},{"date":"2022-10-01","state":"Negeri Sembilan","food_cpi":145.0},{"date":"2022-11-01","state":"Negeri Sembilan","food_cpi":146.4},{"date":"2022-12-01","state":"Negeri Sembilan","food_cpi":147.2},{"date":"2023-01-01","state":"Negeri Sembilan","food_cpi":148.0},{"date":"2023-02-01","state":"Negeri Sembilan","food_cpi":148.8},{"date":"2023-03-01","state":"Negeri Sembilan","food_cpi":148.9},{"date":"2023-04-01","state":"Negeri Sembilan","food_cpi":148.5},{"date":"2023-05-01","state":"Negeri Sembilan","food_cpi":149.1},{"date":"2023-06-01","state":"Negeri Sembilan","food_cpi":149.2},{"date":"2023-07-01","state":"Negeri Sembilan","food_cpi":149.5},{"date":"2023-08-01","state":"Negeri Sembilan","food_cpi":149.8},{"date":"2023-09-01","state":"Negeri Sembilan","food_cpi":149.8},{"date":"2023-10-01","state":"Negeri Sembilan","food_cpi":149.9},{"date":"2023-11-01","state":"Negeri Sembilan","food_cpi":149.4},{"date":"2023-12-01","state":"Negeri Sembilan","food_cpi":149.7},{"date":"2024-01-01","state":"Negeri Sembilan","food_cpi":149.9},{"date":"2024-02-01","state":"Negeri Sembilan","food_cpi":149.7},{"date":"2024-03-01","state":"Negeri Sembilan","food_cpi":149.5},{"date":"2024-04-01","state":"Negeri Sembilan","food_cpi":149.5},{"date":"2024-05-01","state":"Negeri Sembilan","food_cpi":150.0},{"date":"2024-06-01","state":"Negeri Sembilan","food_cpi":150.6},{"date":"2024-07-01","state":"Negeri Sembilan","food_cpi":150.9},{"date":"2024-08-01","state":"Negeri Sembilan","food_cpi":151.4},{"date":"2024-09-01","state":"Negeri Sembilan","food_cpi":151.2},{"date":"2024-10-01","state":"Negeri Sembilan","food_cpi":152.7},{"date":"2024-11-01","state":"Negeri Sembilan","food_cpi":152.5},{"date":"2024-12-01","state":"Negeri Sembilan","food_cpi":153.6},{"date":"2025-01-01","state":"Negeri Sembilan","food_cpi":153.9},{"date":"2025-02-01","state":"Negeri Sembilan","food_cpi":154.3},{"date":"2025-03-01","state":"Negeri Sembilan","food_cpi":154.6},{"date":"2025-04-01","state":"Negeri Sembilan","food_cpi":154.4},{"date":"2025-05-01","state":"Negeri Sembilan","food_cpi":155.1},{"date":"2025-06-01","state":"Negeri Sembilan","food_cpi":155.6},{"date":"2025-07-01","state":"Negeri Sembilan","food_cpi":155.9},{"date":"2025-08-01","state":"Negeri Sembilan","food_cpi":155.9},{"date":"2025-09-01","state":"Negeri Sembilan","food_cpi":156.3},{"date":"2025-10-01","state":"Negeri Sembilan","food_cpi":156.7},{"date":"2025-11-01","state":"Negeri Sembilan","food_cpi":157.5},{"date":"2025-12-01","state":"Negeri Sembilan","food_cpi":158.8},{"date":"2026-01-01","state":"Negeri Sembilan","food_cpi":158.9},{"date":"2026-02-01","state":"Negeri Sembilan","food_cpi":158.9},{"date":"2026-03-01","state":"Negeri Sembilan","food_cpi":158.7},{"date":"2019-01-01","state":"Pahang","food_cpi":132.0},{"date":"2019-02-01","state":"Pahang","food_cpi":132.0},{"date":"2019-03-01","state":"Pahang","food_cpi":131.2},{"date":"2019-04-01","state":"Pahang","food_cpi":130.8},{"date":"2019-05-01","state":"Pahang","food_cpi":131.4},{"date":"2019-06-01","state":"Pahang","food_cpi":130.9},{"date":"2019-07-01","state":"Pahang","food_cpi":131.7},{"date":"2019-08-01","state":"Pahang","food_cpi":132.1},{"date":"2019-09-01","state":"Pahang","food_cpi":131.7},{"date":"2019-10-01","state":"Pahang","food_cpi":131.4},{"date":"2019-11-01","state":"Pahang","food_cpi":131.3},{"date":"2019-12-01","state":"Pahang","food_cpi":132.0},{"date":"2020-01-01","state":"Pahang","food_cpi":132.2},{"date":"2020-02-01","state":"Pahang","food_cpi":132.6},{"date":"2020-03-01","state":"Pahang","food_cpi":132.4},{"date":"2020-04-01","state":"Pahang","food_cpi":132.2},{"date":"2020-05-01","state":"Pahang","food_cpi":132.7},{"date":"2020-06-01","state":"Pahang","food_cpi":134.1},{"date":"2020-07-01","state":"Pahang","food_cpi":134.0},{"date":"2020-08-01","state":"Pahang","food_cpi":133.9},{"date":"2020-09-01","state":"Pahang","food_cpi":133.6},{"date":"2020-10-01","state":"Pahang","food_cpi":133.8},{"date":"2020-11-01","state":"Pahang","food_cpi":133.1},{"date":"2020-12-01","state":"Pahang","food_cpi":135.0},{"date":"2021-01-01","state":"Pahang","food_cpi":135.4},{"date":"2021-02-01","state":"Pahang","food_cpi":134.7},{"date":"2021-03-01","state":"Pahang","food_cpi":134.9},{"date":"2021-04-01","state":"Pahang","food_cpi":136.2},{"date":"2021-05-01","state":"Pahang","food_cpi":135.2},{"date":"2021-06-01","state":"Pahang","food_cpi":135.8},{"date":"2021-07-01","state":"Pahang","food_cpi":135.8},{"date":"2021-08-01","state":"Pahang","food_cpi":135.7},{"date":"2021-09-01","state":"Pahang","food_cpi":137.2},{"date":"2021-10-01","state":"Pahang","food_cpi":137.2},{"date":"2021-11-01","state":"Pahang","food_cpi":137.7},{"date":"2021-12-01","state":"Pahang","food_cpi":139.3},{"date":"2022-01-01","state":"Pahang","food_cpi":139.3},{"date":"2022-02-01","state":"Pahang","food_cpi":139.1},{"date":"2022-03-01","state":"Pahang","food_cpi":139.8},{"date":"2022-04-01","state":"Pahang","food_cpi":140.0},{"date":"2022-05-01","state":"Pahang","food_cpi":141.1},{"date":"2022-06-01","state":"Pahang","food_cpi":142.7},{"date":"2022-07-01","state":"Pahang","food_cpi":143.8},{"date":"2022-08-01","state":"Pahang","food_cpi":144.5},{"date":"2022-09-01","state":"Pahang","food_cpi":145.1},{"date":"2022-10-01","state":"Pahang","food_cpi":145.7},{"date":"2022-11-01","state":"Pahang","food_cpi":147.1},{"date":"2022-12-01","state":"Pahang","food_cpi":147.7},{"date":"2023-01-01","state":"Pahang","food_cpi":148.5},{"date":"2023-02-01","state":"Pahang","food_cpi":149.4},{"date":"2023-03-01","state":"Pahang","food_cpi":149.5},{"date":"2023-04-01","state":"Pahang","food_cpi":149.0},{"date":"2023-05-01","state":"Pahang","food_cpi":149.6},{"date":"2023-06-01","state":"Pahang","food_cpi":150.4},{"date":"2023-07-01","state":"Pahang","food_cpi":150.7},{"date":"2023-08-01","state":"Pahang","food_cpi":150.4},{"date":"2023-09-01","state":"Pahang","food_cpi":150.2},{"date":"2023-10-01","state":"Pahang","food_cpi":150.4},{"date":"2023-11-01","state":"Pahang","food_cpi":150.4},{"date":"2023-12-01","state":"Pahang","food_cpi":151.2},{"date":"2024-01-01","state":"Pahang","food_cpi":153.0},{"date":"2024-02-01","state":"Pahang","food_cpi":152.5},{"date":"2024-03-01","state":"Pahang","food_cpi":151.6},{"date":"2024-04-01","state":"Pahang","food_cpi":151.6},{"date":"2024-05-01","state":"Pahang","food_cpi":152.3},{"date":"2024-06-01","state":"Pahang","food_cpi":153.1},{"date":"2024-07-01","state":"Pahang","food_cpi":153.1},{"date":"2024-08-01","state":"Pahang","food_cpi":153.3},{"date":"2024-09-01","state":"Pahang","food_cpi":153.5},{"date":"2024-10-01","state":"Pahang","food_cpi":153.9},{"date":"2024-11-01","state":"Pahang","food_cpi":153.7},{"date":"2024-12-01","state":"Pahang","food_cpi":154.4},{"date":"2025-01-01","state":"Pahang","food_cpi":155.0},{"date":"2025-02-01","state":"Pahang","food_cpi":155.1},{"date":"2025-03-01","state":"Pahang","food_cpi":155.2},{"date":"2025-04-01","state":"Pahang","food_cpi":154.8},{"date":"2025-05-01","state":"Pahang","food_cpi":155.1},{"date":"2025-06-01","state":"Pahang","food_cpi":156.0},{"date":"2025-07-01","state":"Pahang","food_cpi":156.4},{"date":"2025-08-01","state":"Pahang","food_cpi":156.3},{"date":"2025-09-01","state":"Pahang","food_cpi":156.6},{"date":"2025-10-01","state":"Pahang","food_cpi":157.1},{"date":"2025-11-01","state":"Pahang","food_cpi":157.2},{"date":"2025-12-01","state":"Pahang","food_cpi":158.5},{"date":"2026-01-01","state":"Pahang","food_cpi":159.0},{"date":"2026-02-01","state":"Pahang","food_cpi":158.6},{"date":"2026-03-01","state":"Pahang","food_cpi":158.4},{"date":"2019-01-01","state":"Perak","food_cpi":126.0},{"date":"2019-02-01","state":"Perak","food_cpi":126.4},{"date":"2019-03-01","state":"Perak","food_cpi":125.9},{"date":"2019-04-01","state":"Perak","food_cpi":125.5},{"date":"2019-05-01","state":"Perak","food_cpi":125.8},{"date":"2019-06-01","state":"Perak","food_cpi":125.8},{"date":"2019-07-01","state":"Perak","food_cpi":126.4},{"date":"2019-08-01","state":"Perak","food_cpi":126.8},{"date":"2019-09-01","state":"Perak","food_cpi":126.5},{"date":"2019-10-01","state":"Perak","food_cpi":126.3},{"date":"2019-11-01","state":"Perak","food_cpi":126.4},{"date":"2019-12-01","state":"Perak","food_cpi":126.7},{"date":"2020-01-01","state":"Perak","food_cpi":127.3},{"date":"2020-02-01","state":"Perak","food_cpi":127.5},{"date":"2020-03-01","state":"Perak","food_cpi":127.2},{"date":"2020-04-01","state":"Perak","food_cpi":127.8},{"date":"2020-05-01","state":"Perak","food_cpi":128.1},{"date":"2020-06-01","state":"Perak","food_cpi":128.6},{"date":"2020-07-01","state":"Perak","food_cpi":128.5},{"date":"2020-08-01","state":"Perak","food_cpi":128.6},{"date":"2020-09-01","state":"Perak","food_cpi":128.4},{"date":"2020-10-01","state":"Perak","food_cpi":128.5},{"date":"2020-11-01","state":"Perak","food_cpi":128.2},{"date":"2020-12-01","state":"Perak","food_cpi":129.2},{"date":"2021-01-01","state":"Perak","food_cpi":129.4},{"date":"2021-02-01","state":"Perak","food_cpi":129.4},{"date":"2021-03-01","state":"Perak","food_cpi":129.3},{"date":"2021-04-01","state":"Perak","food_cpi":129.6},{"date":"2021-05-01","state":"Perak","food_cpi":129.4},{"date":"2021-06-01","state":"Perak","food_cpi":129.9},{"date":"2021-07-01","state":"Perak","food_cpi":130.2},{"date":"2021-08-01","state":"Perak","food_cpi":130.2},{"date":"2021-09-01","state":"Perak","food_cpi":131.5},{"date":"2021-10-01","state":"Perak","food_cpi":131.6},{"date":"2021-11-01","state":"Perak","food_cpi":132.1},{"date":"2021-12-01","state":"Perak","food_cpi":133.4},{"date":"2022-01-01","state":"Perak","food_cpi":134.0},{"date":"2022-02-01","state":"Perak","food_cpi":134.0},{"date":"2022-03-01","state":"Perak","food_cpi":134.6},{"date":"2022-04-01","state":"Perak","food_cpi":135.0},{"date":"2022-05-01","state":"Perak","food_cpi":136.1},{"date":"2022-06-01","state":"Perak","food_cpi":137.6},{"date":"2022-07-01","state":"Perak","food_cpi":138.4},{"date":"2022-08-01","state":"Perak","food_cpi":139.0},{"date":"2022-09-01","state":"Perak","food_cpi":139.3},{"date":"2022-10-01","state":"Perak","food_cpi":139.9},{"date":"2022-11-01","state":"Perak","food_cpi":140.9},{"date":"2022-12-01","state":"Perak","food_cpi":141.6},{"date":"2023-01-01","state":"Perak","food_cpi":142.5},{"date":"2023-02-01","state":"Perak","food_cpi":143.4},{"date":"2023-03-01","state":"Perak","food_cpi":143.7},{"date":"2023-04-01","state":"Perak","food_cpi":143.5},{"date":"2023-05-01","state":"Perak","food_cpi":144.1},{"date":"2023-06-01","state":"Perak","food_cpi":144.1},{"date":"2023-07-01","state":"Perak","food_cpi":144.6},{"date":"2023-08-01","state":"Perak","food_cpi":144.6},{"date":"2023-09-01","state":"Perak","food_cpi":144.6},{"date":"2023-10-01","state":"Perak","food_cpi":144.6},{"date":"2023-11-01","state":"Perak","food_cpi":144.4},{"date":"2023-12-01","state":"Perak","food_cpi":144.7},{"date":"2024-01-01","state":"Perak","food_cpi":144.3},{"date":"2024-02-01","state":"Perak","food_cpi":144.7},{"date":"2024-03-01","state":"Perak","food_cpi":144.5},{"date":"2024-04-01","state":"Perak","food_cpi":144.3},{"date":"2024-05-01","state":"Perak","food_cpi":144.7},{"date":"2024-06-01","state":"Perak","food_cpi":144.8},{"date":"2024-07-01","state":"Perak","food_cpi":144.5},{"date":"2024-08-01","state":"Perak","food_cpi":144.5},{"date":"2024-09-01","state":"Perak","food_cpi":144.8},{"date":"2024-10-01","state":"Perak","food_cpi":145.9},{"date":"2024-11-01","state":"Perak","food_cpi":145.9},{"date":"2024-12-01","state":"Perak","food_cpi":146.6},{"date":"2025-01-01","state":"Perak","food_cpi":146.4},{"date":"2025-02-01","state":"Perak","food_cpi":146.6},{"date":"2025-03-01","state":"Perak","food_cpi":146.7},{"date":"2025-04-01","state":"Perak","food_cpi":146.3},{"date":"2025-05-01","state":"Perak","food_cpi":146.1},{"date":"2025-06-01","state":"Perak","food_cpi":146.0},{"date":"2025-07-01","state":"Perak","food_cpi":146.1},{"date":"2025-08-01","state":"Perak","food_cpi":146.2},{"date":"2025-09-01","state":"Perak","food_cpi":146.5},{"date":"2025-10-01","state":"Perak","food_cpi":146.6},{"date":"2025-11-01","state":"Perak","food_cpi":146.6},{"date":"2025-12-01","state":"Perak","food_cpi":148.1},{"date":"2026-01-01","state":"Perak","food_cpi":148.3},{"date":"2026-02-01","state":"Perak","food_cpi":148.1},{"date":"2026-03-01","state":"Perak","food_cpi":147.7},{"date":"2019-01-01","state":"Perlis","food_cpi":122.8},{"date":"2019-02-01","state":"Perlis","food_cpi":122.9},{"date":"2019-03-01","state":"Perlis","food_cpi":122.0},{"date":"2019-04-01","state":"Perlis","food_cpi":121.4},{"date":"2019-05-01","state":"Perlis","food_cpi":121.9},{"date":"2019-06-01","state":"Perlis","food_cpi":121.9},{"date":"2019-07-01","state":"Perlis","food_cpi":122.0},{"date":"2019-08-01","state":"Perlis","food_cpi":122.7},{"date":"2019-09-01","state":"Perlis","food_cpi":122.2},{"date":"2019-10-01","state":"Perlis","food_cpi":122.0},{"date":"2019-11-01","state":"Perlis","food_cpi":121.8},{"date":"2019-12-01","state":"Perlis","food_cpi":122.9},{"date":"2020-01-01","state":"Perlis","food_cpi":122.9},{"date":"2020-02-01","state":"Perlis","food_cpi":122.6},{"date":"2020-03-01","state":"Perlis","food_cpi":121.9},{"date":"2020-04-01","state":"Perlis","food_cpi":122.3},{"date":"2020-05-01","state":"Perlis","food_cpi":122.5},{"date":"2020-06-01","state":"Perlis","food_cpi":123.9},{"date":"2020-07-01","state":"Perlis","food_cpi":123.1},{"date":"2020-08-01","state":"Perlis","food_cpi":123.3},{"date":"2020-09-01","state":"Perlis","food_cpi":122.9},{"date":"2020-10-01","state":"Perlis","food_cpi":122.9},{"date":"2020-11-01","state":"Perlis","food_cpi":122.4},{"date":"2020-12-01","state":"Perlis","food_cpi":123.7},{"date":"2021-01-01","state":"Perlis","food_cpi":124.2},{"date":"2021-02-01","state":"Perlis","food_cpi":124.0},{"date":"2021-03-01","state":"Perlis","food_cpi":123.3},{"date":"2021-04-01","state":"Perlis","food_cpi":123.1},{"date":"2021-05-01","state":"Perlis","food_cpi":123.3},{"date":"2021-06-01","state":"Perlis","food_cpi":123.5},{"date":"2021-07-01","state":"Perlis","food_cpi":124.1},{"date":"2021-08-01","state":"Perlis","food_cpi":124.2},{"date":"2021-09-01","state":"Perlis","food_cpi":125.6},{"date":"2021-10-01","state":"Perlis","food_cpi":125.4},{"date":"2021-11-01","state":"Perlis","food_cpi":126.4},{"date":"2021-12-01","state":"Perlis","food_cpi":128.0},{"date":"2022-01-01","state":"Perlis","food_cpi":128.1},{"date":"2022-02-01","state":"Perlis","food_cpi":128.7},{"date":"2022-03-01","state":"Perlis","food_cpi":129.0},{"date":"2022-04-01","state":"Perlis","food_cpi":129.4},{"date":"2022-05-01","state":"Perlis","food_cpi":129.7},{"date":"2022-06-01","state":"Perlis","food_cpi":131.0},{"date":"2022-07-01","state":"Perlis","food_cpi":131.0},{"date":"2022-08-01","state":"Perlis","food_cpi":130.6},{"date":"2022-09-01","state":"Perlis","food_cpi":131.3},{"date":"2022-10-01","state":"Perlis","food_cpi":133.1},{"date":"2022-11-01","state":"Perlis","food_cpi":133.1},{"date":"2022-12-01","state":"Perlis","food_cpi":133.4},{"date":"2023-01-01","state":"Perlis","food_cpi":134.0},{"date":"2023-02-01","state":"Perlis","food_cpi":134.2},{"date":"2023-03-01","state":"Perlis","food_cpi":134.3},{"date":"2023-04-01","state":"Perlis","food_cpi":134.5},{"date":"2023-05-01","state":"Perlis","food_cpi":134.7},{"date":"2023-06-01","state":"Perlis","food_cpi":135.0},{"date":"2023-07-01","state":"Perlis","food_cpi":135.5},{"date":"2023-08-01","state":"Perlis","food_cpi":136.7},{"date":"2023-09-01","state":"Perlis","food_cpi":136.2},{"date":"2023-10-01","state":"Perlis","food_cpi":136.5},{"date":"2023-11-01","state":"Perlis","food_cpi":136.0},{"date":"2023-12-01","state":"Perlis","food_cpi":136.5},{"date":"2024-01-01","state":"Perlis","food_cpi":136.6},{"date":"2024-02-01","state":"Perlis","food_cpi":137.1},{"date":"2024-03-01","state":"Perlis","food_cpi":137.1},{"date":"2024-04-01","state":"Perlis","food_cpi":136.8},{"date":"2024-05-01","state":"Perlis","food_cpi":137.4},{"date":"2024-06-01","state":"Perlis","food_cpi":137.8},{"date":"2024-07-01","state":"Perlis","food_cpi":137.6},{"date":"2024-08-01","state":"Perlis","food_cpi":137.6},{"date":"2024-09-01","state":"Perlis","food_cpi":137.3},{"date":"2024-10-01","state":"Perlis","food_cpi":138.7},{"date":"2024-11-01","state":"Perlis","food_cpi":138.8},{"date":"2024-12-01","state":"Perlis","food_cpi":139.0},{"date":"2025-01-01","state":"Perlis","food_cpi":139.1},{"date":"2025-02-01","state":"Perlis","food_cpi":139.0},{"date":"2025-03-01","state":"Perlis","food_cpi":139.2},{"date":"2025-04-01","state":"Perlis","food_cpi":139.2},{"date":"2025-05-01","state":"Perlis","food_cpi":139.7},{"date":"2025-06-01","state":"Perlis","food_cpi":139.5},{"date":"2025-07-01","state":"Perlis","food_cpi":139.3},{"date":"2025-08-01","state":"Perlis","food_cpi":139.2},{"date":"2025-09-01","state":"Perlis","food_cpi":140.0},{"date":"2025-10-01","state":"Perlis","food_cpi":140.2},{"date":"2025-11-01","state":"Perlis","food_cpi":139.9},{"date":"2025-12-01","state":"Perlis","food_cpi":140.2},{"date":"2026-01-01","state":"Perlis","food_cpi":140.7},{"date":"2026-02-01","state":"Perlis","food_cpi":140.4},{"date":"2026-03-01","state":"Perlis","food_cpi":140.4},{"date":"2019-01-01","state":"Pulau Pinang","food_cpi":137.5},{"date":"2019-02-01","state":"Pulau Pinang","food_cpi":137.9},{"date":"2019-03-01","state":"Pulau Pinang","food_cpi":137.5},{"date":"2019-04-01","state":"Pulau Pinang","food_cpi":137.4},{"date":"2019-05-01","state":"Pulau Pinang","food_cpi":137.3},{"date":"2019-06-01","state":"Pulau Pinang","food_cpi":137.3},{"date":"2019-07-01","state":"Pulau Pinang","food_cpi":138.1},{"date":"2019-08-01","state":"Pulau Pinang","food_cpi":138.6},{"date":"2019-09-01","state":"Pulau Pinang","food_cpi":138.4},{"date":"2019-10-01","state":"Pulau Pinang","food_cpi":138.3},{"date":"2019-11-01","state":"Pulau Pinang","food_cpi":138.5},{"date":"2019-12-01","state":"Pulau Pinang","food_cpi":138.7},{"date":"2020-01-01","state":"Pulau Pinang","food_cpi":139.0},{"date":"2020-02-01","state":"Pulau Pinang","food_cpi":139.3},{"date":"2020-03-01","state":"Pulau Pinang","food_cpi":139.2},{"date":"2020-04-01","state":"Pulau Pinang","food_cpi":139.5},{"date":"2020-05-01","state":"Pulau Pinang","food_cpi":139.7},{"date":"2020-06-01","state":"Pulau Pinang","food_cpi":139.9},{"date":"2020-07-01","state":"Pulau Pinang","food_cpi":139.9},{"date":"2020-08-01","state":"Pulau Pinang","food_cpi":140.1},{"date":"2020-09-01","state":"Pulau Pinang","food_cpi":139.8},{"date":"2020-10-01","state":"Pulau Pinang","food_cpi":140.1},{"date":"2020-11-01","state":"Pulau Pinang","food_cpi":139.9},{"date":"2020-12-01","state":"Pulau Pinang","food_cpi":140.7},{"date":"2021-01-01","state":"Pulau Pinang","food_cpi":140.9},{"date":"2021-02-01","state":"Pulau Pinang","food_cpi":140.8},{"date":"2021-03-01","state":"Pulau Pinang","food_cpi":140.7},{"date":"2021-04-01","state":"Pulau Pinang","food_cpi":140.9},{"date":"2021-05-01","state":"Pulau Pinang","food_cpi":140.3},{"date":"2021-06-01","state":"Pulau Pinang","food_cpi":140.5},{"date":"2021-07-01","state":"Pulau Pinang","food_cpi":140.6},{"date":"2021-08-01","state":"Pulau Pinang","food_cpi":140.7},{"date":"2021-09-01","state":"Pulau Pinang","food_cpi":141.2},{"date":"2021-10-01","state":"Pulau Pinang","food_cpi":141.5},{"date":"2021-11-01","state":"Pulau Pinang","food_cpi":143.2},{"date":"2021-12-01","state":"Pulau Pinang","food_cpi":144.9},{"date":"2022-01-01","state":"Pulau Pinang","food_cpi":145.6},{"date":"2022-02-01","state":"Pulau Pinang","food_cpi":145.9},{"date":"2022-03-01","state":"Pulau Pinang","food_cpi":146.7},{"date":"2022-04-01","state":"Pulau Pinang","food_cpi":147.1},{"date":"2022-05-01","state":"Pulau Pinang","food_cpi":148.4},{"date":"2022-06-01","state":"Pulau Pinang","food_cpi":150.1},{"date":"2022-07-01","state":"Pulau Pinang","food_cpi":151.4},{"date":"2022-08-01","state":"Pulau Pinang","food_cpi":151.4},{"date":"2022-09-01","state":"Pulau Pinang","food_cpi":151.8},{"date":"2022-10-01","state":"Pulau Pinang","food_cpi":152.3},{"date":"2022-11-01","state":"Pulau Pinang","food_cpi":153.3},{"date":"2022-12-01","state":"Pulau Pinang","food_cpi":154.3},{"date":"2023-01-01","state":"Pulau Pinang","food_cpi":155.7},{"date":"2023-02-01","state":"Pulau Pinang","food_cpi":155.9},{"date":"2023-03-01","state":"Pulau Pinang","food_cpi":156.0},{"date":"2023-04-01","state":"Pulau Pinang","food_cpi":156.0},{"date":"2023-05-01","state":"Pulau Pinang","food_cpi":156.9},{"date":"2023-06-01","state":"Pulau Pinang","food_cpi":156.9},{"date":"2023-07-01","state":"Pulau Pinang","food_cpi":157.5},{"date":"2023-08-01","state":"Pulau Pinang","food_cpi":157.7},{"date":"2023-09-01","state":"Pulau Pinang","food_cpi":158.6},{"date":"2023-10-01","state":"Pulau Pinang","food_cpi":159.2},{"date":"2023-11-01","state":"Pulau Pinang","food_cpi":158.9},{"date":"2023-12-01","state":"Pulau Pinang","food_cpi":159.4},{"date":"2024-01-01","state":"Pulau Pinang","food_cpi":159.9},{"date":"2024-02-01","state":"Pulau Pinang","food_cpi":159.8},{"date":"2024-03-01","state":"Pulau Pinang","food_cpi":160.4},{"date":"2024-04-01","state":"Pulau Pinang","food_cpi":160.9},{"date":"2024-05-01","state":"Pulau Pinang","food_cpi":161.1},{"date":"2024-06-01","state":"Pulau Pinang","food_cpi":161.4},{"date":"2024-07-01","state":"Pulau Pinang","food_cpi":161.9},{"date":"2024-08-01","state":"Pulau Pinang","food_cpi":161.9},{"date":"2024-09-01","state":"Pulau Pinang","food_cpi":161.8},{"date":"2024-10-01","state":"Pulau Pinang","food_cpi":163.1},{"date":"2024-11-01","state":"Pulau Pinang","food_cpi":163.1},{"date":"2024-12-01","state":"Pulau Pinang","food_cpi":163.4},{"date":"2025-01-01","state":"Pulau Pinang","food_cpi":163.6},{"date":"2025-02-01","state":"Pulau Pinang","food_cpi":163.4},{"date":"2025-03-01","state":"Pulau Pinang","food_cpi":163.6},{"date":"2025-04-01","state":"Pulau Pinang","food_cpi":163.9},{"date":"2025-05-01","state":"Pulau Pinang","food_cpi":163.8},{"date":"2025-06-01","state":"Pulau Pinang","food_cpi":164.3},{"date":"2025-07-01","state":"Pulau Pinang","food_cpi":164.2},{"date":"2025-08-01","state":"Pulau Pinang","food_cpi":164.3},{"date":"2025-09-01","state":"Pulau Pinang","food_cpi":164.6},{"date":"2025-10-01","state":"Pulau Pinang","food_cpi":164.8},{"date":"2025-11-01","state":"Pulau Pinang","food_cpi":164.8},{"date":"2025-12-01","state":"Pulau Pinang","food_cpi":165.6},{"date":"2026-01-01","state":"Pulau Pinang","food_cpi":165.9},{"date":"2026-02-01","state":"Pulau Pinang","food_cpi":166.1},{"date":"2026-03-01","state":"Pulau Pinang","food_cpi":166.2},{"date":"2019-01-01","state":"Sabah","food_cpi":123.0},{"date":"2019-02-01","state":"Sabah","food_cpi":123.0},{"date":"2019-03-01","state":"Sabah","food_cpi":123.0},{"date":"2019-04-01","state":"Sabah","food_cpi":122.7},{"date":"2019-05-01","state":"Sabah","food_cpi":122.5},{"date":"2019-06-01","state":"Sabah","food_cpi":122.6},{"date":"2019-07-01","state":"Sabah","food_cpi":122.6},{"date":"2019-08-01","state":"Sabah","food_cpi":122.9},{"date":"2019-09-01","state":"Sabah","food_cpi":122.9},{"date":"2019-10-01","state":"Sabah","food_cpi":123.0},{"date":"2019-11-01","state":"Sabah","food_cpi":123.6},{"date":"2019-12-01","state":"Sabah","food_cpi":123.8},{"date":"2020-01-01","state":"Sabah","food_cpi":124.1},{"date":"2020-02-01","state":"Sabah","food_cpi":123.9},{"date":"2020-03-01","state":"Sabah","food_cpi":123.4},{"date":"2020-04-01","state":"Sabah","food_cpi":122.7},{"date":"2020-05-01","state":"Sabah","food_cpi":122.9},{"date":"2020-06-01","state":"Sabah","food_cpi":122.8},{"date":"2020-07-01","state":"Sabah","food_cpi":123.0},{"date":"2020-08-01","state":"Sabah","food_cpi":123.2},{"date":"2020-09-01","state":"Sabah","food_cpi":123.2},{"date":"2020-10-01","state":"Sabah","food_cpi":123.2},{"date":"2020-11-01","state":"Sabah","food_cpi":123.2},{"date":"2020-12-01","state":"Sabah","food_cpi":123.3},{"date":"2021-01-01","state":"Sabah","food_cpi":123.5},{"date":"2021-02-01","state":"Sabah","food_cpi":123.6},{"date":"2021-03-01","state":"Sabah","food_cpi":123.8},{"date":"2021-04-01","state":"Sabah","food_cpi":123.9},{"date":"2021-05-01","state":"Sabah","food_cpi":123.5},{"date":"2021-06-01","state":"Sabah","food_cpi":123.9},{"date":"2021-07-01","state":"Sabah","food_cpi":123.9},{"date":"2021-08-01","state":"Sabah","food_cpi":124.0},{"date":"2021-09-01","state":"Sabah","food_cpi":124.1},{"date":"2021-10-01","state":"Sabah","food_cpi":124.3},{"date":"2021-11-01","state":"Sabah","food_cpi":124.5},{"date":"2021-12-01","state":"Sabah","food_cpi":125.1},{"date":"2022-01-01","state":"Sabah","food_cpi":126.7},{"date":"2022-02-01","state":"Sabah","food_cpi":127.3},{"date":"2022-03-01","state":"Sabah","food_cpi":126.8},{"date":"2022-04-01","state":"Sabah","food_cpi":127.2},{"date":"2022-05-01","state":"Sabah","food_cpi":128.3},{"date":"2022-06-01","state":"Sabah","food_cpi":129.7},{"date":"2022-07-01","state":"Sabah","food_cpi":131.7},{"date":"2022-08-01","state":"Sabah","food_cpi":132.2},{"date":"2022-09-01","state":"Sabah","food_cpi":132.4},{"date":"2022-10-01","state":"Sabah","food_cpi":133.2},{"date":"2022-11-01","state":"Sabah","food_cpi":133.7},{"date":"2022-12-01","state":"Sabah","food_cpi":134.3},{"date":"2023-01-01","state":"Sabah","food_cpi":134.8},{"date":"2023-02-01","state":"Sabah","food_cpi":135.2},{"date":"2023-03-01","state":"Sabah","food_cpi":135.4},{"date":"2023-04-01","state":"Sabah","food_cpi":135.1},{"date":"2023-05-01","state":"Sabah","food_cpi":135.3},{"date":"2023-06-01","state":"Sabah","food_cpi":135.1},{"date":"2023-07-01","state":"Sabah","food_cpi":135.6},{"date":"2023-08-01","state":"Sabah","food_cpi":136.0},{"date":"2023-09-01","state":"Sabah","food_cpi":136.4},{"date":"2023-10-01","state":"Sabah","food_cpi":136.4},{"date":"2023-11-01","state":"Sabah","food_cpi":135.7},{"date":"2023-12-01","state":"Sabah","food_cpi":135.8},{"date":"2024-01-01","state":"Sabah","food_cpi":136.4},{"date":"2024-02-01","state":"Sabah","food_cpi":136.8},{"date":"2024-03-01","state":"Sabah","food_cpi":136.7},{"date":"2024-04-01","state":"Sabah","food_cpi":137.3},{"date":"2024-05-01","state":"Sabah","food_cpi":137.3},{"date":"2024-06-01","state":"Sabah","food_cpi":137.5},{"date":"2024-07-01","state":"Sabah","food_cpi":137.9},{"date":"2024-08-01","state":"Sabah","food_cpi":137.9},{"date":"2024-09-01","state":"Sabah","food_cpi":138.2},{"date":"2024-10-01","state":"Sabah","food_cpi":138.6},{"date":"2024-11-01","state":"Sabah","food_cpi":138.7},{"date":"2024-12-01","state":"Sabah","food_cpi":138.9},{"date":"2025-01-01","state":"Sabah","food_cpi":139.4},{"date":"2025-02-01","state":"Sabah","food_cpi":140.4},{"date":"2025-03-01","state":"Sabah","food_cpi":140.7},{"date":"2025-04-01","state":"Sabah","food_cpi":141.0},{"date":"2025-05-01","state":"Sabah","food_cpi":140.2},{"date":"2025-06-01","state":"Sabah","food_cpi":140.1},{"date":"2025-07-01","state":"Sabah","food_cpi":140.3},{"date":"2025-08-01","state":"Sabah","food_cpi":140.3},{"date":"2025-09-01","state":"Sabah","food_cpi":140.8},{"date":"2025-10-01","state":"Sabah","food_cpi":140.6},{"date":"2025-11-01","state":"Sabah","food_cpi":140.3},{"date":"2025-12-01","state":"Sabah","food_cpi":140.4},{"date":"2026-01-01","state":"Sabah","food_cpi":140.4},{"date":"2026-02-01","state":"Sabah","food_cpi":141.0},{"date":"2026-03-01","state":"Sabah","food_cpi":141.3},{"date":"2019-01-01","state":"Sarawak","food_cpi":127.2},{"date":"2019-02-01","state":"Sarawak","food_cpi":127.5},{"date":"2019-03-01","state":"Sarawak","food_cpi":127.7},{"date":"2019-04-01","state":"Sarawak","food_cpi":127.7},{"date":"2019-05-01","state":"Sarawak","food_cpi":127.8},{"date":"2019-06-01","state":"Sarawak","food_cpi":127.7},{"date":"2019-07-01","state":"Sarawak","food_cpi":127.7},{"date":"2019-08-01","state":"Sarawak","food_cpi":127.7},{"date":"2019-09-01","state":"Sarawak","food_cpi":127.8},{"date":"2019-10-01","state":"Sarawak","food_cpi":127.8},{"date":"2019-11-01","state":"Sarawak","food_cpi":127.9},{"date":"2019-12-01","state":"Sarawak","food_cpi":128.0},{"date":"2020-01-01","state":"Sarawak","food_cpi":128.4},{"date":"2020-02-01","state":"Sarawak","food_cpi":128.5},{"date":"2020-03-01","state":"Sarawak","food_cpi":128.5},{"date":"2020-04-01","state":"Sarawak","food_cpi":128.3},{"date":"2020-05-01","state":"Sarawak","food_cpi":128.3},{"date":"2020-06-01","state":"Sarawak","food_cpi":128.3},{"date":"2020-07-01","state":"Sarawak","food_cpi":128.4},{"date":"2020-08-01","state":"Sarawak","food_cpi":128.4},{"date":"2020-09-01","state":"Sarawak","food_cpi":128.4},{"date":"2020-10-01","state":"Sarawak","food_cpi":128.7},{"date":"2020-11-01","state":"Sarawak","food_cpi":128.9},{"date":"2020-12-01","state":"Sarawak","food_cpi":129.2},{"date":"2021-01-01","state":"Sarawak","food_cpi":129.4},{"date":"2021-02-01","state":"Sarawak","food_cpi":129.7},{"date":"2021-03-01","state":"Sarawak","food_cpi":129.8},{"date":"2021-04-01","state":"Sarawak","food_cpi":129.6},{"date":"2021-05-01","state":"Sarawak","food_cpi":129.5},{"date":"2021-06-01","state":"Sarawak","food_cpi":129.6},{"date":"2021-07-01","state":"Sarawak","food_cpi":129.7},{"date":"2021-08-01","state":"Sarawak","food_cpi":129.8},{"date":"2021-09-01","state":"Sarawak","food_cpi":130.0},{"date":"2021-10-01","state":"Sarawak","food_cpi":130.2},{"date":"2021-11-01","state":"Sarawak","food_cpi":130.5},{"date":"2021-12-01","state":"Sarawak","food_cpi":131.4},{"date":"2022-01-01","state":"Sarawak","food_cpi":132.2},{"date":"2022-02-01","state":"Sarawak","food_cpi":133.2},{"date":"2022-03-01","state":"Sarawak","food_cpi":133.6},{"date":"2022-04-01","state":"Sarawak","food_cpi":133.8},{"date":"2022-05-01","state":"Sarawak","food_cpi":134.7},{"date":"2022-06-01","state":"Sarawak","food_cpi":136.7},{"date":"2022-07-01","state":"Sarawak","food_cpi":138.1},{"date":"2022-08-01","state":"Sarawak","food_cpi":138.9},{"date":"2022-09-01","state":"Sarawak","food_cpi":139.4},{"date":"2022-10-01","state":"Sarawak","food_cpi":140.3},{"date":"2022-11-01","state":"Sarawak","food_cpi":141.6},{"date":"2022-12-01","state":"Sarawak","food_cpi":142.5},{"date":"2023-01-01","state":"Sarawak","food_cpi":143.3},{"date":"2023-02-01","state":"Sarawak","food_cpi":144.0},{"date":"2023-03-01","state":"Sarawak","food_cpi":144.5},{"date":"2023-04-01","state":"Sarawak","food_cpi":144.5},{"date":"2023-05-01","state":"Sarawak","food_cpi":145.0},{"date":"2023-06-01","state":"Sarawak","food_cpi":145.4},{"date":"2023-07-01","state":"Sarawak","food_cpi":145.7},{"date":"2023-08-01","state":"Sarawak","food_cpi":145.9},{"date":"2023-09-01","state":"Sarawak","food_cpi":146.7},{"date":"2023-10-01","state":"Sarawak","food_cpi":147.1},{"date":"2023-11-01","state":"Sarawak","food_cpi":146.7},{"date":"2023-12-01","state":"Sarawak","food_cpi":146.7},{"date":"2024-01-01","state":"Sarawak","food_cpi":147.1},{"date":"2024-02-01","state":"Sarawak","food_cpi":147.2},{"date":"2024-03-01","state":"Sarawak","food_cpi":147.5},{"date":"2024-04-01","state":"Sarawak","food_cpi":147.6},{"date":"2024-05-01","state":"Sarawak","food_cpi":147.8},{"date":"2024-06-01","state":"Sarawak","food_cpi":148.2},{"date":"2024-07-01","state":"Sarawak","food_cpi":148.5},{"date":"2024-08-01","state":"Sarawak","food_cpi":148.8},{"date":"2024-09-01","state":"Sarawak","food_cpi":149.0},{"date":"2024-10-01","state":"Sarawak","food_cpi":148.8},{"date":"2024-11-01","state":"Sarawak","food_cpi":148.9},{"date":"2024-12-01","state":"Sarawak","food_cpi":149.0},{"date":"2025-01-01","state":"Sarawak","food_cpi":148.9},{"date":"2025-02-01","state":"Sarawak","food_cpi":149.6},{"date":"2025-03-01","state":"Sarawak","food_cpi":150.0},{"date":"2025-04-01","state":"Sarawak","food_cpi":149.8},{"date":"2025-05-01","state":"Sarawak","food_cpi":149.7},{"date":"2025-06-01","state":"Sarawak","food_cpi":149.7},{"date":"2025-07-01","state":"Sarawak","food_cpi":149.6},{"date":"2025-08-01","state":"Sarawak","food_cpi":149.6},{"date":"2025-09-01","state":"Sarawak","food_cpi":149.8},{"date":"2025-10-01","state":"Sarawak","food_cpi":150.1},{"date":"2025-11-01","state":"Sarawak","food_cpi":150.0},{"date":"2025-12-01","state":"Sarawak","food_cpi":150.2},{"date":"2026-01-01","state":"Sarawak","food_cpi":150.3},{"date":"2026-02-01","state":"Sarawak","food_cpi":150.4},{"date":"2026-03-01","state":"Sarawak","food_cpi":150.4},{"date":"2019-01-01","state":"Selangor","food_cpi":136.4},{"date":"2019-02-01","state":"Selangor","food_cpi":136.7},{"date":"2019-03-01","state":"Selangor","food_cpi":136.1},{"date":"2019-04-01","state":"Selangor","food_cpi":135.7},{"date":"2019-05-01","state":"Selangor","food_cpi":136.0},{"date":"2019-06-01","state":"Selangor","food_cpi":136.1},{"date":"2019-07-01","state":"Selangor","food_cpi":136.6},{"date":"2019-08-01","state":"Selangor","food_cpi":136.9},{"date":"2019-09-01","state":"Selangor","food_cpi":136.7},{"date":"2019-10-01","state":"Selangor","food_cpi":137.1},{"date":"2019-11-01","state":"Selangor","food_cpi":137.4},{"date":"2019-12-01","state":"Selangor","food_cpi":138.0},{"date":"2020-01-01","state":"Selangor","food_cpi":138.2},{"date":"2020-02-01","state":"Selangor","food_cpi":138.5},{"date":"2020-03-01","state":"Selangor","food_cpi":138.5},{"date":"2020-04-01","state":"Selangor","food_cpi":138.1},{"date":"2020-05-01","state":"Selangor","food_cpi":138.9},{"date":"2020-06-01","state":"Selangor","food_cpi":139.6},{"date":"2020-07-01","state":"Selangor","food_cpi":139.7},{"date":"2020-08-01","state":"Selangor","food_cpi":140.0},{"date":"2020-09-01","state":"Selangor","food_cpi":140.1},{"date":"2020-10-01","state":"Selangor","food_cpi":140.3},{"date":"2020-11-01","state":"Selangor","food_cpi":140.2},{"date":"2020-12-01","state":"Selangor","food_cpi":140.9},{"date":"2021-01-01","state":"Selangor","food_cpi":141.3},{"date":"2021-02-01","state":"Selangor","food_cpi":141.3},{"date":"2021-03-01","state":"Selangor","food_cpi":141.5},{"date":"2021-04-01","state":"Selangor","food_cpi":141.7},{"date":"2021-05-01","state":"Selangor","food_cpi":141.7},{"date":"2021-06-01","state":"Selangor","food_cpi":142.3},{"date":"2021-07-01","state":"Selangor","food_cpi":142.4},{"date":"2021-08-01","state":"Selangor","food_cpi":142.4},{"date":"2021-09-01","state":"Selangor","food_cpi":143.2},{"date":"2021-10-01","state":"Selangor","food_cpi":144.0},{"date":"2021-11-01","state":"Selangor","food_cpi":145.2},{"date":"2021-12-01","state":"Selangor","food_cpi":147.0},{"date":"2022-01-01","state":"Selangor","food_cpi":148.2},{"date":"2022-02-01","state":"Selangor","food_cpi":148.5},{"date":"2022-03-01","state":"Selangor","food_cpi":149.0},{"date":"2022-04-01","state":"Selangor","food_cpi":149.8},{"date":"2022-05-01","state":"Selangor","food_cpi":151.2},{"date":"2022-06-01","state":"Selangor","food_cpi":153.0},{"date":"2022-07-01","state":"Selangor","food_cpi":154.4},{"date":"2022-08-01","state":"Selangor","food_cpi":155.4},{"date":"2022-09-01","state":"Selangor","food_cpi":155.9},{"date":"2022-10-01","state":"Selangor","food_cpi":156.7},{"date":"2022-11-01","state":"Selangor","food_cpi":158.2},{"date":"2022-12-01","state":"Selangor","food_cpi":159.4},{"date":"2023-01-01","state":"Selangor","food_cpi":160.2},{"date":"2023-02-01","state":"Selangor","food_cpi":161.2},{"date":"2023-03-01","state":"Selangor","food_cpi":161.3},{"date":"2023-04-01","state":"Selangor","food_cpi":161.1},{"date":"2023-05-01","state":"Selangor","food_cpi":162.2},{"date":"2023-06-01","state":"Selangor","food_cpi":162.3},{"date":"2023-07-01","state":"Selangor","food_cpi":163.1},{"date":"2023-08-01","state":"Selangor","food_cpi":163.6},{"date":"2023-09-01","state":"Selangor","food_cpi":163.6},{"date":"2023-10-01","state":"Selangor","food_cpi":164.0},{"date":"2023-11-01","state":"Selangor","food_cpi":163.8},{"date":"2023-12-01","state":"Selangor","food_cpi":164.2},{"date":"2024-01-01","state":"Selangor","food_cpi":164.4},{"date":"2024-02-01","state":"Selangor","food_cpi":166.1},{"date":"2024-03-01","state":"Selangor","food_cpi":166.4},{"date":"2024-04-01","state":"Selangor","food_cpi":167.1},{"date":"2024-05-01","state":"Selangor","food_cpi":167.7},{"date":"2024-06-01","state":"Selangor","food_cpi":167.7},{"date":"2024-07-01","state":"Selangor","food_cpi":168.0},{"date":"2024-08-01","state":"Selangor","food_cpi":168.1},{"date":"2024-09-01","state":"Selangor","food_cpi":168.2},{"date":"2024-10-01","state":"Selangor","food_cpi":170.3},{"date":"2024-11-01","state":"Selangor","food_cpi":170.3},{"date":"2024-12-01","state":"Selangor","food_cpi":171.0},{"date":"2025-01-01","state":"Selangor","food_cpi":171.4},{"date":"2025-02-01","state":"Selangor","food_cpi":171.9},{"date":"2025-03-01","state":"Selangor","food_cpi":171.9},{"date":"2025-04-01","state":"Selangor","food_cpi":172.0},{"date":"2025-05-01","state":"Selangor","food_cpi":172.5},{"date":"2025-06-01","state":"Selangor","food_cpi":172.9},{"date":"2025-07-01","state":"Selangor","food_cpi":172.8},{"date":"2025-08-01","state":"Selangor","food_cpi":172.8},{"date":"2025-09-01","state":"Selangor","food_cpi":173.0},{"date":"2025-10-01","state":"Selangor","food_cpi":173.2},{"date":"2025-11-01","state":"Selangor","food_cpi":172.9},{"date":"2025-12-01","state":"Selangor","food_cpi":173.4},{"date":"2026-01-01","state":"Selangor","food_cpi":173.6},{"date":"2026-02-01","state":"Selangor","food_cpi":173.5},{"date":"2026-03-01","state":"Selangor","food_cpi":173.3},{"date":"2019-01-01","state":"Terengganu","food_cpi":126.4},{"date":"2019-02-01","state":"Terengganu","food_cpi":126.3},{"date":"2019-03-01","state":"Terengganu","food_cpi":124.8},{"date":"2019-04-01","state":"Terengganu","food_cpi":124.4},{"date":"2019-05-01","state":"Terengganu","food_cpi":125.6},{"date":"2019-06-01","state":"Terengganu","food_cpi":126.3},{"date":"2019-07-01","state":"Terengganu","food_cpi":126.1},{"date":"2019-08-01","state":"Terengganu","food_cpi":126.3},{"date":"2019-09-01","state":"Terengganu","food_cpi":125.9},{"date":"2019-10-01","state":"Terengganu","food_cpi":125.8},{"date":"2019-11-01","state":"Terengganu","food_cpi":125.6},{"date":"2019-12-01","state":"Terengganu","food_cpi":126.7},{"date":"2020-01-01","state":"Terengganu","food_cpi":127.0},{"date":"2020-02-01","state":"Terengganu","food_cpi":126.9},{"date":"2020-03-01","state":"Terengganu","food_cpi":126.8},{"date":"2020-04-01","state":"Terengganu","food_cpi":126.7},{"date":"2020-05-01","state":"Terengganu","food_cpi":126.9},{"date":"2020-06-01","state":"Terengganu","food_cpi":128.1},{"date":"2020-07-01","state":"Terengganu","food_cpi":128.3},{"date":"2020-08-01","state":"Terengganu","food_cpi":128.2},{"date":"2020-09-01","state":"Terengganu","food_cpi":127.9},{"date":"2020-10-01","state":"Terengganu","food_cpi":127.9},{"date":"2020-11-01","state":"Terengganu","food_cpi":127.9},{"date":"2020-12-01","state":"Terengganu","food_cpi":129.2},{"date":"2021-01-01","state":"Terengganu","food_cpi":129.5},{"date":"2021-02-01","state":"Terengganu","food_cpi":129.6},{"date":"2021-03-01","state":"Terengganu","food_cpi":129.3},{"date":"2021-04-01","state":"Terengganu","food_cpi":130.3},{"date":"2021-05-01","state":"Terengganu","food_cpi":130.6},{"date":"2021-06-01","state":"Terengganu","food_cpi":130.6},{"date":"2021-07-01","state":"Terengganu","food_cpi":129.9},{"date":"2021-08-01","state":"Terengganu","food_cpi":129.7},{"date":"2021-09-01","state":"Terengganu","food_cpi":130.7},{"date":"2021-10-01","state":"Terengganu","food_cpi":131.2},{"date":"2021-11-01","state":"Terengganu","food_cpi":131.8},{"date":"2021-12-01","state":"Terengganu","food_cpi":132.9},{"date":"2022-01-01","state":"Terengganu","food_cpi":133.8},{"date":"2022-02-01","state":"Terengganu","food_cpi":134.2},{"date":"2022-03-01","state":"Terengganu","food_cpi":134.6},{"date":"2022-04-01","state":"Terengganu","food_cpi":134.9},{"date":"2022-05-01","state":"Terengganu","food_cpi":135.9},{"date":"2022-06-01","state":"Terengganu","food_cpi":137.6},{"date":"2022-07-01","state":"Terengganu","food_cpi":137.9},{"date":"2022-08-01","state":"Terengganu","food_cpi":137.5},{"date":"2022-09-01","state":"Terengganu","food_cpi":138.1},{"date":"2022-10-01","state":"Terengganu","food_cpi":138.9},{"date":"2022-11-01","state":"Terengganu","food_cpi":139.6},{"date":"2022-12-01","state":"Terengganu","food_cpi":140.0},{"date":"2023-01-01","state":"Terengganu","food_cpi":140.8},{"date":"2023-02-01","state":"Terengganu","food_cpi":141.3},{"date":"2023-03-01","state":"Terengganu","food_cpi":141.6},{"date":"2023-04-01","state":"Terengganu","food_cpi":141.3},{"date":"2023-05-01","state":"Terengganu","food_cpi":141.5},{"date":"2023-06-01","state":"Terengganu","food_cpi":141.8},{"date":"2023-07-01","state":"Terengganu","food_cpi":142.3},{"date":"2023-08-01","state":"Terengganu","food_cpi":142.1},{"date":"2023-09-01","state":"Terengganu","food_cpi":142.2},{"date":"2023-10-01","state":"Terengganu","food_cpi":142.3},{"date":"2023-11-01","state":"Terengganu","food_cpi":141.7},{"date":"2023-12-01","state":"Terengganu","food_cpi":142.8},{"date":"2024-01-01","state":"Terengganu","food_cpi":142.8},{"date":"2024-02-01","state":"Terengganu","food_cpi":143.5},{"date":"2024-03-01","state":"Terengganu","food_cpi":143.6},{"date":"2024-04-01","state":"Terengganu","food_cpi":143.4},{"date":"2024-05-01","state":"Terengganu","food_cpi":143.8},{"date":"2024-06-01","state":"Terengganu","food_cpi":144.1},{"date":"2024-07-01","state":"Terengganu","food_cpi":144.6},{"date":"2024-08-01","state":"Terengganu","food_cpi":144.4},{"date":"2024-09-01","state":"Terengganu","food_cpi":144.3},{"date":"2024-10-01","state":"Terengganu","food_cpi":145.3},{"date":"2024-11-01","state":"Terengganu","food_cpi":145.6},{"date":"2024-12-01","state":"Terengganu","food_cpi":146.9},{"date":"2025-01-01","state":"Terengganu","food_cpi":147.7},{"date":"2025-02-01","state":"Terengganu","food_cpi":147.6},{"date":"2025-03-01","state":"Terengganu","food_cpi":147.4},{"date":"2025-04-01","state":"Terengganu","food_cpi":147.4},{"date":"2025-05-01","state":"Terengganu","food_cpi":147.6},{"date":"2025-06-01","state":"Terengganu","food_cpi":147.8},{"date":"2025-07-01","state":"Terengganu","food_cpi":147.6},{"date":"2025-08-01","state":"Terengganu","food_cpi":148.1},{"date":"2025-09-01","state":"Terengganu","food_cpi":148.1},{"date":"2025-10-01","state":"Terengganu","food_cpi":147.8},{"date":"2025-11-01","state":"Terengganu","food_cpi":147.6},{"date":"2025-12-01","state":"Terengganu","food_cpi":149.2},{"date":"2026-01-01","state":"Terengganu","food_cpi":149.1},{"date":"2026-02-01","state":"Terengganu","food_cpi":148.7},{"date":"2026-03-01","state":"Terengganu","food_cpi":148.0},{"date":"2019-01-01","state":"W.P. Kuala Lumpur","food_cpi":136.0},{"date":"2019-02-01","state":"W.P. Kuala Lumpur","food_cpi":136.4},{"date":"2019-03-01","state":"W.P. Kuala Lumpur","food_cpi":136.2},{"date":"2019-04-01","state":"W.P. Kuala Lumpur","food_cpi":136.2},{"date":"2019-05-01","state":"W.P. Kuala Lumpur","food_cpi":136.3},{"date":"2019-06-01","state":"W.P. Kuala Lumpur","food_cpi":136.7},{"date":"2019-07-01","state":"W.P. Kuala Lumpur","food_cpi":137.3},{"date":"2019-08-01","state":"W.P. Kuala Lumpur","food_cpi":137.7},{"date":"2019-09-01","state":"W.P. Kuala Lumpur","food_cpi":137.1},{"date":"2019-10-01","state":"W.P. Kuala Lumpur","food_cpi":137.0},{"date":"2019-11-01","state":"W.P. Kuala Lumpur","food_cpi":137.1},{"date":"2019-12-01","state":"W.P. Kuala Lumpur","food_cpi":137.4},{"date":"2020-01-01","state":"W.P. Kuala Lumpur","food_cpi":137.3},{"date":"2020-02-01","state":"W.P. Kuala Lumpur","food_cpi":137.2},{"date":"2020-03-01","state":"W.P. Kuala Lumpur","food_cpi":137.1},{"date":"2020-04-01","state":"W.P. Kuala Lumpur","food_cpi":137.1},{"date":"2020-05-01","state":"W.P. Kuala Lumpur","food_cpi":137.2},{"date":"2020-06-01","state":"W.P. Kuala Lumpur","food_cpi":137.4},{"date":"2020-07-01","state":"W.P. Kuala Lumpur","food_cpi":137.4},{"date":"2020-08-01","state":"W.P. Kuala Lumpur","food_cpi":138.7},{"date":"2020-09-01","state":"W.P. Kuala Lumpur","food_cpi":138.7},{"date":"2020-10-01","state":"W.P. Kuala Lumpur","food_cpi":138.7},{"date":"2020-11-01","state":"W.P. Kuala Lumpur","food_cpi":138.3},{"date":"2020-12-01","state":"W.P. Kuala Lumpur","food_cpi":138.7},{"date":"2021-01-01","state":"W.P. Kuala Lumpur","food_cpi":139.0},{"date":"2021-02-01","state":"W.P. Kuala Lumpur","food_cpi":138.5},{"date":"2021-03-01","state":"W.P. Kuala Lumpur","food_cpi":138.9},{"date":"2021-04-01","state":"W.P. Kuala Lumpur","food_cpi":139.3},{"date":"2021-05-01","state":"W.P. Kuala Lumpur","food_cpi":139.1},{"date":"2021-06-01","state":"W.P. Kuala Lumpur","food_cpi":139.3},{"date":"2021-07-01","state":"W.P. Kuala Lumpur","food_cpi":139.1},{"date":"2021-08-01","state":"W.P. Kuala Lumpur","food_cpi":139.4},{"date":"2021-09-01","state":"W.P. Kuala Lumpur","food_cpi":139.9},{"date":"2021-10-01","state":"W.P. Kuala Lumpur","food_cpi":139.7},{"date":"2021-11-01","state":"W.P. Kuala Lumpur","food_cpi":140.9},{"date":"2021-12-01","state":"W.P. Kuala Lumpur","food_cpi":142.1},{"date":"2022-01-01","state":"W.P. Kuala Lumpur","food_cpi":143.0},{"date":"2022-02-01","state":"W.P. Kuala Lumpur","food_cpi":143.2},{"date":"2022-03-01","state":"W.P. Kuala Lumpur","food_cpi":143.3},{"date":"2022-04-01","state":"W.P. Kuala Lumpur","food_cpi":143.9},{"date":"2022-05-01","state":"W.P. Kuala Lumpur","food_cpi":145.5},{"date":"2022-06-01","state":"W.P. Kuala Lumpur","food_cpi":146.8},{"date":"2022-07-01","state":"W.P. Kuala Lumpur","food_cpi":147.3},{"date":"2022-08-01","state":"W.P. Kuala Lumpur","food_cpi":147.9},{"date":"2022-09-01","state":"W.P. Kuala Lumpur","food_cpi":148.3},{"date":"2022-10-01","state":"W.P. Kuala Lumpur","food_cpi":149.4},{"date":"2022-11-01","state":"W.P. Kuala Lumpur","food_cpi":150.3},{"date":"2022-12-01","state":"W.P. Kuala Lumpur","food_cpi":150.9},{"date":"2023-01-01","state":"W.P. Kuala Lumpur","food_cpi":151.9},{"date":"2023-02-01","state":"W.P. Kuala Lumpur","food_cpi":152.0},{"date":"2023-03-01","state":"W.P. Kuala Lumpur","food_cpi":152.2},{"date":"2023-04-01","state":"W.P. Kuala Lumpur","food_cpi":152.2},{"date":"2023-05-01","state":"W.P. Kuala Lumpur","food_cpi":153.0},{"date":"2023-06-01","state":"W.P. Kuala Lumpur","food_cpi":153.0},{"date":"2023-07-01","state":"W.P. Kuala Lumpur","food_cpi":153.4},{"date":"2023-08-01","state":"W.P. Kuala Lumpur","food_cpi":153.4},{"date":"2023-09-01","state":"W.P. Kuala Lumpur","food_cpi":153.2},{"date":"2023-10-01","state":"W.P. Kuala Lumpur","food_cpi":153.2},{"date":"2023-11-01","state":"W.P. Kuala Lumpur","food_cpi":152.4},{"date":"2023-12-01","state":"W.P. Kuala Lumpur","food_cpi":152.5},{"date":"2024-01-01","state":"W.P. Kuala Lumpur","food_cpi":153.7},{"date":"2024-02-01","state":"W.P. Kuala Lumpur","food_cpi":153.5},{"date":"2024-03-01","state":"W.P. Kuala Lumpur","food_cpi":153.3},{"date":"2024-04-01","state":"W.P. Kuala Lumpur","food_cpi":153.4},{"date":"2024-05-01","state":"W.P. Kuala Lumpur","food_cpi":153.4},{"date":"2024-06-01","state":"W.P. Kuala Lumpur","food_cpi":154.7},{"date":"2024-07-01","state":"W.P. Kuala Lumpur","food_cpi":155.2},{"date":"2024-08-01","state":"W.P. Kuala Lumpur","food_cpi":155.2},{"date":"2024-09-01","state":"W.P. Kuala Lumpur","food_cpi":154.9},{"date":"2024-10-01","state":"W.P. Kuala Lumpur","food_cpi":156.2},{"date":"2024-11-01","state":"W.P. Kuala Lumpur","food_cpi":156.3},{"date":"2024-12-01","state":"W.P. Kuala Lumpur","food_cpi":157.2},{"date":"2025-01-01","state":"W.P. Kuala Lumpur","food_cpi":157.1},{"date":"2025-02-01","state":"W.P. Kuala Lumpur","food_cpi":157.2},{"date":"2025-03-01","state":"W.P. Kuala Lumpur","food_cpi":157.2},{"date":"2025-04-01","state":"W.P. Kuala Lumpur","food_cpi":157.3},{"date":"2025-05-01","state":"W.P. Kuala Lumpur","food_cpi":157.4},{"date":"2025-06-01","state":"W.P. Kuala Lumpur","food_cpi":157.4},{"date":"2025-07-01","state":"W.P. Kuala Lumpur","food_cpi":158.0},{"date":"2025-08-01","state":"W.P. Kuala Lumpur","food_cpi":158.4},{"date":"2025-09-01","state":"W.P. Kuala Lumpur","food_cpi":158.8},{"date":"2025-10-01","state":"W.P. Kuala Lumpur","food_cpi":159.3},{"date":"2025-11-01","state":"W.P. Kuala Lumpur","food_cpi":159.6},{"date":"2025-12-01","state":"W.P. Kuala Lumpur","food_cpi":159.7},{"date":"2026-01-01","state":"W.P. Kuala Lumpur","food_cpi":160.2},{"date":"2026-02-01","state":"W.P. Kuala Lumpur","food_cpi":160.1},{"date":"2026-03-01","state":"W.P. Kuala Lumpur","food_cpi":160.1},{"date":"2019-01-01","state":"W.P. Labuan","food_cpi":122.1},{"date":"2019-02-01","state":"W.P. Labuan","food_cpi":122.5},{"date":"2019-03-01","state":"W.P. Labuan","food_cpi":122.2},{"date":"2019-04-01","state":"W.P. Labuan","food_cpi":122.0},{"date":"2019-05-01","state":"W.P. Labuan","food_cpi":122.0},{"date":"2019-06-01","state":"W.P. Labuan","food_cpi":122.3},{"date":"2019-07-01","state":"W.P. Labuan","food_cpi":122.5},{"date":"2019-08-01","state":"W.P. Labuan","food_cpi":122.5},{"date":"2019-09-01","state":"W.P. Labuan","food_cpi":122.4},{"date":"2019-10-01","state":"W.P. Labuan","food_cpi":122.3},{"date":"2019-11-01","state":"W.P. Labuan","food_cpi":122.1},{"date":"2019-12-01","state":"W.P. Labuan","food_cpi":122.4},{"date":"2020-01-01","state":"W.P. Labuan","food_cpi":122.6},{"date":"2020-02-01","state":"W.P. Labuan","food_cpi":122.8},{"date":"2020-03-01","state":"W.P. Labuan","food_cpi":122.6},{"date":"2020-04-01","state":"W.P. Labuan","food_cpi":122.9},{"date":"2020-05-01","state":"W.P. Labuan","food_cpi":123.0},{"date":"2020-06-01","state":"W.P. Labuan","food_cpi":123.1},{"date":"2020-07-01","state":"W.P. Labuan","food_cpi":123.0},{"date":"2020-08-01","state":"W.P. Labuan","food_cpi":123.5},{"date":"2020-09-01","state":"W.P. Labuan","food_cpi":123.5},{"date":"2020-10-01","state":"W.P. Labuan","food_cpi":123.5},{"date":"2020-11-01","state":"W.P. Labuan","food_cpi":123.6},{"date":"2020-12-01","state":"W.P. Labuan","food_cpi":123.8},{"date":"2021-01-01","state":"W.P. Labuan","food_cpi":124.2},{"date":"2021-02-01","state":"W.P. Labuan","food_cpi":124.1},{"date":"2021-03-01","state":"W.P. Labuan","food_cpi":124.7},{"date":"2021-04-01","state":"W.P. Labuan","food_cpi":124.6},{"date":"2021-05-01","state":"W.P. Labuan","food_cpi":124.1},{"date":"2021-06-01","state":"W.P. Labuan","food_cpi":124.3},{"date":"2021-07-01","state":"W.P. Labuan","food_cpi":124.8},{"date":"2021-08-01","state":"W.P. Labuan","food_cpi":125.0},{"date":"2021-09-01","state":"W.P. Labuan","food_cpi":125.0},{"date":"2021-10-01","state":"W.P. Labuan","food_cpi":125.2},{"date":"2021-11-01","state":"W.P. Labuan","food_cpi":125.6},{"date":"2021-12-01","state":"W.P. Labuan","food_cpi":126.4},{"date":"2022-01-01","state":"W.P. Labuan","food_cpi":127.3},{"date":"2022-02-01","state":"W.P. Labuan","food_cpi":128.0},{"date":"2022-03-01","state":"W.P. Labuan","food_cpi":127.5},{"date":"2022-04-01","state":"W.P. Labuan","food_cpi":128.0},{"date":"2022-05-01","state":"W.P. Labuan","food_cpi":128.8},{"date":"2022-06-01","state":"W.P. Labuan","food_cpi":129.3},{"date":"2022-07-01","state":"W.P. Labuan","food_cpi":129.6},{"date":"2022-08-01","state":"W.P. Labuan","food_cpi":129.3},{"date":"2022-09-01","state":"W.P. Labuan","food_cpi":129.8},{"date":"2022-10-01","state":"W.P. Labuan","food_cpi":130.3},{"date":"2022-11-01","state":"W.P. Labuan","food_cpi":130.6},{"date":"2022-12-01","state":"W.P. Labuan","food_cpi":131.3},{"date":"2023-01-01","state":"W.P. Labuan","food_cpi":131.9},{"date":"2023-02-01","state":"W.P. Labuan","food_cpi":132.7},{"date":"2023-03-01","state":"W.P. Labuan","food_cpi":132.6},{"date":"2023-04-01","state":"W.P. Labuan","food_cpi":132.8},{"date":"2023-05-01","state":"W.P. Labuan","food_cpi":132.9},{"date":"2023-06-01","state":"W.P. Labuan","food_cpi":133.7},{"date":"2023-07-01","state":"W.P. Labuan","food_cpi":134.1},{"date":"2023-08-01","state":"W.P. Labuan","food_cpi":134.7},{"date":"2023-09-01","state":"W.P. Labuan","food_cpi":134.8},{"date":"2023-10-01","state":"W.P. Labuan","food_cpi":135.0},{"date":"2023-11-01","state":"W.P. Labuan","food_cpi":135.1},{"date":"2023-12-01","state":"W.P. Labuan","food_cpi":135.6},{"date":"2024-01-01","state":"W.P. Labuan","food_cpi":136.6},{"date":"2024-02-01","state":"W.P. Labuan","food_cpi":135.7},{"date":"2024-03-01","state":"W.P. Labuan","food_cpi":135.3},{"date":"2024-04-01","state":"W.P. Labuan","food_cpi":134.9},{"date":"2024-05-01","state":"W.P. Labuan","food_cpi":135.1},{"date":"2024-06-01","state":"W.P. Labuan","food_cpi":136.2},{"date":"2024-07-01","state":"W.P. Labuan","food_cpi":135.7},{"date":"2024-08-01","state":"W.P. Labuan","food_cpi":135.0},{"date":"2024-09-01","state":"W.P. Labuan","food_cpi":134.7},{"date":"2024-10-01","state":"W.P. Labuan","food_cpi":136.0},{"date":"2024-11-01","state":"W.P. Labuan","food_cpi":136.5},{"date":"2024-12-01","state":"W.P. Labuan","food_cpi":136.8},{"date":"2025-01-01","state":"W.P. Labuan","food_cpi":137.4},{"date":"2025-02-01","state":"W.P. Labuan","food_cpi":138.0},{"date":"2025-03-01","state":"W.P. Labuan","food_cpi":139.1},{"date":"2025-04-01","state":"W.P. Labuan","food_cpi":137.8},{"date":"2025-05-01","state":"W.P. Labuan","food_cpi":138.3},{"date":"2025-06-01","state":"W.P. Labuan","food_cpi":139.0},{"date":"2025-07-01","state":"W.P. Labuan","food_cpi":139.6},{"date":"2025-08-01","state":"W.P. Labuan","food_cpi":139.0},{"date":"2025-09-01","state":"W.P. Labuan","food_cpi":139.3},{"date":"2025-10-01","state":"W.P. Labuan","food_cpi":139.4},{"date":"2025-11-01","state":"W.P. Labuan","food_cpi":139.4},{"date":"2025-12-01","state":"W.P. Labuan","food_cpi":140.1},{"date":"2026-01-01","state":"W.P. Labuan","food_cpi":139.5},{"date":"2026-02-01","state":"W.P. Labuan","food_cpi":139.8},{"date":"2026-03-01","state":"W.P. Labuan","food_cpi":140.5},{"date":"2019-01-01","state":"W.P. Putrajaya","food_cpi":139.0},{"date":"2019-02-01","state":"W.P. Putrajaya","food_cpi":139.0},{"date":"2019-03-01","state":"W.P. Putrajaya","food_cpi":138.6},{"date":"2019-04-01","state":"W.P. Putrajaya","food_cpi":137.9},{"date":"2019-05-01","state":"W.P. Putrajaya","food_cpi":138.4},{"date":"2019-06-01","state":"W.P. Putrajaya","food_cpi":138.2},{"date":"2019-07-01","state":"W.P. Putrajaya","food_cpi":139.2},{"date":"2019-08-01","state":"W.P. Putrajaya","food_cpi":139.3},{"date":"2019-09-01","state":"W.P. Putrajaya","food_cpi":139.2},{"date":"2019-10-01","state":"W.P. Putrajaya","food_cpi":139.5},{"date":"2019-11-01","state":"W.P. Putrajaya","food_cpi":139.9},{"date":"2019-12-01","state":"W.P. Putrajaya","food_cpi":140.1},{"date":"2020-01-01","state":"W.P. Putrajaya","food_cpi":141.1},{"date":"2020-02-01","state":"W.P. Putrajaya","food_cpi":141.0},{"date":"2020-03-01","state":"W.P. Putrajaya","food_cpi":142.6},{"date":"2020-04-01","state":"W.P. Putrajaya","food_cpi":142.1},{"date":"2020-05-01","state":"W.P. Putrajaya","food_cpi":143.0},{"date":"2020-06-01","state":"W.P. Putrajaya","food_cpi":143.3},{"date":"2020-07-01","state":"W.P. Putrajaya","food_cpi":143.8},{"date":"2020-08-01","state":"W.P. Putrajaya","food_cpi":143.4},{"date":"2020-09-01","state":"W.P. Putrajaya","food_cpi":143.3},{"date":"2020-10-01","state":"W.P. Putrajaya","food_cpi":144.1},{"date":"2020-11-01","state":"W.P. Putrajaya","food_cpi":144.0},{"date":"2020-12-01","state":"W.P. Putrajaya","food_cpi":145.4},{"date":"2021-01-01","state":"W.P. Putrajaya","food_cpi":146.8},{"date":"2021-02-01","state":"W.P. Putrajaya","food_cpi":146.0},{"date":"2021-03-01","state":"W.P. Putrajaya","food_cpi":146.2},{"date":"2021-04-01","state":"W.P. Putrajaya","food_cpi":146.5},{"date":"2021-05-01","state":"W.P. Putrajaya","food_cpi":145.9},{"date":"2021-06-01","state":"W.P. Putrajaya","food_cpi":146.7},{"date":"2021-07-01","state":"W.P. Putrajaya","food_cpi":146.6},{"date":"2021-08-01","state":"W.P. Putrajaya","food_cpi":147.6},{"date":"2021-09-01","state":"W.P. Putrajaya","food_cpi":150.7},{"date":"2021-10-01","state":"W.P. Putrajaya","food_cpi":150.7},{"date":"2021-11-01","state":"W.P. Putrajaya","food_cpi":151.5},{"date":"2021-12-01","state":"W.P. Putrajaya","food_cpi":154.3},{"date":"2022-01-01","state":"W.P. Putrajaya","food_cpi":155.3},{"date":"2022-02-01","state":"W.P. Putrajaya","food_cpi":156.3},{"date":"2022-03-01","state":"W.P. Putrajaya","food_cpi":156.4},{"date":"2022-04-01","state":"W.P. Putrajaya","food_cpi":156.8},{"date":"2022-05-01","state":"W.P. Putrajaya","food_cpi":158.1},{"date":"2022-06-01","state":"W.P. Putrajaya","food_cpi":158.7},{"date":"2022-07-01","state":"W.P. Putrajaya","food_cpi":160.4},{"date":"2022-08-01","state":"W.P. Putrajaya","food_cpi":160.5},{"date":"2022-09-01","state":"W.P. Putrajaya","food_cpi":161.0},{"date":"2022-10-01","state":"W.P. Putrajaya","food_cpi":162.2},{"date":"2022-11-01","state":"W.P. Putrajaya","food_cpi":164.9},{"date":"2022-12-01","state":"W.P. Putrajaya","food_cpi":165.9},{"date":"2023-01-01","state":"W.P. Putrajaya","food_cpi":166.8},{"date":"2023-02-01","state":"W.P. Putrajaya","food_cpi":167.1},{"date":"2023-03-01","state":"W.P. Putrajaya","food_cpi":167.8},{"date":"2023-04-01","state":"W.P. Putrajaya","food_cpi":167.7},{"date":"2023-05-01","state":"W.P. Putrajaya","food_cpi":169.4},{"date":"2023-06-01","state":"W.P. Putrajaya","food_cpi":169.9},{"date":"2023-07-01","state":"W.P. Putrajaya","food_cpi":170.1},{"date":"2023-08-01","state":"W.P. Putrajaya","food_cpi":169.7},{"date":"2023-09-01","state":"W.P. Putrajaya","food_cpi":170.5},{"date":"2023-10-01","state":"W.P. Putrajaya","food_cpi":170.6},{"date":"2023-11-01","state":"W.P. Putrajaya","food_cpi":169.9},{"date":"2023-12-01","state":"W.P. Putrajaya","food_cpi":171.0},{"date":"2024-01-01","state":"W.P. Putrajaya","food_cpi":171.5},{"date":"2024-02-01","state":"W.P. Putrajaya","food_cpi":172.5},{"date":"2024-03-01","state":"W.P. Putrajaya","food_cpi":172.1},{"date":"2024-04-01","state":"W.P. Putrajaya","food_cpi":172.5},{"date":"2024-05-01","state":"W.P. Putrajaya","food_cpi":172.5},{"date":"2024-06-01","state":"W.P. Putrajaya","food_cpi":172.8},{"date":"2024-07-01","state":"W.P. Putrajaya","food_cpi":172.6},{"date":"2024-08-01","state":"W.P. Putrajaya","food_cpi":172.8},{"date":"2024-09-01","state":"W.P. Putrajaya","food_cpi":172.9},{"date":"2024-10-01","state":"W.P. Putrajaya","food_cpi":175.5},{"date":"2024-11-01","state":"W.P. Putrajaya","food_cpi":175.7},{"date":"2024-12-01","state":"W.P. Putrajaya","food_cpi":176.0},{"date":"2025-01-01","state":"W.P. Putrajaya","food_cpi":177.5},{"date":"2025-02-01","state":"W.P. Putrajaya","food_cpi":177.5},{"date":"2025-03-01","state":"W.P. Putrajaya","food_cpi":178.3},{"date":"2025-04-01","state":"W.P. Putrajaya","food_cpi":177.7},{"date":"2025-05-01","state":"W.P. Putrajaya","food_cpi":177.9},{"date":"2025-06-01","state":"W.P. Putrajaya","food_cpi":177.8},{"date":"2025-07-01","state":"W.P. Putrajaya","food_cpi":177.5},{"date":"2025-08-01","state":"W.P. Putrajaya","food_cpi":177.7},{"date":"2025-09-01","state":"W.P. Putrajaya","food_cpi":177.9},{"date":"2025-10-01","state":"W.P. Putrajaya","food_cpi":178.2},{"date":"2025-11-01","state":"W.P. Putrajaya","food_cpi":178.6},{"date":"2025-12-01","state":"W.P. Putrajaya","food_cpi":178.6},{"date":"2026-01-01","state":"W.P. Putrajaya","food_cpi":179.0},{"date":"2026-02-01","state":"W.P. Putrajaya","food_cpi":179.3},{"date":"2026-03-01","state":"W.P. Putrajaya","food_cpi":179.4}];
+
+/* tag each row with a "group" used for color encoding */
+const TOP3 = new Set(["W.P. Putrajaya","Selangor","Johor"]);
+const BOT3 = new Set(["Kelantan","Kedah","Perlis"]);
+const STATE_TS_TAGGED = STATE_TS.map(d => ({
+  ...d,
+  group: TOP3.has(d.state) ? "Top 3 risers" : BOT3.has(d.state) ? "Bottom 3" : "Other"
+}));
+
+/* End-of-line labels: just the last point per state, top 3 + bottom 3 only */
+const LINE_LABELS = STATE_TS_TAGGED
+  .filter(d => d.date === "2026-03-01" && (TOP3.has(d.state) || BOT3.has(d.state)))
+  .map(d => ({ ...d, label: d.state.replace("W.P. ","") }));
+
+const spec3 = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": "container",
+  "autosize": { "type": "fit", "contains": "padding", "resize": true },
+  "background": "white",
+  "resolve": {
+    "scale": { "x": "shared", "y": "shared", "color": "independent" }
+  },
+  "config": {
+    "font": "Source Sans 3, sans-serif",
+    "axis": {
+      "labelFont": "Source Sans 3, sans-serif",
+      "titleFont": "Source Sans 3, sans-serif",
+      "labelFontSize": 10,
+      "titleFontSize": 11,
+      "gridColor": "#f0ece5",
+      "domainColor": "#ccc8c0",
+      "tickColor": "#ccc8c0"
+    },
+    "view": { "stroke": null },
+    "legend": { "labelFontSize": 10, "titleFontSize": 11 }
+  },
+  "layer": [
+    /* All 16 state lines, color + thickness driven by group */
+    {
+      "data": { "values": STATE_TS_TAGGED },
+      "mark": { "type": "line" },
+      "encoding": {
+        "x": {
+          "field": "date", "type": "temporal",
+          "axis": { "title": null, "format": "%Y", "tickCount": "year" }
+        },
+        "y": {
+          "field": "food_cpi", "type": "quantitative",
+          "axis": { "title": "Food CPI" },
+          "scale": { "domain": [120, 185] }
+        },
+        "detail": { "field": "state" },
+        "color": {
+          "field": "group", "type": "ordinal",
+          "scale": {
+            "domain": ["Top 3 risers", "Other", "Bottom 3"],
+            "range":  ["#1f4068",      "#cdc8be", "#e67e22"]
+          },
+          "sort": ["Top 3 risers", "Other", "Bottom 3"],
+          "legend": null
+        },
+        "strokeWidth": {
+          "field": "group", "type": "ordinal",
+          "scale": {
+            "domain": ["Top 3 risers", "Other", "Bottom 3"],
+            "range":  [2.5,             1,        2]
+          },
+          "sort": ["Top 3 risers", "Other", "Bottom 3"],
+          "legend": null
+        },
+        "opacity": {
+          "field": "group", "type": "ordinal",
+          "scale": {
+            "domain": ["Top 3 risers", "Other", "Bottom 3"],
+            "range":  [1,               0.7,     1]
+          },
+          "sort": ["Top 3 risers", "Other", "Bottom 3"],
+          "legend": null
+        },
+        "tooltip": [
+          { "field": "state", "type": "nominal" },
+          { "field": "date", "type": "temporal", "format": "%b %Y" },
+          { "field": "food_cpi", "type": "quantitative", "format": ".1f" }
+        ]
+      }
+    },
+    /* End-of-line state name labels (top 3) */
+    {
+      "data": { "values": LINE_LABELS.filter(d => d.group === "Top 3 risers") },
+      "mark": { "type": "text", "align": "left", "dx": 4, "fontSize": 9, "fontWeight": "700", "color": "#1f4068" },
+      "encoding": {
+        "x": { "field": "date", "type": "temporal" },
+        "y": { "field": "food_cpi", "type": "quantitative" },
+        "text": { "field": "label" }
+      }
+    },
+    /* End-of-line state name labels (bottom 3) */
+    {
+      "data": { "values": LINE_LABELS.filter(d => d.group === "Bottom 3") },
+      "mark": { "type": "text", "align": "left", "dx": 4, "fontSize": 9, "fontWeight": "700", "color": "#e67e22" },
+      "encoding": {
+        "x": { "field": "date", "type": "temporal" },
+        "y": { "field": "food_cpi", "type": "quantitative" },
+        "text": { "field": "label" }
+      }
+    },
+    /* Annotation: "Gap widens" */
+    {
+      "data": { "values": [{"date": "2022-01-01", "food_cpi": 182, "label": "Gap widens after 2022"}] },
+      "mark": { "type": "text", "align": "left", "fontSize": 10, "fontStyle": "italic", "color": "#555" },
+      "encoding": {
+        "x": { "field": "date", "type": "temporal" },
+        "y": { "field": "food_cpi", "type": "quantitative" },
+        "text": { "field": "label" }
+      }
+    }
+  ]
+};
+
+vegaEmbed('#chart3', spec3, { actions: false, renderer: 'svg' });
+
+
+/* ───────────── CHART 4 — Ranked horizontal bar of % change ───────────── */
+const PCT_CHANGE = [{"state":"Johor","pct_change":21.3,"group":"Top 3 risers"},{"state":"Kedah","pct_change":11.7,"group":"Bottom 3"},{"state":"Kelantan","pct_change":11.0,"group":"Bottom 3"},{"state":"Melaka","pct_change":16.7,"group":"Other"},{"state":"Negeri Sembilan","pct_change":19.8,"group":"Other"},{"state":"Pahang","pct_change":20.0,"group":"Other"},{"state":"Perak","pct_change":17.2,"group":"Other"},{"state":"Perlis","pct_change":14.3,"group":"Bottom 3"},{"state":"Pulau Pinang","pct_change":20.9,"group":"Other"},{"state":"Sabah","pct_change":14.9,"group":"Other"},{"state":"Sarawak","pct_change":18.2,"group":"Other"},{"state":"Selangor","pct_change":27.1,"group":"Top 3 risers"},{"state":"Terengganu","pct_change":17.1,"group":"Other"},{"state":"W.P. Kuala Lumpur","pct_change":17.7,"group":"Other"},{"state":"W.P. Labuan","pct_change":15.1,"group":"Other"},{"state":"W.P. Putrajaya","pct_change":29.1,"group":"Top 3 risers"}];
+
+const spec4 = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": "container",
+  "autosize": { "type": "fit", "contains": "padding", "resize": true },
+  "background": "white",
+  "config": {
+    "font": "Source Sans 3, sans-serif",
+    "axis": {
+      "labelFont": "Source Sans 3, sans-serif",
+      "titleFont": "Source Sans 3, sans-serif",
+      "labelFontSize": 10,
+      "titleFontSize": 11,
+      "gridColor": "#f0ece5",
+      "domainColor": "#ccc8c0",
+      "tickColor": "#ccc8c0"
+    },
+    "view": { "stroke": null },
+    "legend": { "labelFontSize": 10, "titleFontSize": 11 }
+  },
+  "data": { "values": PCT_CHANGE },
+  "layer": [
+    {
+      "mark": { "type": "bar", "cornerRadiusEnd": 2, "height": {"band": 0.75} },
+      "encoding": {
+        "y": {
+          "field": "state", "type": "nominal",
+          "sort": { "field": "pct_change", "order": "descending" },
+          "axis": { "title": null, "labelFontSize": 9 }
+        },
+        "x": {
+          "field": "pct_change", "type": "quantitative",
+          "axis": { "title": "% rise since Jan 2019", "format": ".0f" }
+        },
+        "color": {
+          "field": "group", "type": "nominal",
+          "scale": {
+            "domain": ["Top 3 risers", "Other", "Bottom 3"],
+            "range":  ["#1f4068",      "#cdc8be", "#e67e22"]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          { "field": "state", "type": "nominal", "title": "State" },
+          { "field": "pct_change", "type": "quantitative", "title": "% change", "format": ".1f" }
+        ]
+      }
+    },
+    /* Value labels at the end of each bar */
+    {
+      "mark": { "type": "text", "align": "left", "dx": 4, "fontSize": 9, "fontWeight": "600", "color": "#1a1a1a" },
+      "encoding": {
+        "y": {
+          "field": "state", "type": "nominal",
+          "sort": { "field": "pct_change", "order": "descending" }
+        },
+        "x": { "field": "pct_change", "type": "quantitative" },
+        "text": { "field": "pct_change", "type": "quantitative", "format": ".1f" }
+      }
+    }
+  ]
+};
+
+vegaEmbed('#chart4', spec4, { actions: false, renderer: 'svg' });
+
+
+/* ───────────── CHART 5 — Heatmap: state × dish ───────────── */
+const HAWKER_DATA = [{"state":"Johor","label":"Nasi Ayam","avg_price":5.77},{"state":"Johor","label":"Nasi Goreng Kampung","avg_price":5.4},{"state":"Johor","label":"Rice + Veg + Chicken","avg_price":6.39},{"state":"Johor","label":"Roti Canai","avg_price":1.06},{"state":"Johor","label":"Teh Tarik","avg_price":1.66},{"state":"Kedah","label":"Nasi Ayam","avg_price":5.57},{"state":"Kedah","label":"Nasi Goreng Kampung","avg_price":5.43},{"state":"Kedah","label":"Rice + Veg + Chicken","avg_price":6.01},{"state":"Kedah","label":"Roti Canai","avg_price":1.11},{"state":"Kedah","label":"Teh Tarik","avg_price":1.48},{"state":"Kelantan","label":"Nasi Ayam","avg_price":5.24},{"state":"Kelantan","label":"Nasi Goreng Kampung","avg_price":5.4},{"state":"Kelantan","label":"Rice + Veg + Chicken","avg_price":5.17},{"state":"Kelantan","label":"Roti Canai","avg_price":1.08},{"state":"Kelantan","label":"Teh Tarik","avg_price":1.8},{"state":"Melaka","label":"Nasi Ayam","avg_price":5.76},{"state":"Melaka","label":"Nasi Goreng Kampung","avg_price":5.42},{"state":"Melaka","label":"Rice + Veg + Chicken","avg_price":5.96},{"state":"Melaka","label":"Roti Canai","avg_price":1.12},{"state":"Melaka","label":"Teh Tarik","avg_price":1.54},{"state":"Negeri Sembilan","label":"Nasi Ayam","avg_price":5.65},{"state":"Negeri Sembilan","label":"Nasi Goreng Kampung","avg_price":5.35},{"state":"Negeri Sembilan","label":"Rice + Veg + Chicken","avg_price":6.11},{"state":"Negeri Sembilan","label":"Roti Canai","avg_price":1.12},{"state":"Negeri Sembilan","label":"Teh Tarik","avg_price":1.5},{"state":"Pahang","label":"Nasi Ayam","avg_price":5.8},{"state":"Pahang","label":"Nasi Goreng Kampung","avg_price":5.84},{"state":"Pahang","label":"Rice + Veg + Chicken","avg_price":6.55},{"state":"Pahang","label":"Roti Canai","avg_price":1.1},{"state":"Pahang","label":"Teh Tarik","avg_price":1.66},{"state":"Perak","label":"Nasi Ayam","avg_price":5.17},{"state":"Perak","label":"Nasi Goreng Kampung","avg_price":5.35},{"state":"Perak","label":"Rice + Veg + Chicken","avg_price":6.09},{"state":"Perak","label":"Roti Canai","avg_price":1.15},{"state":"Perak","label":"Teh Tarik","avg_price":1.5},{"state":"Perlis","label":"Nasi Ayam","avg_price":5.5},{"state":"Perlis","label":"Nasi Goreng Kampung","avg_price":5.62},{"state":"Perlis","label":"Rice + Veg + Chicken","avg_price":5.75},{"state":"Perlis","label":"Roti Canai","avg_price":1.1},{"state":"Perlis","label":"Teh Tarik","avg_price":1.52},{"state":"Pulau Pinang","label":"Nasi Ayam","avg_price":4.91},{"state":"Pulau Pinang","label":"Nasi Goreng Kampung","avg_price":5.42},{"state":"Pulau Pinang","label":"Rice + Veg + Chicken","avg_price":6.5},{"state":"Pulau Pinang","label":"Roti Canai","avg_price":1.18},{"state":"Pulau Pinang","label":"Teh Tarik","avg_price":1.43},{"state":"Sabah","label":"Nasi Ayam","avg_price":6.37},{"state":"Sabah","label":"Nasi Goreng Kampung","avg_price":7.08},{"state":"Sabah","label":"Rice + Veg + Chicken","avg_price":6.35},{"state":"Sabah","label":"Roti Canai","avg_price":1.41},{"state":"Sabah","label":"Teh Tarik","avg_price":2.12},{"state":"Sarawak","label":"Nasi Ayam","avg_price":5.98},{"state":"Sarawak","label":"Nasi Goreng Kampung","avg_price":5.86},{"state":"Sarawak","label":"Rice + Veg + Chicken","avg_price":6.03},{"state":"Sarawak","label":"Roti Canai","avg_price":1.4},{"state":"Sarawak","label":"Teh Tarik","avg_price":2.19},{"state":"Selangor","label":"Nasi Ayam","avg_price":6.27},{"state":"Selangor","label":"Nasi Goreng Kampung","avg_price":6.19},{"state":"Selangor","label":"Rice + Veg + Chicken","avg_price":7.05},{"state":"Selangor","label":"Roti Canai","avg_price":1.25},{"state":"Selangor","label":"Teh Tarik","avg_price":1.72},{"state":"Terengganu","label":"Nasi Ayam","avg_price":5.67},{"state":"Terengganu","label":"Nasi Goreng Kampung","avg_price":5.62},{"state":"Terengganu","label":"Rice + Veg + Chicken","avg_price":6.59},{"state":"Terengganu","label":"Roti Canai","avg_price":1.14},{"state":"Terengganu","label":"Teh Tarik","avg_price":1.81},{"state":"W.P. Kuala Lumpur","label":"Nasi Ayam","avg_price":6.41},{"state":"W.P. Kuala Lumpur","label":"Nasi Goreng Kampung","avg_price":6.09},{"state":"W.P. Kuala Lumpur","label":"Rice + Veg + Chicken","avg_price":7.05},{"state":"W.P. Kuala Lumpur","label":"Roti Canai","avg_price":1.26},{"state":"W.P. Kuala Lumpur","label":"Teh Tarik","avg_price":1.79},{"state":"W.P. Putrajaya","label":"Nasi Ayam","avg_price":7.0},{"state":"W.P. Putrajaya","label":"Nasi Goreng Kampung","avg_price":5.97},{"state":"W.P. Putrajaya","label":"Rice + Veg + Chicken","avg_price":8.03},{"state":"W.P. Putrajaya","label":"Roti Canai","avg_price":1.28},{"state":"W.P. Putrajaya","label":"Teh Tarik","avg_price":2.05}];
+
+/* Compute avg price across dishes per state for sort order */
+const STATE_AVG = {};
+HAWKER_DATA.forEach(d => {
+  if (!STATE_AVG[d.state]) STATE_AVG[d.state] = {sum: 0, n: 0};
+  // Normalize each dish by its mean so different price scales don't dominate
+});
+
+/* Just use total spend as the proxy for "how expensive overall" */
+const STATE_TOTAL = {};
+HAWKER_DATA.forEach(d => {
+  STATE_TOTAL[d.state] = (STATE_TOTAL[d.state] || 0) + d.avg_price;
+});
+const STATES_SORTED = Object.keys(STATE_TOTAL).sort((a,b) => STATE_TOTAL[b] - STATE_TOTAL[a]);
+
+const spec5 = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": "container",
+  "autosize": { "type": "fit", "contains": "padding", "resize": true },
+  "background": "white",
+  "config": {
+    "font": "Source Sans 3, sans-serif",
+    "axis": {
+      "labelFont": "Source Sans 3, sans-serif",
+      "titleFont": "Source Sans 3, sans-serif",
+      "labelFontSize": 9,
+      "titleFontSize": 11,
+      "domainColor": "#ccc8c0",
+      "tickColor": "#ccc8c0"
+    },
+    "view": { "stroke": null },
+    "legend": { "labelFontSize": 9, "titleFontSize": 10 }
+  },
+  "data": { "values": HAWKER_DATA },
+  "transform": [
+    /* Normalize each dish's prices to 0–1 so they share a colour scale */
+    { "joinaggregate": [
+        { "op": "min", "field": "avg_price", "as": "dish_min" },
+        { "op": "max", "field": "avg_price", "as": "dish_max" }
+      ], "groupby": ["label"] },
+    { "calculate": "(datum.avg_price - datum.dish_min) / (datum.dish_max - datum.dish_min)", "as": "norm" }
+  ],
+  "layer": [
+    {
+      "mark": { "type": "rect", "stroke": "white", "strokeWidth": 1 },
+      "encoding": {
+        "x": {
+          "field": "label", "type": "nominal",
+          "axis": { "title": null, "labelAngle": -30, "orient": "top" }
+        },
+        "y": {
+          "field": "state", "type": "nominal",
+          "sort": STATES_SORTED,
+          "axis": { "title": null, "labelLimit": 110 }
+        },
+        "color": {
+          "field": "norm", "type": "quantitative",
+          "scale": { "scheme": "purples", "domain": [0, 1] },
+          "legend": { "title": "Relative", "orient": "right", "gradientLength": 120, "values": [0, 0.5, 1], "labelExpr": "datum.value === 0 ? 'cheap' : datum.value === 1 ? 'pricy' : ''" }
+        },
+        "tooltip": [
+          { "field": "state", "type": "nominal", "title": "State" },
+          { "field": "label", "type": "nominal", "title": "Dish" },
+          { "field": "avg_price", "type": "quantitative", "title": "Avg price (RM)", "format": ".2f" }
+        ]
+      }
+    },
+    {
+      "mark": { "type": "text", "fontSize": 8, "fontWeight": "600" },
+      "encoding": {
+        "x": { "field": "label", "type": "nominal" },
+        "y": { "field": "state", "type": "nominal", "sort": STATES_SORTED },
+        "text": { "field": "avg_price", "type": "quantitative", "format": ".2f" },
+        "color": {
+          "condition": { "test": "datum.norm > 0.6", "value": "white" },
+          "value": "#1a1a1a"
+        }
+      }
+    }
+  ]
+};
+
+vegaEmbed('#chart5', spec5, { actions: false, renderer: 'svg' });
+
+
+/* ───────────── CHART 6 — Faceted dumbbell: price spread per dish ───────────── */
+const RANGES = [{"dish":"Nasi Ayam","min_price":4.91,"max_price":7.0,"min_state":"Pulau Pinang","max_state":"Putrajaya","spread_pct":43},{"dish":"Nasi Goreng Kampung","min_price":5.35,"max_price":7.08,"min_state":"Negeri Sembilan","max_state":"Sabah","spread_pct":32},{"dish":"Rice + Veg + Chicken","min_price":5.17,"max_price":8.03,"min_state":"Kelantan","max_state":"Putrajaya","spread_pct":55},{"dish":"Roti Canai","min_price":1.06,"max_price":1.41,"min_state":"Johor","max_state":"Sabah","spread_pct":33},{"dish":"Teh Tarik","min_price":1.43,"max_price":2.19,"min_state":"Pulau Pinang","max_state":"Sarawak","spread_pct":53}];
+
+/* Convert to long format: two rows per dish (min and max) */
+const RANGE_POINTS = [];
+RANGES.forEach(r => {
+  RANGE_POINTS.push({ dish: r.dish, kind: "Cheapest", state: r.min_state, price: r.min_price, spread_pct: r.spread_pct });
+  RANGE_POINTS.push({ dish: r.dish, kind: "Priciest", state: r.max_state, price: r.max_price, spread_pct: r.spread_pct });
+});
+
+const spec6 = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": "container",
+  "autosize": { "type": "fit", "contains": "padding", "resize": true },
+  "background": "white",
+  "config": {
+    "font": "Source Sans 3, sans-serif",
+    "axis": {
+      "labelFont": "Source Sans 3, sans-serif",
+      "titleFont": "Source Sans 3, sans-serif",
+      "labelFontSize": 9,
+      "titleFontSize": 10,
+      "gridColor": "#f0ece5",
+      "domainColor": "#ccc8c0",
+      "tickColor": "#ccc8c0"
+    },
+    "view": { "stroke": null }
+  },
+  "layer": [
+    /* Connector lines between min and max */
+    {
+      "data": { "values": RANGES },
+      "mark": { "type": "rule", "color": "#cdc8be", "strokeWidth": 3, "strokeCap": "round" },
+      "encoding": {
+        "y": {
+          "field": "dish", "type": "nominal",
+          "axis": { "title": null, "labelFontSize": 10 },
+          "sort": ["Rice + Veg + Chicken", "Nasi Ayam", "Nasi Goreng Kampung", "Teh Tarik", "Roti Canai"]
+        },
+        "x":  { "field": "min_price", "type": "quantitative",
+                 "axis": { "title": "Price (RM)", "format": ".2f" } },
+        "x2": { "field": "max_price" }
+      }
+    },
+    /* Cheapest endpoint (teal) */
+    {
+      "data": { "values": RANGES },
+      "mark": { "type": "circle", "size": 130, "color": "#3a7d44", "stroke": "white", "strokeWidth": 1.5 },
+      "encoding": {
+        "y": { "field": "dish", "type": "nominal",
+                "sort": ["Rice + Veg + Chicken", "Nasi Ayam", "Nasi Goreng Kampung", "Teh Tarik", "Roti Canai"] },
+        "x": { "field": "min_price", "type": "quantitative" },
+        "tooltip": [
+          { "field": "dish", "type": "nominal", "title": "Dish" },
+          { "field": "min_state", "type": "nominal", "title": "Cheapest in" },
+          { "field": "min_price", "type": "quantitative", "title": "Price (RM)", "format": ".2f" }
+        ]
+      }
+    },
+    /* Priciest endpoint (red) */
+    {
+      "data": { "values": RANGES },
+      "mark": { "type": "circle", "size": 130, "color": "#b8420f", "stroke": "white", "strokeWidth": 1.5 },
+      "encoding": {
+        "y": { "field": "dish", "type": "nominal",
+                "sort": ["Rice + Veg + Chicken", "Nasi Ayam", "Nasi Goreng Kampung", "Teh Tarik", "Roti Canai"] },
+        "x": { "field": "max_price", "type": "quantitative" },
+        "tooltip": [
+          { "field": "dish", "type": "nominal", "title": "Dish" },
+          { "field": "max_state", "type": "nominal", "title": "Most expensive in" },
+          { "field": "max_price", "type": "quantitative", "title": "Price (RM)", "format": ".2f" }
+        ]
+      }
+    },
+    /* Min price label (left of circle) */
+    {
+      "data": { "values": RANGES },
+      "mark": { "type": "text", "align": "right", "dx": -10, "fontSize": 9, "fontWeight": "700", "color": "#3a7d44" },
+      "encoding": {
+        "y": { "field": "dish", "type": "nominal",
+                "sort": ["Rice + Veg + Chicken", "Nasi Ayam", "Nasi Goreng Kampung", "Teh Tarik", "Roti Canai"] },
+        "x": { "field": "min_price", "type": "quantitative" },
+        "text": { "field": "min_price", "type": "quantitative", "format": ".2f" }
+      }
+    },
+    /* Max price label (right of circle) */
+    {
+      "data": { "values": RANGES },
+      "mark": { "type": "text", "align": "left", "dx": 10, "fontSize": 9, "fontWeight": "700", "color": "#b8420f" },
+      "encoding": {
+        "y": { "field": "dish", "type": "nominal",
+                "sort": ["Rice + Veg + Chicken", "Nasi Ayam", "Nasi Goreng Kampung", "Teh Tarik", "Roti Canai"] },
+        "x": { "field": "max_price", "type": "quantitative" },
+        "text": { "field": "max_price", "type": "quantitative", "format": ".2f" }
+      }
+    },
+    /* Spread % label centered on the connector */
+    {
+      "data": { "values": RANGES },
+      "transform": [
+        { "calculate": "(datum.min_price + datum.max_price) / 2", "as": "mid_price" }
+      ],
+      "mark": { "type": "text", "fontSize": 8, "fontStyle": "italic", "color": "#555", "dy": -10 },
+      "encoding": {
+        "y": { "field": "dish", "type": "nominal",
+                "sort": ["Rice + Veg + Chicken", "Nasi Ayam", "Nasi Goreng Kampung", "Teh Tarik", "Roti Canai"] },
+        "x": { "field": "mid_price", "type": "quantitative" },
+        "text": { "field": "spread_pct", "type": "quantitative", "format": ".0f" }
+      }
+    }
+  ]
+};
+
+vegaEmbed('#chart6', spec6, { actions: false, renderer: 'svg' });
+
+
+
+</script>
+
+</body>
+</html>
