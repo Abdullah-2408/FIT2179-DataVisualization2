@@ -471,7 +471,7 @@
     <div class="dual-chart">
       <div class="chart-card">
         <div class="chart-card-title">Average Hawker Price by State &amp; Dish</div>
-        <div class="chart-card-subtitle">Darker = more expensive · Jan 2022 snapshot · Source: DOSM PriceCatcher</div>
+        <div class="chart-card-subtitle">Colour shaded within each dish (column): darkest = priciest state for that dish · Numbers are actual RM · Jan 2022 · DOSM PriceCatcher</div>
         <div id="chart5"></div>
       </div>
 
@@ -582,7 +582,7 @@
     </p>
     <p style="font-size: 0.78rem; color: var(--ink-light); margin-top: 8px;">
       Generative AI (Claude, Anthropic) was used to assist with code structuring,
-      debugging, and text editing. All data analysis, design decisions, and the
+      debugging. All data analysis, design decisions, and the
       narrative are the author's own.
     </p>
   </footer>
@@ -1073,7 +1073,7 @@ const spec5 = {
         "color": {
           "field": "norm", "type": "quantitative",
           "scale": { "scheme": "purples", "domain": [0, 1] },
-          "legend": { "title": "Relative", "orient": "right", "gradientLength": 120, "values": [0, 0.5, 1], "labelExpr": "datum.value === 0 ? 'cheap' : datum.value === 1 ? 'pricy' : ''" }
+          "legend": { "title": ["Within", "each dish"], "orient": "right", "gradientLength": 120, "values": [0, 1], "labelExpr": "datum.value === 0 ? 'cheapest' : 'priciest'" }
         },
         "tooltip": [
           { "field": "state", "type": "nominal", "title": "State" },
@@ -1276,11 +1276,11 @@ const spec7 = {
     "view": { "stroke": null }
   },
   "layer": [
-    /* Annotation: "Higher income →" axis hint at bottom-right */
-    /* Dots: size encodes poverty rate */
+    /* Dots: uniform size. Income (x) and Food CPI (y) only — one channel per attribute.
+       Poverty is shown in the diverging bar (Chart 8) where it gets a precise axis. */
     {
       "data": { "values": SCATTER_DATA },
-      "mark": { "type": "circle", "color": "#3d4f5c", "opacity": 0.78, "stroke": "white", "strokeWidth": 1 },
+      "mark": { "type": "circle", "size": 150, "color": "#3d4f5c", "opacity": 0.8, "stroke": "white", "strokeWidth": 1.2 },
       "encoding": {
         "x": {
           "field": "income_mean", "type": "quantitative",
@@ -1291,11 +1291,6 @@ const spec7 = {
           "field": "food_cpi", "type": "quantitative",
           "axis": { "title": "Average Food CPI" },
           "scale": { "domain": [135, 185] }
-        },
-        "size": {
-          "field": "poverty", "type": "quantitative",
-          "scale": { "range": [60, 500] },
-          "legend": { "title": "Poverty rate (%)", "orient": "bottom-right", "labelFontSize": 9, "titleFontSize": 10, "symbolFillColor": "#3d4f5c" }
         },
         "tooltip": [
           { "field": "state", "type": "nominal", "title": "State" },
@@ -1469,7 +1464,7 @@ const spec9 = {
   "data": { "values": PREMISE_DATA },
   "layer": [
     {
-      "mark": { "type": "circle", "size": 150, "stroke": "white", "strokeWidth": 1.5, "opacity": 0.9 },
+      "mark": { "type": "circle", "size": 200, "stroke": "white", "strokeWidth": 1.5, "opacity": 0.92 },
       "encoding": {
         "y": {
           "field": "item_short", "type": "nominal",
@@ -1478,7 +1473,7 @@ const spec9 = {
         },
         "x": {
           "field": "avg_price", "type": "quantitative",
-          "scale": { "type": "log" },
+          "scale": { "type": "log", "domain": [0.35, 75], "nice": false },
           "axis": { "title": "Price per unit (RM, log scale)", "format": ".2~f", "values": [0.5, 1, 2, 5, 10, 20, 50] }
         },
         "color": {
@@ -1487,7 +1482,7 @@ const spec9 = {
             "domain": ["Wet market", "Sundry shop", "Supermarket", "Hypermarket"],
             "range":  ["#4a8b87",    "#c89060",     "#8b9d4a",     "#2c4a6b"]
           },
-          "legend": { "title": null, "orient": "top", "labelFontSize": 10, "symbolSize": 100 }
+          "legend": { "title": null, "orient": "top", "labelFontSize": 10, "symbolSize": 120 }
         },
         "tooltip": [
           { "field": "item_short", "type": "nominal", "title": "Item" },
@@ -1498,7 +1493,7 @@ const spec9 = {
     },
     {
       "data": { "values": [{ "x": 47, "y": "Beef", "label": "Beef: RM37 wet market → RM59 hypermarket" }] },
-      "mark": { "type": "text", "fontSize": 9, "fontStyle": "italic", "color": "#1a1a1a", "dy": -16, "fontWeight": "600" },
+      "mark": { "type": "text", "fontSize": 9, "fontStyle": "italic", "color": "#1a1a1a", "dy": -18, "fontWeight": "600" },
       "encoding": {
         "x": { "field": "x", "type": "quantitative" },
         "y": { "field": "y", "type": "nominal" },
