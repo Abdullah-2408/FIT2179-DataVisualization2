@@ -34,6 +34,7 @@
       line-height: 1.7;
       border: 14px solid var(--white);
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
     .page {
@@ -72,7 +73,7 @@
     .hero-subtitle {
       font-size: 1.125rem;
       font-weight: 300;
-      color: var(--ink-light);
+      color: var(--ink);
       max-width: 640px;
       line-height: 1.8;
       margin-bottom: 32px;
@@ -152,9 +153,9 @@
     }
 
     .section-prose {
-      font-size: 0.88rem;
-      color: var(--ink-light);
-      line-height: 1.7;
+      font-size: 0.95rem;
+      color: var(--ink);
+      line-height: 1.75;
       overflow: hidden;
     }
 
@@ -171,10 +172,16 @@
       flex-direction: column;
     }
 
-    /* Section 2 chart card — shorter so its bottom aligns with the prose */
-    .chart-card:has(#chart2) {
-      height: 400px;
-      align-self: start;
+    /* Section 2: full-width map card under the intro text (like sections 3–5).
+       Wide canvas suits the map's east-west aspect ratio. */
+    .section2-map-card {
+      height: 480px;
+      padding: 20px 24px 16px;
+    }
+
+    /* Section 1: full-width line chart under the intro text */
+    .section1-card {
+      height: 380px;
     }
 
     .chart-card-title {
@@ -215,7 +222,37 @@
 
     .dual-chart .chart-card { height: 425px; }
 
-    #chart3, #chart4, #chart5, #chart6, #chart7, #chart8 {
+    /* ── STACKED CHART (Section 6) — two full-width cards, one above the other ── */
+    .stacked-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .stacked-chart .chart-card { height: 360px; }
+
+    /* ── SECTION 7 — synthesis close ── */
+    .section7-card { height: 460px; }
+
+    .section-outro {
+      max-width: 660px;
+      font-size: 0.98rem;
+      color: var(--ink);
+      line-height: 1.75;
+      margin-top: 24px;
+    }
+    .section-outro strong { color: var(--ink); font-weight: 600; }
+
+    /* Short intro text above a dual-chart row */
+    .section-intro {
+      max-width: 660px;
+      font-size: 0.98rem;
+      color: var(--ink);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .section-intro strong { color: var(--ink); }
+
+    #chart3, #chart4, #chart5, #chart6, #chart7, #chart8, #chart9, #chart10, #chart11 {
       width: 100%;
       flex: 1 1 auto;
       min-height: 0;
@@ -237,7 +274,16 @@
     #chart7 .vega-embed svg,
     #chart8 .vega-embed,
     #chart8 .vega-embed > div,
-    #chart8 .vega-embed svg { width: 100% !important; height: 100% !important; display: block; }
+    #chart8 .vega-embed svg,
+    #chart9 .vega-embed,
+    #chart9 .vega-embed > div,
+    #chart9 .vega-embed svg,
+    #chart10 .vega-embed,
+    #chart10 .vega-embed > div,
+    #chart10 .vega-embed svg,
+    #chart11 .vega-embed,
+    #chart11 .vega-embed > div,
+    #chart11 .vega-embed svg { width: 100% !important; height: 100% !important; display: block; }
 
     /* ── CALLOUTS — always 3 side by side ── */
     .callouts {
@@ -344,56 +390,18 @@
     <p class="section-label">Section 1 · The Big Picture</p>
     <h2 class="section-title">Food in Malaysia has never been more expensive</h2>
 
-    <div class="section-body">
+    <p class="section-intro">
+      The Food Consumer Price Index tracks the cost of a typical food basket over time.
+      Since January 2019, Malaysia's food CPI has climbed from <strong>131</strong> to over
+      <strong>155</strong> — a rise of more than <strong>18%</strong>. The steepest jump came
+      in <strong>2022</strong>, driven by global supply shocks and a weaker ringgit. Prices
+      have since slowed, but show no sign of falling back to pre-pandemic levels.
+    </p>
 
-      <p class="section-prose">
-        The Food Consumer Price Index (CPI) measures how much the price of a typical
-        basket of food has changed over time. A value of 100 represents the baseline year.
-        <br><br>
-        Since January 2019, Malaysia's food CPI has climbed from <strong>131</strong> to over
-        <strong>155</strong> — an increase of more than 18%.
-        <br><br>
-        The steepest rise happened in <strong>2022</strong>, driven by global supply chain
-        disruptions, surging commodity prices, and a weakening ringgit.
-        <br><br>
-        While the pace of increase has since slowed, prices show no sign of returning to
-        pre-pandemic levels. Malaysians are now permanently paying more for the same
-        basket of food.
-      </p>
-
-      <div class="chart-card">
-        <div class="chart-card-title">Malaysia National Food CPI, 2019 – 2026</div>
-        <div class="chart-card-subtitle">Monthly food price index · Source: DOSM</div>
-        <div id="chart1"></div>
-      </div>
-
-    </div>
-
-    <div class="callouts">
-      <div class="callout">
-        <div class="callout-year">2020</div>
-        <div class="callout-head">COVID-19 Lockdowns</div>
-        <div class="callout-body">
-          Supply chains strained as Malaysia entered the MCO. Food prices began a slow
-          but steady climb from 132 to 133.
-        </div>
-      </div>
-      <div class="callout amber">
-        <div class="callout-year">2022</div>
-        <div class="callout-head">Sharpest Single-Year Jump</div>
-        <div class="callout-body">
-          Food CPI surged from 138 to 146 — the fastest annual rise in the dataset,
-          driven by global commodity prices and the weakening ringgit.
-        </div>
-      </div>
-      <div class="callout teal">
-        <div class="callout-year">2024 – 26</div>
-        <div class="callout-head">Slower But Still Rising</div>
-        <div class="callout-body">
-          The rate of increase has slowed, but prices have not fallen. By March 2026
-          the index stood at 155 — a new all-time high.
-        </div>
-      </div>
+    <div class="chart-card section1-card">
+      <div class="chart-card-title">Malaysia National Food CPI, 2019 – 2026</div>
+      <div class="chart-card-subtitle">Monthly food price index · Source: DOSM</div>
+      <div id="chart1"></div>
     </div>
   </section>
 
@@ -403,29 +411,20 @@
     <p class="section-label">Section 2 · The Geography of Cost</p>
     <h2 class="section-title">Not every state pays the same price</h2>
 
-    <div class="section-body">
+    <p class="section-intro">
+      National averages hide a striking divide — food costs vary by as much as
+      <strong>28%</strong> across Malaysia's 16 states. The <strong>federal territories</strong>
+      of Putrajaya, KL, and the industrialised states of <strong>Selangor</strong> and
+      <strong>Johor</strong> sit at the top of the price ladder, while
+      <strong>East Malaysia</strong> (Sabah, Labuan) and the <strong>northern states</strong>
+      (Perlis, Kedah) enjoy noticeably lower food costs. Hover over a state to see its exact
+      average food CPI.
+    </p>
 
-      <p class="section-prose">
-        National averages hide a striking divide. Food costs vary dramatically across
-        Malaysia's 16 states — by as much as <strong>28%</strong> between the cheapest and
-        most expensive regions.
-        <br><br>
-        The <strong>federal territories</strong> of Putrajaya, Kuala Lumpur, and the
-        industrialised states of <strong>Selangor</strong> and <strong>Johor</strong> sit at
-        the top of the price ladder.
-        <br><br>
-        Meanwhile, <strong>East Malaysia</strong> (Sabah, Labuan) and the
-        <strong>northern states</strong> (Perlis, Kedah) enjoy noticeably lower food costs.
-        <br><br>
-        Hover over a state to see its exact average food CPI.
-      </p>
-
-      <div class="chart-card">
-        <div class="chart-card-title">Average Food CPI by State, 2019 – 2026</div>
-        <div class="chart-card-subtitle">Darker red = more expensive · Source: DOSM</div>
-        <div id="chart2"></div>
-      </div>
-
+    <div class="chart-card section2-map-card">
+      <div class="chart-card-title">Average Food CPI by State, 2019 – 2026</div>
+      <div class="chart-card-subtitle">Darker red = more expensive · Source: DOSM</div>
+      <div id="chart2"></div>
     </div>
   </section>
 
@@ -434,6 +433,12 @@
   <section class="section">
     <p class="section-label">Section 3 · The Growing Divide</p>
     <h2 class="section-title">The gap between states is widening, not closing</h2>
+
+    <p class="section-intro">
+      Every state's food prices have risen since 2019 — but at very different speeds.
+      <strong>Putrajaya</strong> climbed 29% while <strong>Kelantan</strong> rose just 11%.
+      The richer states aren't only more expensive overall — they're pulling away.
+    </p>
 
     <div class="dual-chart">
       <div class="chart-card">
@@ -456,6 +461,13 @@
     <p class="section-label">Section 4 · From Plate to Wallet</p>
     <h2 class="section-title">What your meals actually cost depends on where you live</h2>
 
+    <p class="section-intro">
+      The CPI is an abstraction — but a plate of <strong>nasi ayam</strong> isn't.
+      A single dish can swing by more than half its price between states. The
+      cheapest hawker meals are in <strong>Pulau Pinang</strong> and <strong>Kelantan</strong>;
+      the most expensive are in <strong>Sabah</strong>, <strong>Putrajaya</strong>, and KL.
+    </p>
+
     <div class="dual-chart">
       <div class="chart-card">
         <div class="chart-card-title">Average Hawker Price by State &amp; Dish</div>
@@ -477,6 +489,12 @@
     <p class="section-label">Section 5 · Income vs Cost</p>
     <h2 class="section-title">It's not what you pay — it's what you pay relative to what you earn</h2>
 
+    <p class="section-intro">
+      A high food bill in <strong>Putrajaya</strong> isn't the same as a high food bill in
+      <strong>Sabah</strong>. Bringing in household income data shows where the squeeze is
+      sharpest — and where nearly one in five households still lives below the poverty line.
+    </p>
+
     <div class="dual-chart">
       <div class="chart-card">
         <div class="chart-card-title">Household Income vs Food CPI, by State</div>
@@ -493,6 +511,64 @@
   </section>
 
 
+  <!-- SECTION 6 -->
+  <section class="section">
+    <p class="section-label">Section 6 · Where to Shop, What to Watch</p>
+    <h2 class="section-title">Not every item — and not every shop — feels inflation equally</h2>
+
+    <p class="section-intro">
+      Inflation isn't uniform. Some everyday items have surged in price while others have
+      actually fallen — and where you shop can shift your bill by as much as <strong>38%</strong>
+      on the same item. <strong>Kangkung</strong> rose 23% in three years; <strong>eggs and fish</strong>
+      drifted lower. <strong>Beef</strong> at a hypermarket costs RM59, but at a wet market only RM37.
+    </p>
+
+    <div class="stacked-chart">
+      <div class="chart-card">
+        <div class="chart-card-title">Price by Premise Type, per Item</div>
+        <div class="chart-card-subtitle">Where the same item is cheapest · Source: DOSM PriceCatcher</div>
+        <div id="chart9"></div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-card-title">Which Foods Drove Inflation, 2022 – 2024</div>
+        <div class="chart-card-subtitle">% price change · Kangkung surged while eggs &amp; fish fell</div>
+        <div id="chart10"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SECTION 7 — SYNTHESIS / CLOSE -->
+  <section class="section">
+    <p class="section-label">Section 7 · The Real Squeeze</p>
+    <h2 class="section-title">Who actually feels it most — when price meets paycheque</h2>
+
+    <p class="section-intro">
+      Back in Section 2, <strong>Putrajaya</strong> looked like Malaysia's most expensive
+      state and <strong>Kelantan</strong> among its cheapest. But raw prices mislead. When
+      food costs are weighed against what households actually earn, the picture flips: the
+      <strong>Food Burden Index</strong> below sets the national average at 100, so anything
+      higher means food eats a larger share of income.
+    </p>
+
+    <div class="chart-card section7-card">
+      <div class="chart-card-title">Food Burden Index by State (100 = national average)</div>
+      <div class="chart-card-subtitle">Food price level relative to median income · DOSM HIES 2022 + Food CPI</div>
+      <div id="chart11"></div>
+    </div>
+
+    <p class="section-outro">
+      The states with the <strong>cheapest food</strong> — Kelantan, Kedah, Sabah — turn out
+      to carry the <strong>heaviest burden</strong>, because incomes there are the lowest in
+      the country. Meanwhile Putrajaya and KL pay the highest grocery prices yet feel them
+      least. Food inflation is not just a story about prices on a shelf — it is a story about
+      who can afford to absorb them. The Malaysians most exposed are not in the big, expensive
+      cities, but in the lower-income states where every ringgit at the market counts.
+    </p>
+  </section>
+
+
   <!-- FOOTER -->
   <footer class="footer">
     <p>
@@ -503,6 +579,11 @@
     <p>
       Visualisation by Abdullah Zakaria Habibullah · FIT2179 Data Visualisation 2 ·
       Monash University Malaysia · 2026
+    </p>
+    <p style="font-size: 0.78rem; color: var(--ink-light); margin-top: 8px;">
+      Generative AI (Claude, Anthropic) was used to assist with code structuring,
+      debugging, and text editing. All data analysis, design decisions, and the
+      narrative are the author's own.
     </p>
   </footer>
 
@@ -562,7 +643,7 @@ const spec1 = {
     },
     {
       "data": { "values": [{"date":"2019-01-01","food_cpi":129.6,"label":"131.0 (Jan 2019)"}] },
-      "mark": { "type": "text", "fontSize": 10, "color": "#555", "align": "left", "dx": 6 },
+      "mark": { "type": "text", "fontSize": 10, "color": "#1a1a1a", "align": "left", "dx": 6 },
       "encoding": {
         "x": { "field": "date", "type": "temporal" },
         "y": { "field": "food_cpi", "type": "quantitative", "scale": { "domain": [128, 158] } },
@@ -579,7 +660,7 @@ const spec1 = {
     },
     {
       "data": { "values": [{"date":"2026-03-01","food_cpi":153.6,"label":"155.1 (Mar 2026)"}] },
-      "mark": { "type": "text", "fontSize": 10, "color": "#555", "align": "right", "dx": -6 },
+      "mark": { "type": "text", "fontSize": 10, "color": "#1a1a1a", "align": "right", "dx": -6 },
       "encoding": {
         "x": { "field": "date", "type": "temporal" },
         "y": { "field": "food_cpi", "type": "quantitative", "scale": { "domain": [128, 158] } },
@@ -605,8 +686,8 @@ const ANNOTATIONS = [
 
 /* Per-state offsets in pixels: name (top of stack), cpi, blurb */
 const PUTRAJAYA_OFFSETS = { dx:  100, dyName:  40, dyCpi:  56, dyBlurb:  70 };
-const SELANGOR_OFFSETS  = { dx: -100, dyName: -60, dyCpi: -44, dyBlurb: -30 };
-const LABUAN_OFFSETS    = { dx:  -65, dyName: -60, dyCpi: -44, dyBlurb: -30 };
+const SELANGOR_OFFSETS  = { dx: -130, dyName: -60, dyCpi: -44, dyBlurb: -30 };
+const LABUAN_OFFSETS    = { dx:    0, dyName: -90, dyCpi: -74, dyBlurb: -58 };
 
 function annotationLayers(stateName, offsets) {
   return [
@@ -633,7 +714,7 @@ function annotationLayers(stateName, offsets) {
         "type": "text",
         "fontSize": 14,
         "fontWeight": "700",
-        "color": "#c0392b",
+        "color": "#1a1a1a",
         "align": "center",
         "dx": offsets.dx,
         "dy": offsets.dyCpi
@@ -649,7 +730,7 @@ function annotationLayers(stateName, offsets) {
       "mark": {
         "type": "text",
         "fontSize": 9,
-        "color": "#555550",
+        "color": "#1a1a1a",
         "align": "center",
         "dx": offsets.dx,
         "dy": offsets.dyBlurb
@@ -668,6 +749,7 @@ const spec2 = {
   "width": "container",
   "height": "container",
   "autosize": { "type": "fit", "contains": "padding", "resize": true },
+  "padding": 0,
   "background": "white",
   "config": {
     "font": "Source Sans 3, sans-serif",
@@ -699,13 +781,18 @@ const spec2 = {
         "color": {
           "field": "avg_food_cpi",
           "type": "quantitative",
-          "scale": { "scheme": "reds", "domain": [135, 180] },
+          "scale": {
+            "type": "threshold",
+            "domain": [140, 150, 160, 170],
+            "range":  ["#fde0d2", "#fcae91", "#fb6a4a", "#cb181d", "#67000d"]
+          },
           "legend": {
             "title": "Food CPI",
             "orient": "right",
-            "gradientLength": 160,
+            "labelFontSize": 10,
             "titleFontSize": 11,
-            "labelFontSize": 10
+            "labelColor": "#1a1a1a",
+            "titleColor": "#1a1a1a"
           }
         },
         "tooltip": [
@@ -823,7 +910,7 @@ const spec3 = {
     /* End-of-line state name labels (top 3) */
     {
       "data": { "values": LINE_LABELS.filter(d => d.group === "Top 3 risers") },
-      "mark": { "type": "text", "align": "left", "dx": 4, "fontSize": 9, "fontWeight": "700", "color": "#1f4068" },
+      "mark": { "type": "text", "align": "left", "dx": 4, "fontSize": 9, "fontWeight": "700", "color": "#1a1a1a" },
       "encoding": {
         "x": { "field": "date", "type": "temporal" },
         "y": { "field": "food_cpi", "type": "quantitative" },
@@ -833,7 +920,7 @@ const spec3 = {
     /* End-of-line state name labels (bottom 3) */
     {
       "data": { "values": LINE_LABELS.filter(d => d.group === "Bottom 3") },
-      "mark": { "type": "text", "align": "left", "dx": 4, "fontSize": 9, "fontWeight": "700", "color": "#e67e22" },
+      "mark": { "type": "text", "align": "left", "dx": 4, "fontSize": 9, "fontWeight": "700", "color": "#1a1a1a" },
       "encoding": {
         "x": { "field": "date", "type": "temporal" },
         "y": { "field": "food_cpi", "type": "quantitative" },
@@ -843,7 +930,7 @@ const spec3 = {
     /* Annotation: "Gap widens" */
     {
       "data": { "values": [{"date": "2022-01-01", "food_cpi": 182, "label": "Gap widens after 2022"}] },
-      "mark": { "type": "text", "align": "left", "fontSize": 10, "fontStyle": "italic", "color": "#555" },
+      "mark": { "type": "text", "align": "left", "fontSize": 10, "fontStyle": "italic", "color": "#1a1a1a" },
       "encoding": {
         "x": { "field": "date", "type": "temporal" },
         "y": { "field": "food_cpi", "type": "quantitative" },
@@ -1061,7 +1148,7 @@ const spec6 = {
     /* Cheapest endpoint (teal) */
     {
       "data": { "values": RANGES },
-      "mark": { "type": "circle", "size": 130, "color": "#3a7d44", "stroke": "white", "strokeWidth": 1.5 },
+      "mark": { "type": "circle", "size": 130, "color": "#5b8ba8", "stroke": "white", "strokeWidth": 1.5 },
       "encoding": {
         "y": { "field": "dish", "type": "nominal",
                 "sort": ["Rice + Veg + Chicken", "Nasi Ayam", "Nasi Goreng Kampung", "Teh Tarik", "Roti Canai"] },
@@ -1076,7 +1163,7 @@ const spec6 = {
     /* Priciest endpoint (red) */
     {
       "data": { "values": RANGES },
-      "mark": { "type": "circle", "size": 130, "color": "#b8420f", "stroke": "white", "strokeWidth": 1.5 },
+      "mark": { "type": "circle", "size": 130, "color": "#a8336e", "stroke": "white", "strokeWidth": 1.5 },
       "encoding": {
         "y": { "field": "dish", "type": "nominal",
                 "sort": ["Rice + Veg + Chicken", "Nasi Ayam", "Nasi Goreng Kampung", "Teh Tarik", "Roti Canai"] },
@@ -1091,7 +1178,7 @@ const spec6 = {
     /* Min price label (left of circle) */
     {
       "data": { "values": RANGES },
-      "mark": { "type": "text", "align": "right", "dx": -10, "fontSize": 9, "fontWeight": "700", "color": "#3a7d44" },
+      "mark": { "type": "text", "align": "right", "dx": -10, "fontSize": 9, "fontWeight": "700", "color": "#1a1a1a" },
       "encoding": {
         "y": { "field": "dish", "type": "nominal",
                 "sort": ["Rice + Veg + Chicken", "Nasi Ayam", "Nasi Goreng Kampung", "Teh Tarik", "Roti Canai"] },
@@ -1102,7 +1189,7 @@ const spec6 = {
     /* Max price label (right of circle) */
     {
       "data": { "values": RANGES },
-      "mark": { "type": "text", "align": "left", "dx": 10, "fontSize": 9, "fontWeight": "700", "color": "#b8420f" },
+      "mark": { "type": "text", "align": "left", "dx": 10, "fontSize": 9, "fontWeight": "700", "color": "#1a1a1a" },
       "encoding": {
         "y": { "field": "dish", "type": "nominal",
                 "sort": ["Rice + Veg + Chicken", "Nasi Ayam", "Nasi Goreng Kampung", "Teh Tarik", "Roti Canai"] },
@@ -1116,7 +1203,7 @@ const spec6 = {
       "transform": [
         { "calculate": "(datum.min_price + datum.max_price) / 2", "as": "mid_price" }
       ],
-      "mark": { "type": "text", "fontSize": 8, "fontStyle": "italic", "color": "#555", "dy": -10 },
+      "mark": { "type": "text", "fontSize": 8, "fontStyle": "italic", "color": "#1a1a1a", "dy": -10 },
       "encoding": {
         "y": { "field": "dish", "type": "nominal",
                 "sort": ["Rice + Veg + Chicken", "Nasi Ayam", "Nasi Goreng Kampung", "Teh Tarik", "Roti Canai"] },
@@ -1228,7 +1315,7 @@ const spec7 = {
     /* Quadrant annotation: "Lower income, expensive food = squeeze zone" */
     {
       "data": { "values": [{"income_mean": 5400, "food_cpi": 182, "label": "Squeeze risk: low income"}] },
-      "mark": { "type": "text", "fontSize": 9, "fontStyle": "italic", "color": "#888", "align": "left" },
+      "mark": { "type": "text", "fontSize": 9, "fontStyle": "italic", "color": "#1a1a1a", "align": "left" },
       "encoding": {
         "x": { "field": "income_mean", "type": "quantitative" },
         "y": { "field": "food_cpi", "type": "quantitative" },
@@ -1237,7 +1324,7 @@ const spec7 = {
     },
     {
       "data": { "values": [{"income_mean": 11500, "food_cpi": 138, "label": "Cushioned: high income"}] },
-      "mark": { "type": "text", "fontSize": 9, "fontStyle": "italic", "color": "#888", "align": "left" },
+      "mark": { "type": "text", "fontSize": 9, "fontStyle": "italic", "color": "#1a1a1a", "align": "left" },
       "encoding": {
         "x": { "field": "income_mean", "type": "quantitative" },
         "y": { "field": "food_cpi", "type": "quantitative" },
@@ -1301,9 +1388,9 @@ const spec8 = {
           "field": "side", "type": "nominal",
           "scale": {
             "domain": ["Below average", "Above average"],
-            "range":  ["#3a7d44",       "#d4912a"]
+            "range":  ["#5b8ba8",       "#b5651d"]
           },
-          "legend": null
+          "legend": { "title": null, "orient": "bottom-right", "labelFontSize": 9 }
         },
         "tooltip": [
           { "field": "state", "type": "nominal", "title": "State" },
@@ -1342,7 +1429,7 @@ const spec8 = {
     },
     /* Annotation for the reference line */
     {
-      "data": { "values": [{"x": 0, "y": "Sab0ah", "label": "National avg 6.1%"}] },
+      "data": { "values": [{"x": 0, "y": "Sabah", "label": "National avg 6.1%"}] },
       "mark": { "type": "text", "fontSize": 9, "fontStyle": "italic", "color": "#1a1a1a", "align": "left", "dx": 6, "dy": -8, "fontWeight": "600" },
       "encoding": {
         "x": { "field": "x", "type": "quantitative" },
@@ -1354,6 +1441,254 @@ const spec8 = {
 };
 
 vegaEmbed('#chart8', spec8, { actions: false, renderer: 'svg' });
+
+
+/* ───────────── CHART 9 — Grouped bars: price by premise type, faceted by item ───────────── */
+const PREMISE_DATA = [{"item_short":"Beef","premise_short":"Hypermarket","avg_price":59.23,"category":"Beef"},{"item_short":"Beef","premise_short":"Sundry shop","avg_price":40.0,"category":"Beef"},{"item_short":"Beef","premise_short":"Wet market","avg_price":37.54,"category":"Beef"},{"item_short":"Beef","premise_short":"Supermarket","avg_price":48.39,"category":"Beef"},{"item_short":"Chicken","premise_short":"Hypermarket","avg_price":8.68,"category":"Chicken"},{"item_short":"Chicken","premise_short":"Sundry shop","avg_price":9.33,"category":"Chicken"},{"item_short":"Chicken","premise_short":"Wet market","avg_price":9.58,"category":"Chicken"},{"item_short":"Chicken","premise_short":"Supermarket","avg_price":8.85,"category":"Chicken"},{"item_short":"Eggs (per egg)","premise_short":"Hypermarket","avg_price":0.44,"category":"Eggs"},{"item_short":"Eggs (per egg)","premise_short":"Sundry shop","avg_price":0.44,"category":"Eggs"},{"item_short":"Eggs (per egg)","premise_short":"Wet market","avg_price":0.44,"category":"Eggs"},{"item_short":"Eggs (per egg)","premise_short":"Supermarket","avg_price":0.44,"category":"Eggs"},{"item_short":"Ikan Kembung","premise_short":"Hypermarket","avg_price":14.68,"category":"Fish"},{"item_short":"Ikan Kembung","premise_short":"Sundry shop","avg_price":14.82,"category":"Fish"},{"item_short":"Ikan Kembung","premise_short":"Wet market","avg_price":13.64,"category":"Fish"},{"item_short":"Ikan Kembung","premise_short":"Supermarket","avg_price":14.25,"category":"Fish"},{"item_short":"Kangkung","premise_short":"Hypermarket","avg_price":5.51,"category":"Vegetables"},{"item_short":"Kangkung","premise_short":"Sundry shop","avg_price":6.88,"category":"Vegetables"},{"item_short":"Kangkung","premise_short":"Wet market","avg_price":5.71,"category":"Vegetables"},{"item_short":"Kangkung","premise_short":"Supermarket","avg_price":5.67,"category":"Vegetables"}];
+
+const spec9 = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": "container",
+  "autosize": { "type": "fit", "contains": "padding", "resize": true },
+  "background": "white",
+  "config": {
+    "font": "Source Sans 3, sans-serif",
+    "axis": {
+      "labelFont": "Source Sans 3, sans-serif",
+      "titleFont": "Source Sans 3, sans-serif",
+      "labelFontSize": 10,
+      "titleFontSize": 11,
+      "gridColor": "#f0ece5",
+      "domainColor": "#ccc8c0",
+      "tickColor": "#ccc8c0"
+    },
+    "view": { "stroke": null },
+    "legend": { "labelFontSize": 10, "titleFontSize": 10, "labelColor": "#1a1a1a", "titleColor": "#1a1a1a" }
+  },
+  "data": { "values": PREMISE_DATA },
+  "layer": [
+    {
+      "mark": { "type": "circle", "size": 150, "stroke": "white", "strokeWidth": 1.5, "opacity": 0.9 },
+      "encoding": {
+        "y": {
+          "field": "item_short", "type": "nominal",
+          "sort": ["Beef", "Ikan Kembung", "Chicken", "Kangkung", "Eggs (per egg)"],
+          "axis": { "title": null, "labelFontSize": 11, "labelLimit": 120 }
+        },
+        "x": {
+          "field": "avg_price", "type": "quantitative",
+          "scale": { "type": "log" },
+          "axis": { "title": "Price per unit (RM, log scale)", "format": ".2~f", "values": [0.5, 1, 2, 5, 10, 20, 50] }
+        },
+        "color": {
+          "field": "premise_short", "type": "nominal",
+          "scale": {
+            "domain": ["Wet market", "Sundry shop", "Supermarket", "Hypermarket"],
+            "range":  ["#4a8b87",    "#c89060",     "#8b9d4a",     "#2c4a6b"]
+          },
+          "legend": { "title": null, "orient": "top", "labelFontSize": 10, "symbolSize": 100 }
+        },
+        "tooltip": [
+          { "field": "item_short", "type": "nominal", "title": "Item" },
+          { "field": "premise_short", "type": "nominal", "title": "Where" },
+          { "field": "avg_price", "type": "quantitative", "title": "Price (RM)", "format": ".2f" }
+        ]
+      }
+    },
+    {
+      "data": { "values": [{ "x": 47, "y": "Beef", "label": "Beef: RM37 wet market → RM59 hypermarket" }] },
+      "mark": { "type": "text", "fontSize": 9, "fontStyle": "italic", "color": "#1a1a1a", "dy": -16, "fontWeight": "600" },
+      "encoding": {
+        "x": { "field": "x", "type": "quantitative" },
+        "y": { "field": "y", "type": "nominal" },
+        "text": { "field": "label" }
+      }
+    }
+  ]
+};
+
+vegaEmbed('#chart9', spec9, { actions: false, renderer: 'svg' });
+
+
+/* ───────────── CHART 10 — Indexed multi-line: 5 items over time ───────────── */
+const ITEM_CHANGE = [
+  { "item": "Kangkung",     "pct": 22.7, "p0": 5.55,  "p1": 6.81,  "dir": "up"   },
+  { "item": "Beef",         "pct":  3.0, "p0": 38.30, "p1": 39.45, "dir": "up"   },
+  { "item": "Chicken",      "pct":  2.7, "p0": 9.08,  "p1": 9.32,  "dir": "up"   },
+  { "item": "Ikan Kembung", "pct": -3.8, "p0": 12.95, "p1": 12.45, "dir": "down" },
+  { "item": "Eggs",         "pct": -3.8, "p0": 0.44,  "p1": 0.42,  "dir": "down" }
+];
+
+const spec10 = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": "container",
+  "autosize": { "type": "fit", "contains": "padding", "resize": true },
+  "background": "white",
+  "config": {
+    "font": "Source Sans 3, sans-serif",
+    "axis": {
+      "labelFont": "Source Sans 3, sans-serif",
+      "titleFont": "Source Sans 3, sans-serif",
+      "labelFontSize": 10,
+      "titleFontSize": 11,
+      "gridColor": "#f0ece5",
+      "domainColor": "#ccc8c0",
+      "tickColor": "#ccc8c0"
+    },
+    "view": { "stroke": null }
+  },
+  "data": { "values": ITEM_CHANGE },
+  "layer": [
+    {
+      "mark": { "type": "bar", "cornerRadiusEnd": 2, "height": { "band": 0.6 } },
+      "encoding": {
+        "y": {
+          "field": "item", "type": "nominal",
+          "sort": { "field": "pct", "order": "descending" },
+          "axis": { "title": null, "labelFontSize": 11 }
+        },
+        "x": {
+          "field": "pct", "type": "quantitative",
+          "axis": { "title": "Price change since Jan 2022 (%)", "format": "+.0f" },
+          "scale": { "domain": [-8, 26] }
+        },
+        "color": {
+          "field": "dir", "type": "nominal",
+          "scale": { "domain": ["up", "down"], "range": ["#b5651d", "#5b8ba8"] },
+          "legend": null
+        },
+        "tooltip": [
+          { "field": "item", "type": "nominal", "title": "Item" },
+          { "field": "pct", "type": "quantitative", "title": "Change", "format": "+.1f" },
+          { "field": "p0", "type": "quantitative", "title": "2022 (RM)", "format": ".2f" },
+          { "field": "p1", "type": "quantitative", "title": "2024 (RM)", "format": ".2f" }
+        ]
+      }
+    },
+    {
+      "mark": { "type": "text", "fontSize": 10, "fontWeight": "700", "color": "#1a1a1a" },
+      "encoding": {
+        "y": { "field": "item", "type": "nominal", "sort": { "field": "pct", "order": "descending" } },
+        "x": { "field": "pct", "type": "quantitative" },
+        "text": { "field": "pct", "type": "quantitative", "format": "+.1f" },
+        "align": {
+          "condition": { "test": "datum.pct < 0", "value": "right" },
+          "value": "left"
+        },
+        "dx": {
+          "condition": { "test": "datum.pct < 0", "value": -5 },
+          "value": 5
+        }
+      }
+    },
+    {
+      "data": { "values": [{ "x": 0 }] },
+      "mark": { "type": "rule", "color": "#1a1a1a", "strokeWidth": 1 },
+      "encoding": { "x": { "field": "x", "type": "quantitative" } }
+    }
+  ]
+};
+
+vegaEmbed('#chart10', spec10, { actions: false, renderer: 'svg' });
+
+
+/* ───────────── CHART 11 — Food Burden Index lollipop (synthesis) ───────────── */
+const BURDEN_DATA = [{"state":"Kelantan","short":"Kelantan","burden":149,"food_cpi":146.07,"income":3614,"side":"Above average"},{"state":"Pahang","short":"Pahang","burden":123,"food_cpi":158.67,"income":4753,"side":"Above average"},{"state":"Perak","short":"Perak","burden":122,"food_cpi":148.03,"income":4494,"side":"Above average"},{"state":"Kedah","short":"Kedah","burden":121,"food_cpi":143.87,"income":4402,"side":"Above average"},{"state":"Sabah","short":"Sabah","burden":114,"food_cpi":140.9,"income":4577,"side":"Above average"},{"state":"Negeri Sembilan","short":"N. Sembilan","burden":112,"food_cpi":158.83,"income":5226,"side":"Above average"},{"state":"Sarawak","short":"Sarawak","burden":112,"food_cpi":150.37,"income":4978,"side":"Above average"},{"state":"Perlis","short":"Perlis","burden":110,"food_cpi":140.5,"income":4713,"side":"Above average"},{"state":"Melaka","short":"Melaka","burden":95,"food_cpi":159.07,"income":6210,"side":"Below average"},{"state":"Pulau Pinang","short":"Pulau Pinang","burden":94,"food_cpi":166.07,"income":6502,"side":"Below average"},{"state":"Terengganu","short":"Terengganu","burden":93,"food_cpi":148.6,"income":5878,"side":"Below average"},{"state":"Johor","short":"Johor","burden":91,"food_cpi":168.93,"income":6879,"side":"Below average"},{"state":"W.P. Labuan","short":"Labuan","burden":75,"food_cpi":139.93,"income":6904,"side":"Below average"},{"state":"W.P. Putrajaya","short":"Putrajaya","burden":66,"food_cpi":179.23,"income":10056,"side":"Below average"},{"state":"Selangor","short":"Selangor","burden":64,"food_cpi":173.47,"income":9983,"side":"Below average"},{"state":"W.P. Kuala Lumpur","short":"Kuala Lumpur","burden":58,"food_cpi":160.13,"income":10234,"side":"Below average"}];
+
+const spec11 = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": "container",
+  "autosize": { "type": "fit", "contains": "padding", "resize": true },
+  "background": "white",
+  "config": {
+    "font": "Source Sans 3, sans-serif",
+    "axis": {
+      "labelFont": "Source Sans 3, sans-serif",
+      "titleFont": "Source Sans 3, sans-serif",
+      "labelFontSize": 10,
+      "titleFontSize": 11,
+      "gridColor": "#f0ece5",
+      "domainColor": "#ccc8c0",
+      "tickColor": "#ccc8c0"
+    },
+    "view": { "stroke": null },
+    "legend": { "labelFontSize": 10, "titleFontSize": 10, "labelColor": "#1a1a1a", "titleColor": "#1a1a1a" }
+  },
+  "data": { "values": BURDEN_DATA },
+  "layer": [
+    /* Reference line at 100 (national average) */
+    {
+      "data": { "values": [{"x": 100}] },
+      "mark": { "type": "rule", "color": "#1a1a1a", "strokeWidth": 1.2, "strokeDash": [4, 3] },
+      "encoding": { "x": { "field": "x", "type": "quantitative" } }
+    },
+    /* Stems from 100 to each value */
+    {
+      "mark": { "type": "rule", "strokeWidth": 2 },
+      "encoding": {
+        "y": {
+          "field": "short", "type": "nominal",
+          "sort": { "field": "burden", "order": "descending" },
+          "axis": { "title": null, "labelFontSize": 10 }
+        },
+        "x": {
+          "field": "burden", "type": "quantitative",
+          "axis": { "title": "Food Burden Index (100 = national average)" },
+          "scale": { "domain": [50, 155] }
+        },
+        "x2": { "datum": 100 },
+        "color": {
+          "field": "side", "type": "nominal",
+          "scale": { "domain": ["Above average", "Below average"], "range": ["#b5651d", "#5b8ba8"] },
+          "legend": { "title": null, "orient": "top-right" }
+        }
+      }
+    },
+    /* Dots at the end of each stem */
+    {
+      "mark": { "type": "circle", "size": 150, "stroke": "white", "strokeWidth": 1.5 },
+      "encoding": {
+        "y": { "field": "short", "type": "nominal", "sort": { "field": "burden", "order": "descending" } },
+        "x": { "field": "burden", "type": "quantitative" },
+        "color": {
+          "field": "side", "type": "nominal",
+          "scale": { "domain": ["Above average", "Below average"], "range": ["#b5651d", "#5b8ba8"] },
+          "legend": null
+        },
+        "tooltip": [
+          { "field": "state", "type": "nominal", "title": "State" },
+          { "field": "burden", "type": "quantitative", "title": "Burden index" },
+          { "field": "food_cpi", "type": "quantitative", "title": "Food CPI", "format": ".1f" },
+          { "field": "income", "type": "quantitative", "title": "Median income (RM)", "format": ",.0f" }
+        ]
+      }
+    },
+    /* Value labels */
+    {
+      "mark": { "type": "text", "fontSize": 9, "fontWeight": "700", "color": "#1a1a1a" },
+      "encoding": {
+        "y": { "field": "short", "type": "nominal", "sort": { "field": "burden", "order": "descending" } },
+        "x": { "field": "burden", "type": "quantitative" },
+        "text": { "field": "burden", "type": "quantitative" },
+        "align": {
+          "condition": { "test": "datum.burden < 100", "value": "right" },
+          "value": "left"
+        },
+        "dx": {
+          "condition": { "test": "datum.burden < 100", "value": -8 },
+          "value": 8
+        }
+      }
+    }
+  ]
+};
+
+vegaEmbed('#chart11', spec11, { actions: false, renderer: 'svg' });
+
+
 
 
 
